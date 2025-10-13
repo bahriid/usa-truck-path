@@ -1,0 +1,4 @@
+[24-Mar-2025 21:57:30 America/Chicago] PHP Fatal error:  Uncaught Error: Class "Illuminate\Support\Facades\Route" not found in /home1/lsorpgte/passyourpermit.com/routes/web.php:19
+Stack trace:
+#0 {main}
+  thrown in /home1/lsorpgte/passyourpermit.com/routes/web.php on line 19
