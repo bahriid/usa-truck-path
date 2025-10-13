@@ -342,6 +342,58 @@
                         @empty
                             <p>No chapters found for this course.</p>
                         @endforelse
+
+                        {{-- Telegram Group Support Section --}}
+                        @auth
+                            @php
+                                $user = auth()->user();
+                                $enrollment = $user->purchasedCourses()->where('course_id', $course->id)->first();
+                                $hasAccess = $user && $user->hasApprovedCourse($course->id);
+                            @endphp
+
+                            @if ($hasAccess && $enrollment && $course->telegram_chat_id)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#telegramSupport" aria-expanded="false"
+                                            aria-controls="telegramSupport">
+                                            <i class="bi bi-telegram me-2"></i> Group Support
+                                        </button>
+                                    </h2>
+                                    <div id="telegramSupport" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            @if ($enrollment->pivot->telegram_invite_link)
+                                                <p class="mb-3">
+                                                    <i class="bi bi-info-circle text-primary me-1"></i>
+                                                    Join our exclusive Telegram group to connect with instructors and fellow students.
+                                                    Get support, ask questions, and stay updated!
+                                                </p>
+                                                <div class="alert alert-warning border-0 mb-3">
+                                                    <small>
+                                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                                        <strong>Important:</strong> This is a one-time invitation link generated uniquely for you.
+                                                        The link can only be used once and will stop working after one person joins.
+                                                    </small>
+                                                </div>
+                                                <a href="{{ route('telegram.invite.redeem', $course->id) }}"
+                                                   class="btn btn-success w-100"
+                                                   onclick="return confirm('Are you sure? This link can only be used once!')">
+                                                    <i class="bi bi-telegram me-2"></i> Join Telegram Group Now
+                                                </a>
+                                                <p class="text-muted small mt-2 mb-0">
+                                                    <i class="bi bi-clock me-1"></i>Link generated: {{ $enrollment->pivot->telegram_invite_generated_at ? \Carbon\Carbon::parse($enrollment->pivot->telegram_invite_generated_at)->diffForHumans() : 'Just now' }}
+                                                </p>
+                                            @else
+                                                <div class="alert alert-info border-0">
+                                                    <i class="bi bi-hourglass-split me-2"></i>
+                                                    Generating your unique Telegram invite link... Please refresh the page.
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
                     </div>
                 </div>
 

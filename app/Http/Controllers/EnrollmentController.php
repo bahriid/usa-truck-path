@@ -22,6 +22,40 @@ class EnrollmentController extends Controller
     public function  showCurriculam(Request $request)
     {
         $course = Course::find($request->course);
+
+        // Generate Telegram invite link if user is enrolled and hasn't got one yet
+        if (auth()->check()) {
+            $user = auth()->user();
+            $enrollment = $user->purchasedCourses()->where('course_id', $course->id)->first();
+
+            if ($enrollment && $enrollment->pivot->status === 'approved' && $course->telegram_chat_id) {
+                // Check if link doesn't exist or needs regeneration
+                if (!$enrollment->pivot->telegram_invite_link) {
+                    $telegramService = new \App\Services\TelegramService();
+                    $inviteData = $telegramService->createChatInviteLink(
+                        $course->telegram_chat_id,
+                        1, // member_limit: 1 for one-time use
+                        null, // no expiration
+                        "Invite for {$user->name}" // link name
+                    );
+
+                    if ($inviteData && isset($inviteData['invite_link'])) {
+                        // Store the generated link
+                        DB::table('course_user')
+                            ->where('user_id', $user->id)
+                            ->where('course_id', $course->id)
+                            ->update([
+                                'telegram_invite_link' => $inviteData['invite_link'],
+                                'telegram_invite_generated_at' => now(),
+                            ]);
+
+                        // Refresh enrollment data
+                        $enrollment = $user->purchasedCourses()->where('course_id', $course->id)->first();
+                    }
+                }
+            }
+        }
+
         return view('front.curriculam', compact('course'));
     }
     public function createStripeCheckoutSession(Request $request)
@@ -199,6 +233,38 @@ class EnrollmentController extends Controller
     public function showFailurePage()
     {
         return view('front.failure_page');
+    }
+
+    /**
+     * Redirect to Telegram group invite link (Telegram handles one-time usage)
+     */
+    public function redeemTelegramInvite($courseId)
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Please log in to access the Telegram group.');
+        }
+
+        // Find the enrollment
+        $enrollment = $user->purchasedCourses()->where('course_id', $courseId)->first();
+
+        if (!$enrollment) {
+            return redirect()->back()->with('error', 'You are not enrolled in this course.');
+        }
+
+        if ($enrollment->pivot->status !== 'approved') {
+            return redirect()->back()->with('error', 'Your enrollment is not approved yet.');
+        }
+
+        // Check if invite link exists
+        if (!$enrollment->pivot->telegram_invite_link) {
+            return redirect()->back()->with('error', 'Telegram invite link is not available. Please refresh the page.');
+        }
+
+        // Redirect to the Telegram invite link
+        // Telegram will enforce the one-time usage limit (member_limit=1)
+        return redirect()->away($enrollment->pivot->telegram_invite_link);
     }
 
     // Show a simple form (Full Name, Email, Phone) to enroll

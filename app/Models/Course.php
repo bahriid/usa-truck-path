@@ -16,29 +16,41 @@ class Course extends Model
         'status',
         'price',
         'is_active',
-        'description', // If applicable
-        'duration', // If applicable
-        'start_date', // If applicable
-        'end_date', // If applicable
-        'thumbnail', // If applicable
-        'level', // If applicable
-         'slug',
-         'tags',
-         'meta_title',
-         'meta_description',
-         'menu_name'
-    
+        'description',
+        'duration',
+        'start_date',
+        'end_date',
+        'thumbnail',
+        'level',
+        'slug',
+        'tags',
+        'meta_title',
+        'meta_description',
+        'menu_name',
+        'telegram_chat_id',
     ];
-      // Define relationship with CourseContent
-      public function chapters()
-      {
-          return $this->hasMany(Chapter::class);
-      }
-      public function students()
-      {
-          return $this->belongsToMany(User::class, 'course_user')
-                      ->withTimestamps();
-      }
+
+    // Define relationship with CourseContent
+    public function chapters()
+    {
+        return $this->hasMany(Chapter::class);
+    }
+
+    public function students()
+    {
+        return $this->belongsToMany(User::class, 'course_user')
+            ->withPivot([
+                'full_name',
+                'email',
+                'phone',
+                'status',
+                'transaction_amount',
+                'transaction_id',
+                'telegram_invite_link',
+                'telegram_invite_generated_at',
+            ])
+            ->withTimestamps();
+    }
       
       
 

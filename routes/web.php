@@ -23,9 +23,9 @@ Route::get('/dashboard', function () {
     Route::name('front.')->group(function () {
 
       Route::get('/',[PageController::class,'home'])->name('home');
-      
+
     // New category placeholders
-    //Route::get('/category/{slug}', [PageController::class, 'courseCategory'])->name('course.category'); 
+    //Route::get('/category/{slug}', [PageController::class, 'courseCategory'])->name('course.category');
 
      Route::any('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
@@ -36,7 +36,7 @@ Route::get('/dashboard', function () {
       Route::get('privacy-policy',[PageController::class,'privacy_policy'])->name('privacy_policy');
       Route::get('courses',[PageController::class,'course'])->name('course');
       Route::get('courses-details/{slug}',[PageController::class,'coursedetails'])->name('course.details');
-      Route::get('/course-category/{category}', [PageController::class, 'courseCategory'])->name('course.category'); 
+      Route::get('/course-category/{category}', [PageController::class, 'courseCategory'])->name('course.category');
 
       // Purchase route (requires auth)
     Route::post('/courses/{course}/purchase', [App\Http\Controllers\PurchaseController::class, 'purchase'])->name('course.purchase');
@@ -58,8 +58,10 @@ Route::get('/dashboard', function () {
         Route::get('/courses/{course}/paypal/cancel', [EnrollmentController::class, 'handlePaypalCancel'])->name('courses.cancel');
 
     });
-    
+
     Route::get('/course-curriculam/{course}',[EnrollmentController::class,'showCurriculam'])->name('course.curriculam');
+
+Route::get('/telegram-group/{course}', [EnrollmentController::class, 'redeemTelegramInvite'])->middleware('auth')->name('telegram.invite.redeem');
 
 Route::get('/payment/{course}',[EnrollmentController::class,'show'])->name('stripe.payment.view');
 
@@ -92,7 +94,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/profile', [AdminController::class, 'profile'])->name('admin.profile');
         Route::put('/profile', [AdminController::class, 'updateProfile'])->name('admin.profile.update');
 
-        
+
          Route::get('/contacts', [ContactController::class, 'index'])->name('admin.contacts');
         Route::post('/contacts/{id}/status', [ContactController::class, 'updateStatus']);
 
@@ -100,42 +102,42 @@ Route::prefix('admin')->group(function () {
 
           Route::resource('courses', CourseController::class)->names('admin.courses');
           Route::resource('sliders', SliderController::class);
-           // settings 
+           // settings
            Route::prefix('settings')->name('settings.')->group(function () {
 
             Route::get('site-settings', [SettingController::class, 'site_setting'])->name('site_settings');
             Route::post('site-settings', [SettingController::class, 'update_site_setting'])->name('site_settings.update');
-     
+
             });
 
         // Nested resource routes for course contents under courses
             Route::resource('courses.contents', CourseContentController::class);
-         
+
 
         // Chapters nested under courses
-       
+
         Route::resource('courses.chapters', ChapterController::class)->names('chapters');
         Route::post('/chapters/reorder', [ChapterController::class, 'reorder'])->name('chapters.reorder');
 
-     
+
 
         // Topics nested under chapters (which are under courses)
-       
+
         Route::resource('courses/{course}/chapters/{chapter}/topics', TopicController::class)
         ->names('topics');
         Route::post('/upload/chunk', [\App\Http\Controllers\Admin\FileUploadController::class, 'uploadChunk'])
     ->name('files.upload.chunk');
 
-    
+
         Route::get('/enrollments', [AdminEnrollmentController::class, 'index'])->name('admin.enrollment.index');
-        
+
         // new transactions
         Route::get('/transactions',[AdminEnrollmentController::class,'transactions'])->name('admin.transaction.index');
-        
+
                 Route::delete('/user/{user}',[AdminEnrollmentController::class,'destroyUser'])->name('admin.user.delete');
 
-       
-            
+
+
         Route::get('/users', [\App\Http\Controllers\Admin\AdminUserController::class, 'index'])->name('admin.users.index');
         Route::get('/users/{id}', [\App\Http\Controllers\Admin\AdminUserController::class, 'show'])->name('admin.users.show');
         Route::get('/users/{id}/change-password', [\App\Http\Controllers\Admin\AdminUserController::class, 'editPassword'])->name('admin.users.changePassword');
@@ -143,11 +145,11 @@ Route::prefix('admin')->group(function () {
 
         Route::put('/admin/enrollment/{id}/update-status', [AdminEnrollmentController::class, 'updateStatus'])
     ->name('admin.enrollment.updateStatus');
-    
+
        Route::get('/legal', [\App\Http\Controllers\Admin\LegalController::class, 'index'])->name('admin.legal.index');
     Route::post('/legal/update', [\App\Http\Controllers\Admin\LegalController::class, 'update'])->name('admin.legal.update');
-    
-    
+
+
 
     });
 });

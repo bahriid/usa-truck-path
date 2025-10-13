@@ -51,7 +51,16 @@ class User extends Authenticatable implements MustVerifyEmail
     public function purchasedCourses()
     {
         return $this->belongsToMany(Course::class, 'course_user')
-            ->withPivot(['full_name', 'email', 'phone', 'status'])
+            ->withPivot([
+                'full_name',
+                'email',
+                'phone',
+                'status',
+                'transaction_amount',
+                'transaction_id',
+                'telegram_invite_link',
+                'telegram_invite_generated_at',
+            ])
             ->withTimestamps();
     }
 

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
@@ -24,9 +25,9 @@ class RegisteredUserController extends Controller
      */
     public function create(Request $request): View
     {
-         
         $courseId = $request->query('course_id');
-        return view('auth.register',['courseId' => $courseId]);
+
+        return view('auth.register', ['courseId' => $courseId]);
     }
 
     /**
@@ -80,74 +81,73 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        // dd($request->all());
-        $course = Course::find($request->course_id);
+        $course = Course::findOrFail($request->course_id);
         $price = $course->price;
-        
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone'=>['required','integer'],
+            'phone' => ['required', 'integer'],
+            'course_id' => ['required', 'integer', 'exists:courses,id'],
             'stripeToken' => ['required', 'string'],
-            'course_id' => ['required', 'integer', 'exists:courses,id'], // Ensure the course exists
-             
         ]);
-
-        Stripe::setApiKey(env('STRIPE_SECRET'));
 
         DB::beginTransaction();
 
-        
         try {
+            // Process payment
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+
             $charge = Charge::create([
                 'amount' => $price * 100,
                 'currency' => 'usd',
-                'source' => $request->stripeToken, // ✅ Fix applied here
-                'description' => 'Course Purchase for ' . $request->email . ' - Course ID: ' . $request->course_id,
+                'source' => $request->stripeToken,
+                'description' => 'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id,
             ]);
-        
-            if ($charge->status === 'succeeded') {
-                $user = User::create([
-                    'name' => $request->name,
-                    'email' => strtolower(trim($request->email)),
-                    'phone'=>$request->phone,
-                    'password' => Hash::make($request->password),
-                ]);
-        
-                event(new Registered($user));
-                Auth::login($user);
-        
-                $user->purchasedCourses()->attach($course->id, [
-                    'full_name' => $user->name,
-                    'email' => $user->email,
-                    'phone' => $user->phone ?? null,
-                    'status' => 'approved',
-                    'transaction_amount'=> $price,
-                    'transaction_id' => $charge->id,
-                ]);
-        
-                DB::commit();
 
-                // Send email to admin
-                $adminEmail = 'abaadiracademy@gmail.com';
-                // $adminEmail = 'vj08996@gmail.com';
-
-                 
-                    Mail::to($adminEmail)->send(new \App\Mail\NewCoursePurchaseNotification($user, $course));
-                
-        
-                return redirect()->route('course.curriculam', $course->id)
-                                 ->with('success', 'Registration and Enrollment successful!');
-            } else {
+            if ($charge->status !== 'succeeded') {
                 DB::rollBack();
+
                 return redirect()->back()->withErrors(['payment' => 'Payment processing failed. Please try again.']);
             }
+
+            $transactionId = $charge->id;
+
+            // Create user account
+            $user = User::create([
+                'name' => $request->name,
+                'email' => strtolower(trim($request->email)),
+                'phone' => $request->phone,
+                'password' => Hash::make($request->password),
+            ]);
+
+            event(new Registered($user));
+            Auth::login($user);
+
+            // Enroll user in course
+            $user->purchasedCourses()->attach($course->id, [
+                'full_name' => $user->name,
+                'email' => $user->email,
+                'phone' => $user->phone ?? null,
+                'status' => 'approved',
+                'transaction_amount' => $price,
+                'transaction_id' => $transactionId,
+            ]);
+
+            DB::commit();
+
+            // Send notification email
+            $adminEmail = config('mail.admin_email', 'abaadiracademy@gmail.com');
+            Mail::to($adminEmail)->send(new \App\Mail\NewCoursePurchaseNotification($user, $course));
+
+            return redirect()->route('course.curriculam', $course->id)
+                ->with('success', 'Registration and Enrollment successful!');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Stripe Registration and Enrollment Error: ' . $e->getMessage());
-            return redirect()->back()->withErrors(['payment' => 'Failed to process payment and enrollment. Please check your card details or try again later.']);
+            Log::error('Registration and Enrollment Error: '.$e->getMessage());
+
+            return redirect()->back()->withErrors(['payment' => 'Failed to process registration and enrollment. Please try again later.']);
         }
-        
     }
 }
