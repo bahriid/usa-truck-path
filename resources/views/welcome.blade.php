@@ -173,6 +173,35 @@
             </div>
         </section><!-- /Courses Section -->
 
+        <!-- Video Section -->
+        <section id="video-section" class="video-section section bg-light">
+            <div class="container">
+                <div class="row justify-content-center mb-4">
+                    <div class="col-lg-8 text-center">
+                        <div class="section-title" data-aos="fade-up">
+                            <h2>Watch How It Works</h2>
+                            <p class="lead text-muted">See how USTRUCKPATH can help you start your trucking career in the USA</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-lg-10">
+                        <div class="video-wrapper" data-aos="zoom-in" data-aos-delay="100">
+                            <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden">
+                                <iframe
+                                    src="https://www.youtube.com/embed/abelH0rm-h0"
+                                    title="USTRUCKPATH Introduction Video"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section><!-- /Video Section -->
+
         <!--<section id="about" class="about section">-->
 
         <!--       <div class="container">-->
