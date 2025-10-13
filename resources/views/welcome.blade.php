@@ -1,9 +1,10 @@
 @extends('partials.master')
 @push('styles')
     <style>
-        .owl-nav{
-        display:none !important;
-    }
+        .owl-nav {
+            display: none !important;
+        }
+
         .why-choose-us .section-title h2 {
             font-size: 2.5rem;
             font-weight: 600;
@@ -22,28 +23,66 @@
             color: #6c757d;
         }
 
+        /* Video Section Styling */
+        .video-section {
+            padding: 80px 0;
+        }
+
+        .video-section .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+        }
+
+        .video-wrapper {
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .video-wrapper:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-wrapper .ratio {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-wrapper iframe {
+            border-radius: 15px;
+        }
+
         @media (max-width: 768px) {
             .why-choose-us .section-title h2 {
                 font-size: 2rem;
-
             }
 
             .why-choose-us .section-title p {
                 font-size: 1rem;
-
             }
 
+            .video-section {
+                padding: 60px 0;
+            }
+
+            .video-section .section-title h2 {
+                font-size: 2rem;
+            }
         }
 
         @media (max-width: 576px) {
             .why-choose-us .section-title h2 {
                 font-size: 1.75rem;
-
             }
 
             .why-choose-us .section-title p {
                 font-size: 0.85rem;
+            }
 
+            .video-section .section-title h2 {
+                font-size: 1.75rem;
             }
         }
     </style>
