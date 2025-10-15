@@ -132,7 +132,6 @@
 
                     <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
                     <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Drivers Choose Us</a></li>
-                    <li><a href="https://t.me/your_telegram_support" target="_blank">Join Telegram / Support</a></li>
                     <li><a href="{{ route('front.contact_us') }}" class="{{ request()->routeIs('front.contact_us') ? 'active' : '' }}">Contact</a></li>
 
                     {{-- User Menu --}}
