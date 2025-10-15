@@ -123,12 +123,12 @@
 
                     <li><a href="{{ route('front.course.details', 'us-cdl-permit') }}"
                            class="{{ request()->is('courses-details/us-cdl-permit') ? 'active' : '' }}">U.S. CDL Permit</a></li>
-                    <li><a href="{{ route('front.course.details', 'canada-usa-program') }}"
-                           class="{{ request()->is('courses-details/canada-usa-program') ? 'active' : '' }}">Canada → USA Program</a></li>
-                    <li><a href="{{ route('front.course.details', 'europe-usa-program') }}"
-                           class="{{ request()->is('courses-details/europe-usa-program') ? 'active' : '' }}">Europe → USA Program</a></li>
-                    <li><a href="{{ route('front.course.details', 'global-cdl-training') }}"
-                           class="{{ request()->is('courses-details/global-cdl-training') ? 'active' : '' }}">Global CDL Training</a></li>
+                    <li><a href="{{ route('front.course.details', 'cdl-canada') }}"
+                           class="{{ request()->is('courses-details/cdl-canada') ? 'active' : '' }}">Canada → USA Program</a></li>
+                    <li><a href="{{ route('front.course.details', 'cdl-europe') }}"
+                           class="{{ request()->is('courses-details/cdl-europe') ? 'active' : '' }}">Europe → USA Program</a></li>
+                    <li><a href="{{ route('front.course.details', 'cdl-global') }}"
+                           class="{{ request()->is('courses-details/cdl-global') ? 'active' : '' }}">Global CDL Training</a></li>
 
                     <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
                     <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Drivers Choose Us</a></li>
