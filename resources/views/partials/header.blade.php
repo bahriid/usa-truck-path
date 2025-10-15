@@ -11,7 +11,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>{{ $setting->site_title ?? 'CDL Permit' }}</title>
-    <meta name="description" content="{{ $setting->meta_description ?? '' }}"> 
+    <meta name="description" content="{{ $setting->meta_description ?? '' }}">
     <meta name="keywords" content="{{ $setting->meta_keywords ?? '' }}">
 
     <!-- Favicons -->
@@ -46,7 +46,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     @stack('styles')
-    
+
     <style>
         .header .logo img {
             max-height: 55px;
@@ -104,10 +104,10 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
-                    {{-- CDL Permit Dropdown (Languages) --}}
+                    {{-- Courses Dropdown --}}
                     @if ($course && $course->count())
                         <li class="dropdown">
-                            <a href="#"><span>CDL Permit</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <a href="#"><span>Courses</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
                                 @foreach ($course as $menu)
                                     <li>
@@ -155,7 +155,7 @@
             </nav>
 
             @guest
-                <a class="btn-getstarted" href="{{ route('login') }}">Register</a>
+                <a class="btn-getstarted" href="{{ route('register') }}">Register</a>
             @endguest
 
         </div>

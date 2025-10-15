@@ -1,4 +1,4 @@
-@extends('partials.master')
+﻿@extends('partials.master')
 
 
 
@@ -998,7 +998,7 @@
 
                                 {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
 
-                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to
+                                <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to
 
                                     Enroll</a>
 
@@ -1704,7 +1704,7 @@
 
                             {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
 
-                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to
+                            <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to
 
                                 Enroll</a>
 
@@ -1775,7 +1775,7 @@
                         <div class="course-content">
                             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                                 {{-- @guest
-                                <a href="{{ route('register') }}?course_id={{ $course->id }}"
+                                <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}"
                                     class="btn btn-primary">Login to Enroll</a>
                                 @else
                                 @if (auth()->user()->hasApprovedCourse($course->id))

@@ -31,6 +31,40 @@ class RegisteredUserController extends Controller
     }
 
     /**
+     * Display the standalone registration view (without payment).
+     */
+    public function createStandalone(): View
+    {
+        return view('auth.register-standalone');
+    }
+
+    /**
+     * Handle standalone registration (without payment).
+     */
+    public function storeStandalone(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'phone' => ['nullable', 'string', 'max:20'],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => strtolower(trim($request->email)),
+            'phone' => $request->phone,
+            'password' => Hash::make($request->password),
+        ]);
+
+        event(new Registered($user));
+        Auth::login($user);
+
+        return redirect()->route('front.home')
+            ->with('success', 'Registration successful! Welcome to USTRUCKPATH.');
+    }
+
+    /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException

@@ -12,10 +12,19 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
+    // Standalone registration (no payment)
+    Route::get('register', [RegisteredUserController::class, 'createStandalone'])
         ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    Route::post('register', [RegisteredUserController::class, 'storeStandalone'])
+        ->name('register.standalone.store');
+
+    // Registration with course payment (legacy)
+    Route::get('register-with-course', [RegisteredUserController::class, 'create'])
+        ->name('register.with.course');
+
+    Route::post('register-with-course', [RegisteredUserController::class, 'store'])
+        ->name('register.with.course.store');
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');

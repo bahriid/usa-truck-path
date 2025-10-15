@@ -1,4 +1,4 @@
-@extends('partials.master')
+﻿@extends('partials.master')
 
 @push('styles')
     <style>

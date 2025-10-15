@@ -126,9 +126,9 @@
         <section id="courses" class="courses section">
             <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
-                <h2>Courses</h2>
+                <h2>Your Path. Your Journey. Our Guidance.</h2>
 
-                <p>CDL Class A Permit Course</p>
+                <p>American Trucking Starts Here</p>
             </div><!-- End Section Title -->
             <div class="container">
 

@@ -1,180 +1,555 @@
 @extends('partials.master')
 
+@push('styles')
+<style>
+    .how-it-works-hero {
+        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+        padding: 100px 0 80px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .how-it-works-hero::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" fill="none"/><path d="M0 50 Q 25 25, 50 50 T 100 50" stroke="rgba(255,255,255,0.1)" fill="none" stroke-width="2"/></svg>');
+        opacity: 0.3;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .hero-title {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1rem, 2.5vw, 1.25rem);
+        max-width: 800px;
+        margin: 0 auto 30px;
+        line-height: 1.6;
+        opacity: 0.95;
+    }
+
+    .telegram-badge {
+        background: white;
+        color: #198754;
+        padding: 12px 24px;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        margin-top: 10px;
+    }
+
+    .step-timeline {
+        position: relative;
+        padding: 80px 0;
+    }
+
+    .step-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        border: 1px solid rgba(25, 135, 84, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        position: relative;
+    }
+
+    .step-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+    }
+
+    .step-number {
+        width: 70px;
+        height: 70px;
+        background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 800;
+        color: #1a1a1a;
+        margin-bottom: 20px;
+        box-shadow: 0 5px 20px rgba(255, 193, 7, 0.3);
+    }
+
+    .step-icon {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin: 40px 0;
+    }
+
+    .feature-card {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        text-align: center;
+        border: 2px solid #f8f9fa;
+        transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+        border-color: #198754;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(25, 135, 84, 0.1);
+    }
+
+    .feature-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: 0 auto 20px;
+        color: white;
+    }
+
+    .process-section {
+        background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        padding: 80px 0;
+    }
+
+    .info-box {
+        background: linear-gradient(135deg, #e7f5ec 0%, #d1e7dd 100%);
+        border-left: 5px solid #ffc107;
+        padding: 25px 30px;
+        border-radius: 12px;
+        margin: 40px 0;
+    }
+
+    .info-box-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .benefits-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 15px;
+        margin: 30px 0;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 15px;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .benefit-icon {
+        width: 40px;
+        height: 40px;
+        background: #198754;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+    }
+
+    .faq-section {
+        padding: 80px 0;
+        background: white;
+    }
+
+    .faq-item {
+        background: #f8f9fa;
+        border-radius: 12px;
+        margin-bottom: 15px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+        border-color: #198754;
+    }
+
+    .faq-question {
+        padding: 20px 25px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        user-select: none;
+    }
+
+    .faq-answer {
+        padding: 0 25px 20px;
+        display: none;
+        color: #6c757d;
+        line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+        display: block;
+    }
+
+    .faq-toggle {
+        width: 30px;
+        height: 30px;
+        background: #198754;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        transition: transform 0.3s ease;
+    }
+
+    .faq-item.active .faq-toggle {
+        transform: rotate(45deg);
+    }
+
+    .cta-section {
+        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
+        padding: 60px 0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+        border-radius: 50%;
+    }
+
+    @media (max-width: 768px) {
+        .how-it-works-hero {
+            padding: 60px 0 50px;
+        }
+
+        .step-card {
+            padding: 30px 20px;
+        }
+
+        .feature-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+@endpush
+
 @section('main')
-
 <main class="main">
-
-  <!-- Page Title -->
-  <!-- <div class="page-title" data-aos="fade">
-    <div class="heading">
-      <div class="container text-center">
-        <h1>How It Works</h1>
-        <p class="mb-0">Step-by-step guidance for truck drivers worldwide.</p>
-      </div>
-    </div>
-    <nav class="breadcrumbs">
-      <div class="container">
-        <ol>
-          <li><a href="{{ url('/') }}">Home</a></li>
-          <li class="current">How It Works</li>
-        </ol>
-      </div>
-    </nav>
-  </div> -->
-
-  <!-- Content Section -->
-  <section id="how-it-works" class="section">
-
-    <style>
-      :root{
-        --bg:#0b3d2e; --card:#0f6b57; --accent:#f0b323; --accent-2:#e6f4ef;
-        --ink:#0f1d1a; --ink-on-dark:#ffffff;
-      }
-      .hero{
-        background:
-          radial-gradient(1200px 600px at 110% -10%, rgba(255,255,255,.08), transparent 60%),
-          linear-gradient(160deg, var(--bg) 0%, #125c47 60%, #157a62 100%);
-        color:var(--ink-on-dark);
-        padding: clamp(32px, 5vw, 72px) 20px;
-        text-align:center;
-        position:relative; overflow:hidden;
-      }
-      .badge{display:inline-block; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); padding:6px 12px; border-radius:999px; font-weight:600; letter-spacing:.3px;}
-      h1{margin:.6rem 0 .4rem; font-size: clamp(28px, 4.5vw, 52px); line-height:1.08}
-      .hero p{margin:.3rem auto 1.2rem; max-width: 850px; font-size: clamp(16px, 2.3vw, 20px)}
-      .cta{display:flex; gap:12px; justify-content:center; flex-wrap:wrap;}
-      .btn{background:var(--accent); color:#1b1706; font-weight:800; padding:14px 22px; border-radius:12px; border:none; cursor:pointer; text-decoration:none; box-shadow: 0 10px 18px rgba(0,0,0,.18);}
-      .btn.secondary{ background:#ffffff; color:#0b3d2e; }
-      .ribbon{background:#fff; color:#0b3d2e; margin-top:18px; display:inline-flex; gap:10px; align-items:center; padding:8px 14px; border-radius:999px; box-shadow:0 4px 12px rgba(0,0,0,.12); font-weight:700;}
-      .ribbon b{color:var(--bg)}
-      .ribbon .slash{opacity:.45}
-      .strip{ padding: clamp(28px, 5vw, 56px) 20px; }
-      .max{ max-width:1100px; margin:0 auto; }
-      .highlights{ display:grid; gap:16px; grid-template-columns: repeat(12, 1fr); }
-      .card{ grid-column: span 12; background:#fff; border-radius:16px; padding:18px; box-shadow:0 10px 30px rgba(11,61,46, .12); display:flex; gap:14px; align-items:flex-start; border:1px solid rgba(15,107,87,.08);}
-      .icon{ width:44px; height:44px; border-radius:12px; display:grid; place-items:center; font-size:22px; background:linear-gradient(135deg, var(--accent) 0%, #ffe19a 100%); color:#1b1706; flex:0 0 auto; }
-      .card h3{margin:.1rem 0 .25rem; font-size:20px}
-      .card p{margin:0; color:#334; opacity:.88}
-      .card.alt{ background:linear-gradient(160deg, #0f6b57 0%, #0c5b49 100%); color:#fff; border:none;}
-      .card.alt p{color:#fff; opacity:.92}
-      .span-6{ grid-column: span 6 }
-      .span-4{ grid-column: span 4 }
-      @media (max-width:900px){ .span-6, .span-4{ grid-column:span 12 } }
-      .flow{ background:linear-gradient(180deg, #ffffff 0%, #f7fbf9 100%); border:1px solid rgba(15,107,87,.08); border-radius:16px; padding:22px; margin-top:8px;}
-      .flow p{ margin:0; font-size:18px; color:#1d2b27 }
-      .flow b{ color:#0b3d2e }
-      .note{ margin-top:16px; color:#0b3d2e; background:#e9f7f1; border-left:6px solid var(--accent); padding:14px 16px; border-radius:12px;}
-      .faq{ display:grid; gap:14px; margin-top:18px;}
-      details{ background:#fff; border-radius:12px; padding:14px 16px; border:1px solid rgba(15,107,87,.12);}
-      summary{font-weight:700; cursor:pointer}
-      footer.hiw-footer{ background: var(--bg); color:#fff; text-align:center; padding:28px 16px; margin-top:40px; border-radius:12px;}
-      footer.hiw-footer a{color:#fff; text-decoration:underline}
-    </style>
-
-    <!-- HERO -->
-  <!-- Hero Section -->
-  <section class="py-5 text-center bg-success text-white">
-    <div class="container">
-      <p class="mb-2">For applicants worldwide → U.S. & Canada</p>
-      <h1 class="fw-bold">How USTruckPath Works</h1>
-      <p class="lead mb-4">
-        Wherever you live today, if your goal is to drive a truck in the 
-        <b>United States</b> or <b>Canada</b>, we give you the roadmap, 
-        training, and daily mentorship to make it real – step by step 
-        from your country to your first job, and beyond.
-      </p>
-      <div class="d-flex justify-content-center gap-3 mb-3 flex-wrap">
-        <a href="{{ route('register') }}" class="btn btn-warning fw-bold">Enroll Now</a>
-        <a href="{{ route('register') }}" class="btn btn-light fw-bold">Speak to a Mentor</a>
-      </div>
-      <div class="bg-light text-dark px-4 py-2 rounded-pill d-inline-block shadow-sm fw-semibold">
-        Private Telegram Mentorship <span class="text-muted">• Join after purchase</span>
-      </div>
-    </div>
-  </section>
-
-    <!-- Highlights -->
-    <section class="strip">
-      <div class="max">
-        <div class="highlights">
-          <div class="card span-6">
-            <div class="icon">🌍</div>
-            <div>
-              <h3>Global Pathway</h3>
-              <p>We support applicants from any country—guiding you on visas, forms, timelines, and what to do first.</p>
+    <!-- Hero Section -->
+    <section class="how-it-works-hero text-white">
+        <div class="container" data-aos="fade-up">
+            <div class="text-center">
+                <div class="hero-badge">
+                    For applicants worldwide → U.S. & Canada
+                </div>
+                <h1 class="hero-title">How USTruckPath Works</h1>
+                <p class="hero-subtitle">
+                    Wherever you live today, if your goal is to drive a truck in the
+                    <strong>United States</strong> or <strong>Canada</strong>, we give you the roadmap,
+                    training, and daily mentorship to make it real – step by step
+                    from your country to your first job, and beyond.
+                </p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap mb-3">
+                    <a href="{{ route('register') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill">
+                        Enroll Now
+                    </a>
+                    <a href="{{ route('front.contact_us') }}" class="btn btn-light btn-lg fw-bold px-4 py-3 rounded-pill">
+                        Speak to a Mentor
+                    </a>
+                </div>
+                <div class="telegram-badge">
+                    <i class="bi bi-telegram"></i>
+                    <span>Private Telegram Mentorship</span>
+                    <span class="text-muted">• Join after purchase</span>
+                </div>
             </div>
-          </div>
-          <div class="card span-6">
-            <div class="icon">📱</div>
-            <div>
-              <h3>Private Telegram Group</h3>
-              <p>Daily answers and coaching after purchase. Real mentors, real progress, no guesswork.</p>
-            </div>
-          </div>
-          <div class="card alt span-4">
-            <div class="icon" style="background:#fff;color:#0b3d2e;">🎯</div>
-            <div>
-              <h3>Company Applications</h3>
-              <p>Get a curated list of trucking companies in the U.S. & Canada and help preparing interview answers.</p>
-            </div>
-          </div>
-          <div class="card span-4">
-            <div class="icon">🧾</div>
-            <div>
-              <h3>Visa Guidance</h3>
-              <p>We explain the visa options, show how to complete forms correctly, and help you assemble strong references.</p>
-            </div>
-          </div>
-          <div class="card span-4">
-            <div class="icon">📚</div>
-            <div>
-              <h3>CDL/Commercial Permit Prep</h3>
-              <p>Study materials & coaching to pass your permit—then guidance through full training.</p>
-            </div>
-          </div>
         </div>
-
-        <!-- Flow -->
-        <div class="flow">
-          <p>
-            After you purchase, you unlock the lessons that explain trucking in <b>the U.S. and Canada</b> step by step. 
-            You’re then added to our <b>private Telegram mentorship</b> for daily support while still in your country—
-            helping with your <b>CV</b>, company applications, interviews, <b>visa</b> process, and CDL training until your first job. 
-            Later, we even guide you on how to <b>run your own trucking business</b>.
-          </p>
-        </div>
-
-        <!-- Note -->
-        <div class="note">
-          ✅ Designed for newcomers • 🌐 Works from any country • 🧭 Clear roadmap • 🤝 Real mentors • 🚚 Training to license • 📈 Business guidance
-        </div>
-
-        <!-- FAQ -->
-        <div class="faq">
-          <details>
-            <summary>Who is this for?</summary>
-            Anyone outside the U.S. or Canada who wants to become a professional truck driver with a guided path.
-          </details>
-          <details>
-            <summary>What do I get after purchase?</summary>
-            Immediate access to the course + a private Telegram mentorship invite for daily support.
-          </details>
-          <details>
-            <summary>Do I need experience?</summary>
-            No. We start from basics and coach you through permits, training, and job applications.
-          </details>
-        </div>
-      </div>
     </section>
 
-     <!-- Call To Action Footer -->
-  <section class="py-4 bg-success text-white text-center">
-    <div class="container">
-      <p class="mb-2">Ready to start your journey?</p>
-      <a href="{{ route('register') }}" class="btn btn-warning fw-bold me-2">Enroll Now</a>
-    </div>
-  </section>
-  </section>
+    <!-- Simple 3-Step Process -->
+    <section class="step-timeline">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold text-success mb-3">Your Journey in 3 Simple Steps</h2>
+                <p class="lead text-muted">From enrollment to employment – we guide you through every stage</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Step 1 -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number mx-auto">1</div>
+                        <div class="step-icon">📚</div>
+                        <h3 class="h4 fw-bold mb-3">Enroll & Learn</h3>
+                        <p class="text-muted">
+                            Purchase your course and get instant access to comprehensive video lessons,
+                            study materials, and step-by-step guides covering everything from CDL prep to visa applications.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number mx-auto">2</div>
+                        <div class="step-icon">💬</div>
+                        <h3 class="h4 fw-bold mb-3">Get Daily Mentorship</h3>
+                        <p class="text-muted">
+                            Join our private Telegram group for daily support from experienced mentors.
+                            Ask questions, get your CV reviewed, and receive guidance on applications and interviews.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="step-card text-center h-100">
+                        <div class="step-number mx-auto">3</div>
+                        <div class="step-icon">🚚</div>
+                        <h3 class="h4 fw-bold mb-3">Land Your Dream Job</h3>
+                        <p class="text-muted">
+                            Apply to trucking companies with confidence. We help you prepare for interviews,
+                            pass your CDL test, and secure your first trucking job in the USA or Canada.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold text-success mb-3">Everything You Need in One Place</h2>
+                <p class="lead text-muted">Comprehensive support from start to finish</p>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="feature-icon">🌍</div>
+                    <h4 class="fw-bold mb-2">Global Pathway</h4>
+                    <p class="text-muted mb-0">Support from any country with guidance on visas, forms, and timelines</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="150">
+                    <div class="feature-icon">📱</div>
+                    <h4 class="fw-bold mb-2">Private Telegram Group</h4>
+                    <p class="text-muted mb-0">Daily answers and coaching from real mentors, no guesswork</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="feature-icon">🎯</div>
+                    <h4 class="fw-bold mb-2">Company Applications</h4>
+                    <p class="text-muted mb-0">Curated list of hiring companies and interview preparation help</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="250">
+                    <div class="feature-icon">🧾</div>
+                    <h4 class="fw-bold mb-2">Visa Guidance</h4>
+                    <p class="text-muted mb-0">Complete visa options, form assistance, and reference building</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="feature-icon">📖</div>
+                    <h4 class="fw-bold mb-2">CDL Permit Prep</h4>
+                    <p class="text-muted mb-0">Study materials and coaching to pass your permit and full training</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="350">
+                    <div class="feature-icon">💼</div>
+                    <h4 class="fw-bold mb-2">Business Guidance</h4>
+                    <p class="text-muted mb-0">Future planning on how to run your own trucking business</p>
+                </div>
+            </div>
+
+            <!-- Info Box -->
+            <div class="info-box" data-aos="fade-up">
+                <div class="info-box-icon">💡</div>
+                <h4 class="fw-bold mb-3">What Happens After Purchase?</h4>
+                <p class="mb-0">
+                    After you purchase, you unlock comprehensive lessons that explain trucking in
+                    <strong>the U.S. and Canada</strong> step by step. You're then added to our
+                    <strong>private Telegram mentorship</strong> for daily support while still in your country—
+                    helping with your <strong>CV</strong>, company applications, interviews, <strong>visa</strong>
+                    process, and CDL training until your first job. Later, we even guide you on how to
+                    <strong>run your own trucking business</strong>.
+                </p>
+            </div>
+
+            <!-- Benefits List -->
+            <div class="benefits-list" data-aos="fade-up">
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <span>Designed for newcomers</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🌐</div>
+                    <span>Works from any country</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🧭</div>
+                    <span>Clear roadmap</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🤝</div>
+                    <span>Real mentors</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">🚚</div>
+                    <span>Training to license</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">📈</div>
+                    <span>Business guidance</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h2 class="display-5 fw-bold text-success mb-3">Frequently Asked Questions</h2>
+                <p class="lead text-muted">Got questions? We've got answers</p>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="faq-item" data-aos="fade-up">
+                        <div class="faq-question">
+                            <span>Who is this program for?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Anyone outside the U.S. or Canada who wants to become a professional truck driver with a guided path.
+                            Whether you're completely new to trucking or looking to transition to driving in North America,
+                            our program is designed to help you succeed.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="50">
+                        <div class="faq-question">
+                            <span>What do I get after purchase?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Immediate access to the complete course including video lessons, study materials, and guides.
+                            You'll also receive a private Telegram mentorship invite for daily support, CV review,
+                            interview preparation, and ongoing guidance until you land your first trucking job.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="faq-question">
+                            <span>Do I need previous trucking experience?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            No experience required! We start from the basics and coach you through every step including
+                            permits, training, visa applications, company research, and job applications.
+                            Our program is specifically designed for beginners.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="150">
+                        <div class="faq-question">
+                            <span>How long does the process take?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            The timeline varies depending on your starting point and visa processing times.
+                            Most students complete the course materials within 4-8 weeks, but you'll have lifetime access.
+                            Our mentors will help you create a personalized timeline based on your specific situation.
+                        </div>
+                    </div>
+
+                    <div class="faq-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="faq-question">
+                            <span>Will you help me find a job?</span>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            Yes! We provide a curated list of trucking companies actively hiring international drivers,
+                            help you prepare your application materials, conduct mock interviews, and guide you through
+                            the entire job application process until you secure your first position.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section text-white">
+        <div class="container position-relative" data-aos="zoom-in">
+            <h2 class="display-5 fw-bold mb-3">Ready to Start Your Journey?</h2>
+            <p class="lead mb-4">Join hundreds of aspiring truck drivers who are already on their path to success</p>
+            <a href="{{ route('register') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill">
+                Enroll Now & Get Started
+            </a>
+        </div>
+    </section>
 </main>
 
+@push('scripts')
+<script>
+    // FAQ Toggle
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentElement;
+            const isActive = item.classList.contains('active');
+
+            // Close all items
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+
+            // Open clicked item if it wasn't active
+            if (!isActive) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script>
+@endpush
 @endsection
