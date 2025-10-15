@@ -131,8 +131,7 @@
                            class="{{ request()->is('courses-details/cdl-global') ? 'active' : '' }}">Global CDL Training</a></li>
 
                     <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
-                    <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Drivers Choose Us</a></li>
-                    <li><a href="{{ route('front.contact_us') }}" class="{{ request()->routeIs('front.contact_us') ? 'active' : '' }}">Contact</a></li>
+                    <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') || request()->routeIs('front.contact_us') ? 'active' : '' }}">Why Us</a></li>
 
                     {{-- User Menu --}}
                     @auth
