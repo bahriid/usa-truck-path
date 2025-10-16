@@ -289,14 +289,6 @@
                     training, and daily mentorship to make it real – step by step
                     from your country to your first job, and beyond.
                 </p>
-                <div class="d-flex justify-content-center gap-3 flex-wrap mb-3">
-                    <a href="{{ route('register') }}" class="btn btn-warning btn-lg fw-bold px-4 py-3 rounded-pill">
-                        Enroll Now
-                    </a>
-                    <a href="{{ route('front.contact_us') }}" class="btn btn-light btn-lg fw-bold px-4 py-3 rounded-pill">
-                        Speak to a Mentor
-                    </a>
-                </div>
                 <div class="telegram-badge">
                     <i class="bi bi-telegram"></i>
                     <span>Private Telegram Mentorship</span>
@@ -319,12 +311,12 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="step-card text-center h-100">
                         <div class="step-number mx-auto">1</div>
-                        <div class="step-icon">📚</div>
-                        <h3 class="h4 fw-bold mb-3">Enroll & Learn</h3>
+                        <div class="step-icon">🚀</div>
+                        <h3 class="h4 fw-bold mb-3">Start Your U.S. Trucking Journey Today</h3>
                         <p class="text-muted">
-                            Purchase your course and get instant access to comprehensive video lessons,
-                            study materials, and step-by-step guides covering everything from CDL prep to visa applications.
+                            No matter where you live — Canada, Europe, Africa, or the Middle East — this is your chance to begin a real trucking career in the United States. Our online course and mentorship are designed by industry experts who have already helped hundreds of drivers make it here.
                         </p>
+                        <p class="text-muted fw-bold mb-0">Limited-time promotion: Enroll now and secure your spot at a discounted price!</p>
                     </div>
                 </div>
 
@@ -333,10 +325,12 @@
                     <div class="step-card text-center h-100">
                         <div class="step-number mx-auto">2</div>
                         <div class="step-icon">💬</div>
-                        <h3 class="h4 fw-bold mb-3">Get Daily Mentorship</h3>
+                        <h3 class="h4 fw-bold mb-3">Get Daily Guidance From Our Mentors</h3>
                         <p class="text-muted">
-                            Join our private Telegram group for daily support from experienced mentors.
-                            Ask questions, get your CV reviewed, and receive guidance on applications and interviews.
+                            After you enroll, you'll be added instantly to our private Telegram group, where our experienced team will support you every single day.
+                        </p>
+                        <p class="text-muted mb-0">
+                            We'll help you fix your CV, guide you through the visa process, and answer every question so you never feel lost. You'll have step-by-step support until you're job-ready.
                         </p>
                     </div>
                 </div>
@@ -345,12 +339,12 @@
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="step-card text-center h-100">
                         <div class="step-number mx-auto">3</div>
-                        <div class="step-icon">🚚</div>
-                        <h3 class="h4 fw-bold mb-3">Land Your Dream Job</h3>
+                        <div class="step-icon">🎯</div>
+                        <h3 class="h4 fw-bold mb-3">Land Your Dream Job in the USA or Canada</h3>
                         <p class="text-muted">
-                            Apply to trucking companies with confidence. We help you prepare for interviews,
-                            pass your CDL test, and secure your first trucking job in the USA or Canada.
+                            Once you complete your training, we'll help you apply to top U.S. trucking companies. We prepare you for interviews, help with documentation, and make sure you're ready for the move.
                         </p>
+                        <p class="text-muted fw-bold mb-0">With our guidance, you'll be confident and fully prepared to succeed.</p>
                     </div>
                 </div>
             </div>
@@ -367,39 +361,51 @@
 
             <div class="feature-grid">
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="feature-icon">🌍</div>
-                    <h4 class="fw-bold mb-2">Global Pathway</h4>
-                    <p class="text-muted mb-0">Support from any country with guidance on visas, forms, and timelines</p>
+                    <div class="feature-icon">🎯</div>
+                    <h4 class="fw-bold mb-2">Company Connections</h4>
+                    <p class="text-muted mb-0">We help you apply to trusted U.S. trucking companies and prepare for interviews — so you can land your first trucking job fast.</p>
                 </div>
 
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="feature-icon">📱</div>
-                    <h4 class="fw-bold mb-2">Private Telegram Group</h4>
-                    <p class="text-muted mb-0">Daily answers and coaching from real mentors, no guesswork</p>
+                    <div class="feature-icon">✈️</div>
+                    <h4 class="fw-bold mb-2">Get Your U.S. Visa Approved</h4>
+                    <p class="text-muted mb-0">From forms to references, we'll guide you step by step to complete your visa process and start your new life in the USA.</p>
                 </div>
 
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="feature-icon">🎯</div>
-                    <h4 class="fw-bold mb-2">Company Applications</h4>
-                    <p class="text-muted mb-0">Curated list of hiring companies and interview preparation help</p>
+                    <div class="feature-icon">🌍</div>
+                    <h4 class="fw-bold mb-2">Global Pathway</h4>
+                    <p class="text-muted mb-0">Whether you're in Africa, Europe, Canada, or the Middle East, we'll show you the exact path to start your U.S. trucking career.</p>
                 </div>
 
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="250">
-                    <div class="feature-icon">🧾</div>
-                    <h4 class="fw-bold mb-2">Visa Guidance</h4>
-                    <p class="text-muted mb-0">Complete visa options, form assistance, and reference building</p>
+                    <div class="feature-icon">💬</div>
+                    <h4 class="fw-bold mb-2">Private Telegram Group</h4>
+                    <p class="text-muted mb-0">Get daily help and answers directly from our mentors. You'll never feel alone — we're with you every step.</p>
                 </div>
 
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="feature-icon">📖</div>
+                    <div class="feature-icon">🚛</div>
                     <h4 class="fw-bold mb-2">CDL Permit Prep</h4>
-                    <p class="text-muted mb-0">Study materials and coaching to pass your permit and full training</p>
+                    <p class="text-muted mb-0">Learn online with easy videos and practice tests to pass your CDL permit fast and get ready for driving in the U.S.</p>
                 </div>
 
                 <div class="feature-card" data-aos="zoom-in" data-aos-delay="350">
                     <div class="feature-icon">💼</div>
                     <h4 class="fw-bold mb-2">Business Guidance</h4>
-                    <p class="text-muted mb-0">Future planning on how to run your own trucking business</p>
+                    <p class="text-muted mb-0">Go beyond driving — learn how to start and grow your own trucking company once you're on the road.</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="feature-icon">🎓</div>
+                    <h4 class="fw-bold mb-2">Lifetime Mentorship Access</h4>
+                    <p class="text-muted mb-0">Enroll once and get lifetime support — our team will always be here to help you grow and succeed.</p>
+                </div>
+
+                <div class="feature-card" data-aos="zoom-in" data-aos-delay="450">
+                    <div class="feature-icon">⚡</div>
+                    <h4 class="fw-bold mb-2">Limited-Time Promotion</h4>
+                    <p class="text-muted mb-0">Enroll now and save big! This offer is only available for a short time — secure your discounted spot today.</p>
                 </div>
             </div>
 
@@ -526,7 +532,7 @@
         <div class="container position-relative" data-aos="zoom-in">
             <h2 class="display-5 fw-bold mb-3">Ready to Start Your Journey?</h2>
             <p class="lead mb-4">Join hundreds of aspiring truck drivers who are already on their path to success</p>
-            <a href="{{ route('register') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill">
+            <a href="{{ route('front.course') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill">
                 Enroll Now & Get Started
             </a>
         </div>

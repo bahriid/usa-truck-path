@@ -104,10 +104,10 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
-                    {{-- Courses Dropdown --}}
+                    {{-- U.S. CDL Permit Dropdown --}}
                     @if ($course && $course->count())
                         <li class="dropdown">
-                            <a href="#"><span>Courses</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                            <a href="#"><span>U.S. CDL Permit</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
                                 @foreach ($course as $menu)
                                     <li>
@@ -121,8 +121,6 @@
                         </li>
                     @endif
 
-                    <li><a href="{{ route('front.course.details', 'us-cdl-permit') }}"
-                           class="{{ request()->is('courses-details/us-cdl-permit') ? 'active' : '' }}">U.S. CDL Permit</a></li>
                     <li><a href="{{ route('front.course.details', 'cdl-canada') }}"
                            class="{{ request()->is('courses-details/cdl-canada') ? 'active' : '' }}">Canada → USA Program</a></li>
                     <li><a href="{{ route('front.course.details', 'cdl-europe') }}"
