@@ -63,12 +63,19 @@ class PageController extends Controller
     public function course()
     {
         if (auth()->check()) {
-            $courses = auth()->user()->purchasedCourses()->latest()->paginate(9);
+            $courses = auth()->user()->purchasedCourses()->latest()->paginate(6);
         } else {
-            $courses = Course::where('status', 'active')
+            // Get one latest course per category (same as home page)
+            $latestCourseIds = DB::table('courses')
+                ->select(DB::raw('MIN(id) as id'))
+                ->where('status', 'active')
                 ->where('is_active', 1)
-                ->latest()
-                ->paginate(9);
+                ->groupBy('category')
+                ->pluck('id');
+
+            $courses = Course::whereIn('id', $latestCourseIds)
+                ->orderBy('created_at', 'desc')
+                ->paginate(6);
         }
 
         return view('front.course', compact('courses'));
