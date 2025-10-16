@@ -292,7 +292,7 @@
                 </div>
                 <h1>Why Drivers Choose Us</h1>
                 <p>
-                    USTRUCKPATH helps people worldwide become truck drivers in the USA and Canada.
+                    USATRUCKPATH helps people worldwide become truck drivers in the USA and Canada.
                     Our step-by-step courses, real mentorship, and support community give you the
                     knowledge and guidance to start your trucking career with confidence.
                 </p>

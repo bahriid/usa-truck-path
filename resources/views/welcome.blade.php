@@ -231,7 +231,7 @@
                     <div class="col-lg-8 text-center">
                         <div class="section-title" data-aos="fade-up">
                             <h2>Watch How It Works</h2>
-                            <p class="lead text-muted">See how USTRUCKPATH can help you start your trucking career in the USA</p>
+                            <p class="lead text-muted">See how USATRUCKPATH can help you start your trucking career in the USA</p>
                         </div>
                     </div>
                 </div>
@@ -241,7 +241,7 @@
                             <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden">
                                 <iframe
                                     src="https://www.youtube.com/embed/abelH0rm-h0"
-                                    title="USTRUCKPATH Introduction Video"
+                                    title="USATRUCKPATH Introduction Video"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                                     allowfullscreen>
@@ -346,8 +346,8 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-lg-8 text-center">
                         <div class="section-title">
-                            <h2 class="fw-bold text-success mb-3">Why Choose USTRUCKPATH</h2>
-                            <p class="lead text-muted">USTRUCKPATH helps people from around the world become truck drivers in the USA and Canada. We provide step-by-step courses, real mentorship, and daily support so you can reach your trucking goals with confidence.</p>
+                            <h2 class="fw-bold text-success mb-3">Why Choose USATRUCKPATH</h2>
+                            <p class="lead text-muted">USATRUCKPATH helps people from around the world become truck drivers in the USA and Canada. We provide step-by-step courses, real mentorship, and daily support so you can reach your trucking goals with confidence.</p>
                         </div>
                     </div>
                 </div>
@@ -561,7 +561,7 @@
             </div>
             <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                <span>"USTruckPath completely changed my journey. I’m originally from Honduras and now live in Columbus, Ohio. Their mentorship program gave me the exact training and practice I needed. I passed my CDL permit test on the first try, joined CDL school, and today I’m working as a truck driver in the U.S. I couldn’t be happier!"</span>
+                <span>"USATruckPath completely changed my journey. I'm originally from Honduras and now live in Columbus, Ohio. Their mentorship program gave me the exact training and practice I needed. I passed my CDL permit test on the first try, joined CDL school, and today I'm working as a truck driver in the U.S. I couldn't be happier!"</span>
                 <i class="bi bi-quote quote-icon-right"></i>
             </p>
         </div>
@@ -581,7 +581,7 @@
             </div>
             <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                <span>"I’m so thankful I found USTruckPath. The mentorship program gave me the confidence I needed, and the practice tests were just like the real thing. I passed my permit test right away and got connected to CDL training. Today I drive trucks full time, and it all started with USTruckPath!"</span>
+                <span>"I'm so thankful I found USATruckPath. The mentorship program gave me the confidence I needed, and the practice tests were just like the real thing. I passed my permit test right away and got connected to CDL training. Today I drive trucks full time, and it all started with USATruckPath!"</span>
                 <i class="bi bi-quote quote-icon-right"></i>
             </p>
         </div>
@@ -601,7 +601,7 @@
             </div>
             <p>
                 <i class="bi bi-quote quote-icon-left"></i>
-                <span>"I’m originally from Somalia and was working delivery jobs before. I wanted a better career, and USTruckPath gave me the tools to achieve it. The lessons were simple, the mentorship was clear, and I passed my CDL test on the first try. Now I’m proud to be a truck driver in the U.S."</span>
+                <span>"I'm originally from Somalia and was working delivery jobs before. I wanted a better career, and USATruckPath gave me the tools to achieve it. The lessons were simple, the mentorship was clear, and I passed my CDL test on the first try. Now I'm proud to be a truck driver in the U.S."</span>
                 <i class="bi bi-quote quote-icon-right"></i>
             </p>
         </div>
@@ -640,7 +640,7 @@
                     <section class="py-5 bg-light" id="faq">
   <div class="container">
     <h2 class="text-center mb-4">🚚 Frequently Asked Questions (FAQ)</h2>
-    <p class="text-center mb-5">Find answers to the most common questions about starting your trucking journey with USTRUCKPATH.</p>
+    <p class="text-center mb-5">Find answers to the most common questions about starting your trucking journey with USATRUCKPATH.</p>
 
     <div class="accordion" id="faqAccordion">
 
@@ -648,12 +648,12 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="faq1-heading">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
-            ❓ What is USTRUCKPATH?
+            ❓ What is USATRUCKPATH?
           </button>
         </h2>
         <div id="faq1" class="accordion-collapse collapse show" aria-labelledby="faq1-heading" data-bs-parent="#faqAccordion">
           <div class="accordion-body">
-            USTRUCKPATH is a global online learning platform that helps people from around the world become licensed truck drivers in the USA and Canada.<br>
+            USATRUCKPATH is a global online learning platform that helps people from around the world become licensed truck drivers in the USA and Canada.<br>
             We provide step-by-step video courses, visa assistance, and mentorship programs to guide you from your home country all the way to working as a professional truck driver in North America.
           </div>
         </div>
@@ -663,7 +663,7 @@
       <div class="accordion-item">
         <h2 class="accordion-header" id="faq2-heading">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
-            🌍 Who can join USTRUCKPATH?
+            🌍 Who can join USATRUCKPATH?
           </button>
         </h2>
         <div id="faq2" class="accordion-collapse collapse" aria-labelledby="faq2-heading" data-bs-parent="#faqAccordion">

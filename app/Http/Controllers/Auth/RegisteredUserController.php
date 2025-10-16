@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect()->route('front.home')
-            ->with('success', 'Registration successful! Welcome to USTRUCKPATH.');
+            ->with('success', 'Registration successful! Welcome to USATRUCKPATH.');
     }
 
     /**

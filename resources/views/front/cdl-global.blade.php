@@ -1764,17 +1764,19 @@
 
 
 
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
+                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
 
-                <p><p>Get ready to pass your <b>CDL exams worldwide</b> with this all-in-one study program. Whether you’re preparing in the <b>United States, Canada, Europe, or internationally</b>, you’ll have access to <b>video lessons</b>, <b>audiobooks</b>, and <b>eBooks</b> designed to fit your study style and pace.</p>
+                <p class="mb-3 text-justify">Get ready to pass your CDL exams worldwide with this all-in-one study program.</p>
 
+                <p class="mb-3 text-justify">Whether you're preparing in the United States, Canada, Europe, or internationally, you'll have access to video lessons, audiobooks, and eBooks designed to fit your study style and pace.</p>
 
+                <p class="mb-3 text-justify">This course covers General Knowledge, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat / Dangerous Goods, Tanker, Passenger, and School Bus endorsements, along with real exam-style practice questions and answers.</p>
 
-<p>This course covers <b>General Knowledge</b>, <b>Air Brakes</b>, <b>Combination Vehicles</b>, <b>Doubles/Triples</b>, <b>Hazmat / Dangerous Goods</b>, <b>Tanker</b>, <b>Passenger</b>, and <b>School Bus endorsements</b>, along with <b>real exam-style practice questions and answers</b>. Content is updated regularly to reflect <b>global CDL standards</b> and regional requirements.</p>
+                <p class="mb-3 text-justify">Content is updated regularly to reflect global CDL standards and regional requirements.</p>
 
+                <p class="mb-4 text-justify">Accessible on phone, tablet, or computer, with lifetime access for a one-time payment. No matter where you are in the world, CDL Global makes it simple, flexible, and effective to study and pass with confidence.</p>
 
-
-<p>Accessible on <b>phone, tablet, or computer</b>, with <b>lifetime access for a one-time payment</b>. No matter where you are in the world, <b>CDL Global</b> makes it simple, flexible, and effective to study and pass with confidence.</p></p>
+                <p class="text-center mb-0">Start today and become a licensed driver anywhere!</p>
 
 
 

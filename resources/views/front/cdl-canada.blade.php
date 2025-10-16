@@ -881,12 +881,19 @@
 
             <div class="col-md-6">
 
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
-                <p>Get ready to pass your Canadian Commercial Driver’s Licence (CDL) exams with this complete, easy-to-follow course designed for drivers across Canada. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and French.
+                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
 
-This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Dangerous Goods, Passenger, and School Bus endorsements — all updated to meet Canadian provincial and federal standards. It also includes real exam-style practice questions and answers — just like the actual test.
+                <p class="mb-3 text-justify">Get ready to pass your Canadian Commercial Driver's Licence (CDL) exams with this complete, easy-to-follow course designed for drivers across Canada.</p>
 
-Accessible on your phone, tablet, or computer, with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare for your CDL in Canada. Start today and pass with confidence!</p>
+                <p class="mb-3 text-justify">You'll learn everything through video lessons, audiobooks, and eBooks in English and French.</p>
+
+                <p class="mb-3 text-justify">Course covers General Knowledge test, Air Brakes, Combination Vehicles, Dangerous Goods, Passenger, and School Bus endorsements — all updated to meet Canadian provincial and federal standards.</p>
+
+                <p class="mb-3 text-justify">Practice materials include real exam-style practice questions and answers — just like the actual test.</p>
+
+                <p class="mb-4 text-justify">Study on your phone, tablet, or computer. Lifetime access for a one-time payment.</p>
+
+                <p class="text-center mb-0">This is the fastest and most convenient way to prepare for your CDL in Canada. Start today and pass with confidence!</p>
 
                 <div class="text-center">
                     <h5 class="mb-3">
@@ -1575,8 +1582,19 @@ Accessible on your phone, tablet, or computer, with lifetime access for a one-ti
 
             <div class="col-md-6">
 
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
-                <p>Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Arabic. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
+
+                <p class="mb-3 text-justify">Get ready to pass your Commercial Learner's Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states.</p>
+
+                <p class="mb-3 text-justify">You'll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Arabic.</p>
+
+                <p class="mb-3 text-justify">This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements.</p>
+
+                <p class="mb-3 text-justify">It includes real DMV-style practice questions and answers—just like the actual test.</p>
+
+                <p class="mb-4 text-justify">Accessible on your phone, tablet, or computer, with lifetime access for a one-time payment. This is the fastest and most convenient way to prepare.</p>
+
+                <p class="text-center mb-0">Start today and pass with confidence!</p>
 
 
                 <div class="text-center">

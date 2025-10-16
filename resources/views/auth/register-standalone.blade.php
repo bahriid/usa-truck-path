@@ -20,7 +20,7 @@
                 <div class="card shadow-lg border-0 rounded-4">
                     <div class="card-header bg-primary text-white text-center py-4 rounded-top-4">
                         <h3 class="mb-0">{{ __('Create Your Account') }}</h3>
-                        <p class="mb-0 mt-2 small">Join USTRUCKPATH Today</p>
+                        <p class="mb-0 mt-2 small">Join USATRUCKPATH Today</p>
                     </div>
                     <div class="card-body p-4">
                         <form method="POST" action="{{ route('register.standalone.store') }}" id="registration-form">

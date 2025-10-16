@@ -282,7 +282,7 @@
                 <div class="hero-badge">
                     For applicants worldwide → U.S. & Canada
                 </div>
-                <h1 class="hero-title">How USTruckPath Works</h1>
+                <h1 class="hero-title">How USATruckPath Works</h1>
                 <p class="hero-subtitle">
                     Wherever you live today, if your goal is to drive a truck in the
                     <strong>United States</strong> or <strong>Canada</strong>, we give you the roadmap,
