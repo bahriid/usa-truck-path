@@ -496,7 +496,7 @@
                     </div>
                     <div class="col-md-4 text-md-end button-section">
                         @guest
-                            <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a>
+                            <a href="{{ route('login') }}" class="cta-btn">Login to Enroll</a>
                         @else
                             @if (auth()->user()->hasApprovedCourse($course->id))
                                 <button class="btn btn-success " disabled>Already Enrolled</button>
@@ -558,7 +558,7 @@
                     </h5>
 
                     @guest
-                        <a href="{{ route('register') }}" class="cta  mb-2">Login to Enroll</a>
+                        <a href="{{ route('login') }}" class="cta  mb-2">Login to Enroll</a>
                     @else
                         @if (auth()->user()->hasApprovedCourse($course->id))
                             <button class="cta   mb-2" disabled>Already Enrolled</button>
@@ -600,7 +600,7 @@
                                 </div>
                                 <div class="mt-4 ">
                                     @guest
-                                        <a href="{{ route('register') }}" class="cta-btn-course  mb-2"> Enroll</a>
+                                        <a href="{{ route('login') }}" class="cta-btn-course  mb-2"> Enroll</a>
                                     @else
                                         @if (auth()->user()->hasApprovedCourse($course->id))
                                             <button class="cta-btn-course  mb-2" disabled>Already Enrolled</button>
@@ -1234,7 +1234,7 @@
                     </h5>
 
                     @guest
-                        <a href="{{ route('register') }}" class="cta w-100 mb-2">Login to Enroll</a>
+                        <a href="{{ route('login') }}" class="cta w-100 mb-2">Login to Enroll</a>
                     @else
                         @if (auth()->user()->hasApprovedCourse($course->id))
                             <button class="cta w-100 mb-2" disabled>Already Enrolled</button>

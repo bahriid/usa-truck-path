@@ -496,7 +496,7 @@
                 <div class="col-md-4 text-md-end button-section">
                     @guest
                         {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
                     @else
                         @if (auth()->user()->hasApprovedCourse($course->id))
                             <button class="btn btn-success " disabled>Already Enrolled</button>
@@ -849,7 +849,7 @@
                     <div class="col-md-4 text-md-end button-section">
                         @guest
                             {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
-                            <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
                         @else
                             @if (auth()->user()->hasApprovedCourse($course->id))
                                 <button class="btn btn-success " disabled>Already Enrolled</button>
@@ -895,7 +895,7 @@
 
                     @guest
 
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
                             Enroll</a>
                     @else
                         @if (auth()->user()->hasApprovedCourse($course->id))
@@ -940,7 +940,7 @@
                                     </div>
                                     <div class="mt-4 ">
                                         @guest
-                                            <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}"
+                                            <a href="{{ route('register') }}?course_id={{ $course->id }}"
                                                 class="cta-btn-course w-100 mb-2">Login to Enroll</a>
                                         @else
                                             @if (auth()->user()->hasApprovedCourse($course->id))
@@ -1584,7 +1584,7 @@
                     </h5>
 
                     @guest
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
                             Enroll</a>
                     @else
                         @if (auth()->user()->hasApprovedCourse($course->id))

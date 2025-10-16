@@ -59,7 +59,7 @@
                 <p class="small mb-3">
                     Learn how to get your CDL, apply for visas, and get hired as a truck driver in the USA or Canada.
                 </p>
-                <a href="{{ route('register') }}" class="btn btn-success fw-semibold px-4 py-2 rounded-pill">Register Now</a>
+                <a href="{{ route('login') }}" class="btn btn-success fw-semibold px-4 py-2 rounded-pill">Register Now</a>
             </div>
         </div>
     </div>

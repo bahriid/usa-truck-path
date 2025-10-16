@@ -43,7 +43,7 @@
                         <h3 class="mb-0">{{ __('Register & Pay') }}</h3>
                     </div>
                     <div class="card-body p-4">
-                        <form method="POST" action="{{ route('register.with.course.store') }}" id="registration-form">
+                        <form method="POST" action="{{ route('register.store') }}" id="registration-form">
                             @csrf
                             <input type="hidden" name="course_id" value="{{ $courseId }}">
                              

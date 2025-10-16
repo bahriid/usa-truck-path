@@ -992,7 +992,7 @@
 
                         {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
 
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
 
                     @else
 
@@ -1692,7 +1692,7 @@
 
                             {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
 
-                            <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
 
                         @else
 
@@ -1794,7 +1794,7 @@
 
 
 
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
 
                             Enroll</a>
 
@@ -1884,7 +1884,7 @@
 
                                         @guest
 
-                                            <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}"
+                                            <a href="{{ route('register') }}?course_id={{ $course->id }}"
 
                                                 class="cta-btn-course w-100 mb-2">Login to Enroll</a>
 
@@ -3182,7 +3182,7 @@
 
                     @guest
 
-                        <a href="{{ route('register.with.course') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
 
                             Enroll</a>
 

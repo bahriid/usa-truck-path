@@ -492,7 +492,7 @@
                 <h3>Let's Build Your Future Together</h3>
                 <p>You don't have to do this alone. We are here to teach, guide, and give you everything
                    you need for long-term success in the trucking industry.</p>
-                <a href="{{ route('register') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill">
+                <a href="{{ route('login') }}" class="btn btn-warning btn-lg fw-bold px-5 py-3 rounded-pill">
                     Join Us Today & Start Your Journey
                 </a>
             </div>

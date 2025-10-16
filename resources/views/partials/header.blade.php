@@ -153,7 +153,7 @@
             </nav>
 
             @guest
-                <a class="btn-getstarted" href="{{ route('register') }}">Register</a>
+                <a class="btn-getstarted" href="{{ route('login') }}">Register</a>
             @endguest
 
         </div>
