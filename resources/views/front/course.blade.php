@@ -1,5 +1,21 @@
 ﻿@extends('partials.master')
 
+@push('styles')
+<style>
+    .course-item img {
+        object-fit: contain;
+        background: #f8f9fa;
+    }
+
+    @media (max-width: 768px) {
+        .course-item img {
+            object-fit: cover;
+            background: transparent;
+        }
+    }
+</style>
+@endpush
+
 @section('main')
     <main class="main">
 
@@ -45,16 +61,14 @@
 
                                     <a href="{{ route('front.course.details', $course->slug) }}">
                                         <img src="{{ Storage::url($course->image ?? '') }}" class="" alt="..."
-                                            style="width: 100%;
-    height: 274px;"></a>
+                                            style="width: 100%; height: 274px; display: block;"></a>
                                 @endguest
                                 @auth
 
 
                                     <a href="{{ route('course.curriculam', $course->id) }}">
                                         <img src="{{ Storage::url($course->image ?? '') }}" class="" alt="..."
-                                            style="width: 100%;
-    height: 274px;"></a>
+                                            style="width: 100%; height: 274px; display: block;"></a>
                                 @endauth
 
                                 <div class="course-content">

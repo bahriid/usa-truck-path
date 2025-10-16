@@ -5,6 +5,17 @@
 @push('styles')
 
     <style>
+        .course-item img {
+            object-fit: contain;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .course-item img {
+                object-fit: cover;
+                background: transparent;
+            }
+        }
 
         body {
 
@@ -1771,7 +1782,7 @@
                         <div class="course-item">
                         <a href="{{ route('front.course.details', $course->slug) }}">
                         <img src="{{ Storage::url($course->image ?? '') }}" class="" alt="..."
-                            style="max-width: 100%; height: 274px;"></a>
+                            style="width: 100%; height: 274px; display: block;"></a>
                         <div class="course-content">
                             <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                                 {{-- @guest
