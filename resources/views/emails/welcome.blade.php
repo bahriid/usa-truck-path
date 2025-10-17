@@ -107,14 +107,14 @@
             <img src="{{ asset('frontend/img/logo.png') }}" alt="USATruckPath Logo" class="logo">
         </div>
 
-        <h1>Welcome—let's get you licensed and rolling!</h1>
+        <h1>Welcome - let's get you licensed and rolling!</h1>
 
         <div class="greeting">
             <strong>Hi {{ $user->name }},</strong>
         </div>
 
         <div class="content">
-            <p>Idris here—founder of CDLCity Truck Driving School (4 school yards) and USAtruckpath.</p>
+            <p>Idris here, founder of CDLCity Truck Driving School (4 school yards) and USAtruckpath.</p>
 
             <p>Thanks for trusting me with your new career; I'll mentor you every mile until you're licensed and rolling.</p>
         </div>
@@ -127,12 +127,12 @@
 
             <div class="step">
                 <div class="step-number">2</div>
-                <strong>Block out study time and come ready</strong>—your U.S. & Canada CDL journey starts now.
+                <strong>Block out study time and come ready</strong> - your U.S. & Canada CDL journey starts now.
             </div>
 
             <div class="step">
                 <div class="step-number">3</div>
-                <strong>Need me?</strong> WhatsApp <a href="https://wa.me/16692045626">1-669-204-5626</a> or email <a href="mailto:shaqo408@gmail.com">shaqo408@gmail.com</a> (keep these private, please).
+                <strong>Need me?</strong> WhatsApp <a href="https://wa.me/16692045626" style="color: #28a745; text-decoration: none;">1-669-204-5626</a> or email <a href="mailto:shaqo408@gmail.com" style="color: #28a745; text-decoration: none;">shaqo408@gmail.com</a> (keep these private, please).
             </div>
         </div>
 
