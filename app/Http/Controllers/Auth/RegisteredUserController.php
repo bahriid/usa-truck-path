@@ -60,6 +60,9 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
 
+        // Send welcome email
+        Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+
         return redirect()->route('front.home')
             ->with('success', 'Registration successful! Welcome to USATRUCKPATH.');
     }
@@ -158,6 +161,9 @@ class RegisteredUserController extends Controller
 
             event(new Registered($user));
             Auth::login($user);
+
+            // Send welcome email
+            Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
 
             // Enroll user in course
             $user->purchasedCourses()->attach($course->id, [
