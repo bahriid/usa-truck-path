@@ -240,10 +240,10 @@
                         <div class="video-wrapper" data-aos="zoom-in" data-aos-delay="100">
                             <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden">
                                 <iframe
-                                    src="https://www.youtube.com/embed/abelH0rm-h0"
+                                    src="https://player.vimeo.com/video/1128248741"
                                     title="USATRUCKPATH Introduction Video"
                                     frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    allow="autoplay; fullscreen; picture-in-picture"
                                     allowfullscreen>
                                 </iframe>
                             </div>
