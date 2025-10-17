@@ -15,6 +15,7 @@ class Course extends Model
         'instructor_id',
         'status',
         'price',
+        'original_price',
         'is_active',
         'description',
         'duration',

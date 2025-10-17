@@ -183,7 +183,16 @@
                                         @endguest --}}
                                         <a href="{{ route('front.course.category', $course->category) }}"
                                             class="btn btn-info">More Details</a>
-                                        <p class="price">${{ $course->price ?? '' }}</p>
+                                        <div class="price-wrapper">
+                                            @if($course->original_price)
+                                                <p class="price mb-0">
+                                                    <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $course->original_price }}</span>
+                                                    <span style="color: #5fcf80; font-weight: bold;">${{ $course->price ?? '' }}</span>
+                                                </p>
+                                            @else
+                                                <p class="price mb-0">${{ $course->price ?? '' }}</p>
+                                            @endif
+                                        </div>
                                     </div>
 
                                     <h3><a

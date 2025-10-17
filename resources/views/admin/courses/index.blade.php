@@ -28,9 +28,10 @@
                                     <th>image</th>
                                     <th>Title</th>
                                     <th>Category</th>
-                                   
+
                                     <th>Status</th>
                                     <th>Price</th>
+                                    <th>Original Price</th>
                                     <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
@@ -41,9 +42,10 @@
                                     <td> <img src="{{ Storage::url($course->image) }}"  style="height: 50px; width: 50px;border-radius: 50%;"/></td>
                                     <td>{{ $course->title }}</td>
                                     <td>{{ $course->category ?? '' }}</td>
-                                   
+
                                     <td>{{ ucfirst($course->status) }}</td>
                                     <td>${{ $course->price }}</td>
+                                    <td>{{ $course->original_price ? '$' . $course->original_price : '-' }}</td>
                                     <td>{{ $course->is_active ? 'Yes' : 'No' }}</td>
                                     <td>
                                         <a href="{{ route('admin.courses.edit', $course) }}"
@@ -62,7 +64,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="7">No Course found !</td>
+                                    <td class="text-center" colspan="8">No Course found !</td>
                                 </tr>
                                 @endforelse
 

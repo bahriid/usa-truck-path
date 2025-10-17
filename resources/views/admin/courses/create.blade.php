@@ -64,6 +64,15 @@
                             </div>
 
                             <div class="form-group mb-3">
+                                <label for="original_price">Original Price (Strikethrough)</label>
+                                <input type="number" step="0.01" name="original_price" class="form-control" id="original_price" value="{{ old('original_price', $course->original_price ?? '') }}">
+                                <small class="text-muted">Leave empty to hide strikethrough price</small>
+                                @error('original_price')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            <div class="form-group mb-3">
                                 <label for="is_active">Active</label>
                                 <select name="is_active" class="form-control" id="is_active" required>
                                     <option value="1" {{ old('is_active', $course->is_active ?? '') == 1 ? 'selected' : '' }}>Yes</option>
