@@ -21,7 +21,13 @@
                             {{-- <strong>Description:</strong> {{$course->description ?? 'No description available.' }}<br> --}}
                             <strong>Description:</strong> {!! $course->description ?? 'No description available.' !!}<br>
 
-                            <strong>Price:</strong> ${{ $course->price }}
+                            <strong>Price:</strong>
+                            @if($course->original_price)
+                                <span style="text-decoration: line-through; color: #999; margin-right: 8px;">${{ $course->original_price }}</span>
+                                <span style="color: #28a745; font-weight: bold; font-size: 1.2em;">${{ $course->price }}</span>
+                            @else
+                                ${{ $course->price }}
+                            @endif
                            
                         </div>
                     </div>

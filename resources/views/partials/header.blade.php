@@ -104,15 +104,21 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
-                    {{-- U.S. CDL Permit Dropdown --}}
-                    @if ($course && $course->count())
+                    {{-- U.S. CDL Permit Dropdown - Only CLP Courses (IDs 9-14) --}}
+                    @php
+                        $clpCourses = App\Models\Course::whereIn('id', [9, 10, 11, 12, 13, 14])
+                            ->where('status', 'active')
+                            ->where('is_active', 1)
+                            ->get();
+                    @endphp
+                    @if ($clpCourses && $clpCourses->count())
                         <li class="dropdown">
                             <a href="#"><span>U.S. CDL Permit</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                             <ul>
-                                @foreach ($course as $menu)
+                                @foreach ($clpCourses as $menu)
                                     <li>
                                         <a href="{{ route('front.course.details', $menu->slug) }}"
-                                           class="{{ request()->is('Courses-details/' . $menu->slug) ? 'active' : '' }}">
+                                           class="{{ request()->is('courses-details/' . $menu->slug) ? 'active' : '' }}">
                                            {{ $menu->menu_name }}
                                         </a>
                                     </li>
@@ -121,12 +127,26 @@
                         </li>
                     @endif
 
-                    <li><a href="{{ route('front.course.details', 'cdl-canada') }}"
-                           class="{{ request()->is('courses-details/cdl-canada') ? 'active' : '' }}">Canada → USA Program</a></li>
-                    <li><a href="{{ route('front.course.details', 'cdl-europe') }}"
-                           class="{{ request()->is('courses-details/cdl-europe') ? 'active' : '' }}">Europe → USA Program</a></li>
-                    <li><a href="{{ route('front.course.details', 'cdl-global') }}"
-                           class="{{ request()->is('courses-details/cdl-global') ? 'active' : '' }}">Global CDL Training</a></li>
+                    @php
+                        $canadaCourse = App\Models\Course::find(15);
+                        $europeCourse = App\Models\Course::find(16);
+                        $globalCourse = App\Models\Course::find(17);
+                    @endphp
+
+                    @if($canadaCourse)
+                    <li><a href="{{ route('front.course.details', $canadaCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada → USA Program</a></li>
+                    @endif
+
+                    @if($europeCourse)
+                    <li><a href="{{ route('front.course.details', $europeCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe → USA Program</a></li>
+                    @endif
+
+                    @if($globalCourse)
+                    <li><a href="{{ route('front.course.details', $globalCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Global CDL Training</a></li>
+                    @endif
 
                     <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
                     <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') || request()->routeIs('front.contact_us') ? 'active' : '' }}">Why Us</a></li>
