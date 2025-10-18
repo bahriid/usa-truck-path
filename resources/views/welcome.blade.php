@@ -120,7 +120,7 @@
                                     <!--{{ $slider->title }} -->
                                     {!! $slider->title !!}
                                 </h2>
-                                <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">{{ $slider->subtitle }}</p> 
+                                <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">{{ $slider->subtitle }}</p>
                                 <a href="#scrollelem" class="hero-btn" data-aos="fade-up" data-aos-delay="300">Get
                                     Started</a>
                                 <!--<button onclick = "document.getElementById('about').scrollIntoView({behavior:'smooth'})" class="hero-btn" data-aos="fade-up" data-aos-delay="300">Get Started</button>-->
@@ -163,7 +163,7 @@
                                             <a href="{{ route('register') }}?course_id={{ $course->id }}"
                                                 class="btn btn-primary">Login to Enroll</a>
 
-                                             
+
                                         @else
                                             @if (auth()->user()->hasApprovedCourse($course->id))
                                                 <button class="btn btn-success" disabled>Already Enrolled</button>
@@ -249,7 +249,7 @@
                         <div class="video-wrapper" data-aos="zoom-in" data-aos-delay="100">
                             <div class="ratio ratio-16x9 shadow-lg rounded overflow-hidden">
                                 <iframe
-                                    src="https://player.vimeo.com/video/1128248741"
+                                    src="https://player.vimeo.com/video/1128489796"
                                     title="USATRUCKPATH Introduction Video"
                                     frameborder="0"
                                     allow="autoplay; fullscreen; picture-in-picture"
@@ -774,7 +774,7 @@
                                     <p class="text-muted mb-0">Original price $297, now only $80.
                                         You’ll get full access to:
                                         <p>Video course, Audio course, Downloadable eBook, Covers all topics: General Knowledge, Air Brakes, Combination, Hazmat (H), Tanker (N), Doubles & Triples (T), Passenger (P), School Bus (S), Tanker + Hazmat (X)</p>
-                                         
+
                                     <!-- <ul>
                                         <li>Video course</li>
                                         <li>Audio course</li>
