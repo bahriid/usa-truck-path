@@ -962,7 +962,7 @@
                         {{ $course->title }}</h1>
 
                     <p class="lead mb-4">
-                        You don't need to be a truck driver to start. If you're over 21 and speak basic English, this course shows you exactly how to move to the USA or Canada and become a professional truck driver. We'll help you with the visa process, CDL school, and connect you to real hiring companies — with lifetime mentorship and daily support.
+                        {{ $course->short_description }}
                     </p>
 
                     <nav aria-label="breadcrumb">
@@ -1660,7 +1660,7 @@
                             {{ $course->title }}</h1>
 
                         <p class="lead mb-4">
-                            You don't need to be a truck driver to start. If you're over 21 and speak basic English, this course shows you exactly how to move to the USA or Canada and become a professional truck driver. We'll help you with the visa process, CDL school, and connect you to real hiring companies — with lifetime mentorship and daily support.
+                            {{ $course->short_description }}
                         </p>
 
                         <nav aria-label="breadcrumb">
@@ -1857,33 +1857,10 @@
 
 
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
-
+                                                                                <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
                                         <p class="card-text lead text-secondary">
-                                            Many people from Africa, the Middle East, and around the world dream of working in North America's trucking industry — but don't know where to start. This course and mentorship program gives you a clear roadmap. You'll learn how to legally move, get your CDL license, and start earning with trusted U.S. or Canadian trucking companies.
+                                            You don't need to be a truck driver to start. If you're over 21 and speak basic English, this course shows you exactly how to move to the USA or Canada and become a professional truck driver. We'll help you with the visa process, CDL school, and connect you to real hiring companies — with lifetime mentorship and daily support.
                                         </p>
-
-                                        <p class="card-text lead text-secondary mt-3">
-                                            Our team supports you from the first step until you're hired — because it's our job to find you a company that will hire you.
-                                        </p>
-
-                                        <p class="card-text lead text-secondary mt-3">
-                                            <strong>You'll learn:</strong>
-                                        </p>
-
-                                        <ul class="text-secondary">
-                                            <li>How to apply for a U.S. or Canadian work visa</li>
-                                            <li>How to choose the right CDL school and complete your training successfully</li>
-                                            <li>What documents you'll need: passport, background check, and medical exam</li>
-                                            <li>How to pass your CDL test and qualify for company-sponsored programs</li>
-                                            <li>How we help you find verified trucking companies that hire international drivers</li>
-                                            <li>How to prepare for relocation, housing, and life in North America</li>
-                                        </ul>
-
-                                        <p class="card-text lead text-secondary mt-3">
-                                            After enrolling, you'll join our private Telegram mentorship group, where we'll help you daily until you arrive, get trained, and start driving for your first company.
-                                        </p>
-
                                     </div>
 
                                     <div class="mt-4 ">
@@ -3128,107 +3105,6 @@
 
 
 
-        <div class="pricing-head">
-
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-
-
-        </div>
-
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-
-        <section class="pricing-section mt-4 row justify-content-center ">
-
-            <div class="col-md-6 img-container">
-
-
-
-                {{-- <div class="text-center mb-3"> --}}
-
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-
-                    class="img-fluid rounded object-fit-cover mb-3">
-
-                {{-- </div> --}}
-
-            </div>
-
-
-
-            <div class="col-md-6">
-
-
-
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
-
-               <p><p>Get ready to pass your <b>CDL exams worldwide</b> with this all-in-one study program. Whether you’re preparing in the <b>United States, Canada, Europe, or internationally</b>, you’ll have access to <b>video lessons</b>, <b>audiobooks</b>, and <b>eBooks</b> designed to fit your study style and pace.</p>
-
-
-
-<p>This course covers <b>General Knowledge</b>, <b>Air Brakes</b>, <b>Combination Vehicles</b>, <b>Doubles/Triples</b>, <b>Hazmat / Dangerous Goods</b>, <b>Tanker</b>, <b>Passenger</b>, and <b>School Bus endorsements</b>, along with <b>real exam-style practice questions and answers</b>. Content is updated regularly to reflect <b>global CDL standards</b> and regional requirements.</p>
-
-
-
-<p>Accessible on <b>phone, tablet, or computer</b>, with <b>lifetime access for a one-time payment</b>. No matter where you are in the world, <b>CDL Global</b> makes it simple, flexible, and effective to study and pass with confidence.</p></p>
-
-
-
-
-
-                <div class="text-center">
-
-                    <h5 class="mb-3">
-
-                        <strong>Price:</strong> ${{ $course->price }}
-
-                    </h5>
-
-
-
-                    @guest
-
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-
-                            Enroll</a>
-
-                    @else
-
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
-
-                        @else
-
-                            @if ($course->status === 'upcoming')
-
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
-
-                            @else
-
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
-
-                                    class="btn btn-primary w-100">Enroll
-
-                                    Now</a>
-
-                            @endif
-
-                        @endif
-
-                    @endguest
-
-                </div>
-
-            </div>
-
-
-
-        </section>
 
         <!-- Closing Section / Call to Action -->
         <section class="py-5 bg-light text-center">

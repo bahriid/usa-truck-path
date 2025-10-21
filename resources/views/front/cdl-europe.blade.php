@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        You don't need trucking experience. If you're over 21 and speak basic English, this course shows you how to move to the USA or Canada and start your driving career. We'll handle everything — from training guidance to helping you find a company that hires international drivers. Lifetime mentorship and daily support included through our private Telegram group.
+                        {{ $course->short_description }}
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            You don't need trucking experience. If you're over 21 and speak basic English, this course shows you how to move to the USA or Canada and start your driving career. We'll handle everything — from training guidance to helping you find a company that hires international drivers. Lifetime mentorship and daily support included through our private Telegram group.
+                            {{ $course->short_description }}
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -935,26 +935,9 @@
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
                                     <div>
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                                                                <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
                                         <p class="card-text lead text-secondary">
-                                            Starting a new life in the USA or Canada as a truck driver is 100% possible — even if you've never driven a truck before. This course and mentorship program walks you through every step, from visa and relocation to CDL training and job placement.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            You'll get full guidance and real support — because it's our job to find you a trucking company that will hire you.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            <strong>You'll learn:</strong>
-                                        </p>
-                                        <ul class="text-secondary">
-                                            <li>How to apply for a U.S. or Canadian work visa</li>
-                                            <li>How to choose the best CDL school and complete your training</li>
-                                            <li>What documents you'll need: passport, background check, medical exam</li>
-                                            <li>How to pass your CDL test and qualify for company-sponsored positions</li>
-                                            <li>How we help you find verified trucking companies that hire international students</li>
-                                            <li>How to prepare for relocation, housing, and living costs in North America</li>
-                                        </ul>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            After enrollment, you'll join our private Telegram mentorship group, where we guide you daily, answer your questions, and connect you directly with hiring companies until you start driving.
+                                            You don't need trucking experience. If you're over 21 and speak basic English, this course shows you how to move to the USA or Canada and start your driving career. We'll handle everything — from training guidance to helping you find a company that hires international drivers. Lifetime mentorship and daily support included through our private Telegram group.
                                         </p>
                                     </div>
                                     <div class="mt-4 ">
@@ -1578,64 +1561,6 @@
         </section>
 
 
-        <div class="pricing-head">
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-        </div>
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-        <section class="pricing-section mt-4 row justify-content-center ">
-            <div class="col-md-6 img-container">
-
-                {{-- <div class="text-center mb-3"> --}}
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
-                {{-- </div> --}}
-            </div>
-
-            <div class="col-md-6">
- 
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
-
-                <p class="mb-3 text-justify">Get ready to pass your European CDL / Driver CPC exams with this complete study program.</p>
-
-                <p class="mb-3 text-justify">Learn with video lessons, audiobooks, and eBooks, all designed to help you study at your own pace.</p>
-
-                <p class="mb-3 text-justify">This course includes Driver CPC theory test coverage, hazard perception training, case studies, and specialist modules such as Passenger Transport and Freight Transport.</p>
-
-                <p class="mb-3 text-justify">You'll also get real exam-style practice questions and answers, updated regularly to meet EU and UK standards.</p>
-
-                <p class="mb-4 text-justify">Accessible on phone, tablet, or computer, with lifetime access for a one-time payment. Study anywhere, anytime, and pass with confidence.</p>
-
-                <p class="text-center mb-0">Start today and drive your career forward!</p>
-
-
-                <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
-                                    class="btn btn-primary w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
-        </section>
 
         <!-- Closing Section / Call to Action -->
         <section class="py-5 bg-light text-center">

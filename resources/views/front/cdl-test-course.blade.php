@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        This course and mentorship program walks you through everything you need to start your own trucking company in the U.S. You'll learn how to open your LLC, get USDOT and MC numbers, choose the best insurance, and buy the right truck. You'll also join our private Telegram group for lifetime guidance and daily business support.
+                        {{ $course->short_description }}
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            This course and mentorship program walks you through everything you need to start your own trucking company in the U.S. You'll learn how to open your LLC, get USDOT and MC numbers, choose the best insurance, and buy the right truck. You'll also join our private Telegram group for lifetime guidance and daily business support.
+                            {{ $course->short_description }}
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -881,12 +881,21 @@
 
             <div class="col-md-6">
 
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
-                <p><p>Get ready to pass your <b>CDL exams worldwide</b> with this all-in-one study program. Whether you’re preparing in the <b>United States, Canada, Europe, or internationally</b>, you’ll have access to <b>video lessons</b>, <b>audiobooks</b>, and <b>eBooks</b> designed to fit your study style and pace.</p>
+                <h4 class="mb-3 text-center">What's Included in This Course:</h4>
 
-<p>This course covers <b>General Knowledge</b>, <b>Air Brakes</b>, <b>Combination Vehicles</b>, <b>Doubles/Triples</b>, <b>Hazmat / Dangerous Goods</b>, <b>Tanker</b>, <b>Passenger</b>, and <b>School Bus endorsements</b>, along with <b>real exam-style practice questions and answers</b>. Content is updated regularly to reflect <b>global CDL standards</b> and regional requirements.</p>
+                <p class="mb-3 text-justify">Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.</p>
 
-<p>Accessible on <b>phone, tablet, or computer</b>, with <b>lifetime access for a one-time payment</b>. No matter where you are in the world, <b>CDL Global</b> makes it simple, flexible, and effective to study and pass with confidence.</p></p>
+                <p class="mb-3 text-justify"><strong>You'll learn:</strong></p>
+                <ul class="text-justify">
+                    <li>How to form your LLC, EIN, and business bank account</li>
+                    <li>How to apply for USDOT, MC Authority, BOC-3, UCR, IRP, and IFTA</li>
+                    <li>How to choose the best insurance and drug consortium (C/TPA)</li>
+                    <li>How to buy the best truck — new or used — and what to inspect before purchase</li>
+                    <li>How to find loads, work with dispatchers, and connect with direct shippers</li>
+                    <li>How to stay compliant with ELD, maintenance, and safety records</li>
+                </ul>
+
+                <p class="mb-3 text-justify">Once enrolled, you'll be added to our private Telegram mentorship group where we'll help you daily until your business is fully running.</p>
 
                 <div class="text-center">
                     <h5 class="mb-3">
@@ -931,21 +940,7 @@
 
                                         <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
                                         <p class="card-text lead text-secondary">
-                                            Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            <strong>You'll learn:</strong>
-                                        </p>
-                                        <ul class="text-secondary">
-                                            <li>How to form your LLC, EIN, and business bank account</li>
-                                            <li>How to apply for USDOT, MC Authority, BOC-3, UCR, IRP, and IFTA</li>
-                                            <li>How to choose the best insurance and drug consortium (C/TPA)</li>
-                                            <li>How to buy the best truck — new or used — and what to inspect before purchase</li>
-                                            <li>How to find loads, work with dispatchers, and connect with direct shippers</li>
-                                            <li>How to stay compliant with ELD, maintenance, and safety records</li>
-                                        </ul>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            Once enrolled, you'll be added to our private Telegram mentorship group where we'll help you daily until your business is fully running.
+                                            This course and mentorship program walks you through everything you need to start your own trucking company in the U.S. You'll learn how to open your LLC, get USDOT and MC numbers, choose the best insurance, and buy the right truck. You'll also join our private Telegram group for lifetime guidance and daily business support.
                                         </p>
                                     </div>
                                     <div class="mt-4 ">
@@ -1569,57 +1564,6 @@
         </section>
 
 
-        <div class="pricing-head">
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-        </div>
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-        <section class="pricing-section mt-4 row justify-content-center ">
-            <div class="col-md-6 img-container">
-
-                {{-- <div class="text-center mb-3"> --}}
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
-                {{-- </div> --}}
-            </div>
-
-            <div class="col-md-6">
-
-                <h4 class="mb-3 text-center">What’s Included in This Course:</h4>
-               <p><p>Get ready to pass your <b>CDL exams worldwide</b> with this all-in-one study program. Whether you’re preparing in the <b>United States, Canada, Europe, or internationally</b>, you’ll have access to <b>video lessons</b>, <b>audiobooks</b>, and <b>eBooks</b> designed to fit your study style and pace.</p>
-
-<p>This course covers <b>General Knowledge</b>, <b>Air Brakes</b>, <b>Combination Vehicles</b>, <b>Doubles/Triples</b>, <b>Hazmat / Dangerous Goods</b>, <b>Tanker</b>, <b>Passenger</b>, and <b>School Bus endorsements</b>, along with <b>real exam-style practice questions and answers</b>. Content is updated regularly to reflect <b>global CDL standards</b> and regional requirements.</p>
-
-<p>Accessible on <b>phone, tablet, or computer</b>, with <b>lifetime access for a one-time payment</b>. No matter where you are in the world, <b>CDL Global</b> makes it simple, flexible, and effective to study and pass with confidence.</p></p>
-
-
-                <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
-                                    class="btn btn-primary w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
-        </section>
 
         <!-- Closing Section / Call to Action -->
         <section class="py-5 bg-light text-center">

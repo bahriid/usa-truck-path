@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        Whether you live in the USA, Africa, Europe, the Middle East, or anywhere in the world — you can become a freight broker or dispatcher. Our step-by-step course teaches you how the business works, how to find clients, and how to start earning. With our mentorship, you'll get real support, job leads, and guidance to build your own company.
+                        {{ $course->short_description }}
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            Whether you live in the USA, Africa, Europe, the Middle East, or anywhere in the world — you can become a freight broker or dispatcher. Our step-by-step course teaches you how the business works, how to find clients, and how to start earning. With our mentorship, you'll get real support, job leads, and guidance to build your own company.
+                            {{ $course->short_description }}
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -864,65 +864,6 @@
             </div>
         </section>
 
-
-        <div class="pricing-head">
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-        </div>
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-        <section class="pricing-section mt-4 row justify-content-center ">
-            <div class="col-md-6 img-container">
-
-                {{-- <div class="text-center mb-3"> --}}
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
-                {{-- </div> --}}
-            </div>
-
-            <div class="col-md-6">
-
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
-
-                <p class="mb-3 text-justify">Get ready to pass your Canadian Commercial Driver's Licence (CDL) exams with this complete, easy-to-follow course designed for drivers across Canada.</p>
-
-                <p class="mb-3 text-justify">You'll learn everything through video lessons, audiobooks, and eBooks in English and French.</p>
-
-                <p class="mb-3 text-justify">Course covers General Knowledge test, Air Brakes, Combination Vehicles, Dangerous Goods, Passenger, and School Bus endorsements — all updated to meet Canadian provincial and federal standards.</p>
-
-                <p class="mb-3 text-justify">Practice materials include real exam-style practice questions and answers — just like the actual test.</p>
-
-                <p class="mb-4 text-justify">Study on your phone, tablet, or computer. Lifetime access for a one-time payment.</p>
-
-                <p class="text-center mb-0">This is the fastest and most convenient way to prepare for your CDL in Canada. Start today and pass with confidence!</p>
-
-                <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta   mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta   mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
-        </section>
-
         <section class="bg-light">
 
             <section class="course-details py-5 bg-light ">
@@ -936,26 +877,9 @@
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
                                     <div>
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                                                                <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
                                         <p class="card-text lead text-secondary">
-                                            The trucking industry runs on brokers and dispatchers — and thousands of people worldwide are building six-figure incomes in this field without owning a truck. This course and mentorship program teaches you both sides of the business — how to dispatch loads for drivers and how to broker freight between shippers and carriers.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            You can do this from anywhere — at home, in the USA, or overseas. Many successful dispatchers and brokers are based outside the U.S., working remotely with American trucking companies. We'll show you how to get started, what tools you need, and how to build your own brand or land clients who pay you every week.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            <strong>You'll learn:</strong>
-                                        </p>
-                                        <ul class="text-secondary">
-                                            <li>The difference between freight brokering and dispatching</li>
-                                            <li>How to get licensed as a broker or work as an independent dispatcher</li>
-                                            <li>How to find carriers, shippers, and loads online</li>
-                                            <li>How to negotiate rates and build business relationships</li>
-                                            <li>How to use load boards, contracts, and dispatch tools effectively</li>
-                                            <li>How to start your own company or find job opportunities</li>
-                                        </ul>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            Once you join, you'll be added to our private Telegram mentorship group, where you'll get daily support, business advice, and real-world job connections.
+                                            Whether you live in the USA, Africa, Europe, the Middle East, or anywhere in the world — you can become a freight broker or dispatcher. Our step-by-step course teaches you how the business works, how to find clients, and how to start earning. With our mentorship, you'll get real support, job leads, and guidance to build your own company.
                                         </p>
                                     </div>
                                     <div class="mt-4 ">
@@ -1576,66 +1500,6 @@
                     <div class="swiper-button-next swiper-nav-button"></div>
                 </div>
             </div>
-        </section>
-
-
-        <div class="pricing-head">
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-        </div>
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-        <section class="pricing-section mt-4 row justify-content-center ">
-            <div class="col-md-6 img-container">
-
-                {{-- <div class="text-center mb-3"> --}}
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
-                {{-- </div> --}} 
-            </div>
-
-            <div class="col-md-6">
-
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
-
-                <p class="mb-3 text-justify">Get ready to pass your Commercial Learner's Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states.</p>
-
-                <p class="mb-3 text-justify">You'll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Arabic.</p>
-
-                <p class="mb-3 text-justify">This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements.</p>
-
-                <p class="mb-3 text-justify">It includes real DMV-style practice questions and answers—just like the actual test.</p>
-
-                <p class="mb-4 text-justify">Accessible on your phone, tablet, or computer, with lifetime access for a one-time payment. This is the fastest and most convenient way to prepare.</p>
-
-                <p class="text-center mb-0">Start today and pass with confidence!</p>
-
-
-                <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
-                                    class="btn btn-primary w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
         </section>
 
         <!-- Closing Section / Call to Action -->

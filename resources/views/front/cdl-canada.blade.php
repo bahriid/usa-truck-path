@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        If you're a Canadian driver dreaming of working in the U.S., this course shows you exactly how to do it. Learn the visa options, job requirements, and application process step by step. We'll help you connect with trusted trucking companies and guide you until you start driving in the U.S. Plus, lifetime mentorship via our private Telegram group.
+                        {{ $course->short_description }}
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            If you're a Canadian driver dreaming of working in the U.S., this course shows you exactly how to do it. Learn the visa options, job requirements, and application process step by step. We'll help you connect with trusted trucking companies and guide you until you start driving in the U.S. Plus, lifetime mentorship via our private Telegram group.
+                            {{ $course->short_description }}
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -881,80 +881,23 @@
 
             <div class="col-md-6">
 
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
+                                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
 
-                <p class="mb-3 text-justify">Get ready to pass your Canadian Commercial Driver's Licence (CDL) exams with this complete, easy-to-follow course designed for drivers across Canada.</p>
+                <p class="mb-3 text-justify">Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.</p>
 
-                <p class="mb-3 text-justify">You'll learn everything through video lessons, audiobooks, and eBooks in English and French.</p>
+                <p class="mb-3 text-justify"><strong>You'll learn:</strong></p>
+                <ul class="text-justify">
+                    <li>How to qualify and apply for the right work visa or cross-border permits</li>
+                    <li>How to convert your Canadian Class 1 license to a U.S. CDL</li>
+                    <li>How to find trusted U.S. trucking companies hiring Canadian drivers</li>
+                    <li>What documents you need: passport, medical card, background checks, and insurance</li>
+                    <li>How to prepare for your move — housing, taxes, and pay expectations</li>
+                    <li>How to avoid mistakes that delay your approval or job offer</li>
+                </ul>
 
-                <p class="mb-3 text-justify">Course covers General Knowledge test, Air Brakes, Combination Vehicles, Dangerous Goods, Passenger, and School Bus endorsements — all updated to meet Canadian provincial and federal standards.</p>
-
-                <p class="mb-3 text-justify">Practice materials include real exam-style practice questions and answers — just like the actual test.</p>
-
-                <p class="mb-4 text-justify">Study on your phone, tablet, or computer. Lifetime access for a one-time payment.</p>
-
-                <p class="text-center mb-0">This is the fastest and most convenient way to prepare for your CDL in Canada. Start today and pass with confidence!</p>
+                <p class="mb-3 text-justify">After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.</p>
 
                 <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta   mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta   mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
-        </section>
-
-        <section class="bg-light">
-
-            <section class="course-details py-5 bg-light ">
-                <div class="container mx-auto">
-                    <div class="row">
-
-                        <!-- Left Column: Description + Curriculum -->
-                        <div class="col-lg-12 mb-5">
-
-                            <div class="row g-4  align-items-center">
-                                <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
-                                    <div>
-
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
-                                        <p class="card-text lead text-secondary">
-                                            Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.
-                                        </p>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            <strong>You'll learn:</strong>
-                                        </p>
-                                        <ul class="text-secondary">
-                                            <li>How to qualify and apply for the right work visa or cross-border permits</li>
-                                            <li>How to convert your Canadian Class 1 license to a U.S. CDL</li>
-                                            <li>How to find trusted U.S. trucking companies hiring Canadian drivers</li>
-                                            <li>What documents you need: passport, medical card, background checks, and insurance</li>
-                                            <li>How to prepare for your move — housing, taxes, and pay expectations</li>
-                                            <li>How to avoid mistakes that delay your approval or job offer</li>
-                                        </ul>
-                                        <p class="card-text lead text-secondary mt-3">
-                                            After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.
-                                        </p>
-                                    </div>
                                     <div class="mt-4 ">
                                         @guest
                                             <a href="{{ route('register') }}?course_id={{ $course->id }}"
@@ -1576,64 +1519,6 @@
         </section>
 
 
-        <div class="pricing-head">
-            <h2 class="mt-4 text-success">Choose Your Plan</h2>
-
-        </div>
-        {{-- <h2 class="pricing-heading">Choose Your Plan!</h2> --}}
-        <section class="pricing-section mt-4 row justify-content-center ">
-            <div class="col-md-6 img-container">
-
-                {{-- <div class="text-center mb-3"> --}}
-                <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
-                {{-- </div> --}} 
-            </div>
-
-            <div class="col-md-6">
-
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
-
-                <p class="mb-3 text-justify">Get ready to pass your Commercial Learner's Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states.</p>
-
-                <p class="mb-3 text-justify">You'll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Arabic.</p>
-
-                <p class="mb-3 text-justify">This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements.</p>
-
-                <p class="mb-3 text-justify">It includes real DMV-style practice questions and answers—just like the actual test.</p>
-
-                <p class="mb-4 text-justify">Accessible on your phone, tablet, or computer, with lifetime access for a one-time payment. This is the fastest and most convenient way to prepare.</p>
-
-                <p class="text-center mb-0">Start today and pass with confidence!</p>
-
-
-                <div class="text-center">
-                    <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
-                    </h5>
-
-                    @guest
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
-                            @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
-                                    class="btn btn-primary w-100">Enroll
-                                    Now</a>
-                            @endif
-                        @endif
-                    @endguest
-                </div>
-            </div>
-
-        </section>
 
         <!-- Closing Section / Call to Action -->
         <section class="py-5 bg-light text-center">
