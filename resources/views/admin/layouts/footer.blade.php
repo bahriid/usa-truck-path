@@ -5,8 +5,8 @@
     <!--end::To the end-->
     <!--begin::Copyright-->
      <strong>
-         
-        <p>© <span>Copyright</span> <strong class="px-1 sitename">PassYourPermit</strong> <span>All Rights Reserved</span></p>
+
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">USA Truck Path</strong> <span>All Rights Reserved</span></p>
     </strong>
     <!--end::Copyright-->
 </footer>

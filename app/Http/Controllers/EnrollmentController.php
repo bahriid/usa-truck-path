@@ -327,7 +327,7 @@ class EnrollmentController extends Controller
     //         'amount' => $request->price * 100,
     //         'currency' => 'usd',
     //         'source' => $request->stripeToken,
-    //         'description' => 'payment from passyourpermit.com'
+    //         'description' => 'payment from usatruckpath.com'
     //     ]);
 
     //     return back()->with('success', 'payment done successfully');

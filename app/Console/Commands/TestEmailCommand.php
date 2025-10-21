@@ -33,9 +33,10 @@ class TestEmailCommand extends Command
         $this->info("Sending test email to: {$email}");
 
         try {
-            Mail::raw('This is a test email from PassYourPermit. If you received this, your email configuration is working correctly!', function ($message) use ($email) {
+            Mail::raw('This is a test email from ' . config('app.name') . '. If you received this, your email configuration is working correctly!', function ($message) use ($email) {
                 $message->to($email)
-                    ->subject('Test Email - PassYourPermit');
+                    ->subject('Test Email - ' . config('app.name'))
+                    ->replyTo(config('mail.from.address'), config('mail.from.name'));
             });
 
             $this->info("✓ Email sent successfully!");

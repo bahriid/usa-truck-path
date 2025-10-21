@@ -68,14 +68,14 @@ class ContactController extends Controller
 
         // Send email to Admin
 
-        $adminRecipients = [ 
-            $setting->contact_email?? 'info@passyourpermit.com',
+        $adminRecipients = [
+            $setting->contact_email?? 'info@usatruckpath.com',
             'AbaadirAcademy@gmail.com',
             // 'iammianhamza@gmail.com'
         ]; 
         Mail::to($adminRecipients)->send(new ContactAdminMail($data));
 
-        // Mail::to($setting->contact_email?? 'info@passyourpermit.com')->send(new ContactAdminMail($data));
+        // Mail::to($setting->contact_email?? 'info@usatruckpath.com')->send(new ContactAdminMail($data));
 
 
 

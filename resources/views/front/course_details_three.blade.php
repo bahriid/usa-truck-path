@@ -1,4 +1,4 @@
-ï»¿@extends('partials.master')
+@extends('partials.master')
 
 @push('styles')
     <style>
@@ -646,9 +646,9 @@
                 <div class="row justify-content-center mb-5">
                     <div class="col-lg-8 text-center">
                         <div class="section-title">
-                            <h2 class="fw-bold text-success mb-3">Why Choose PASS YOUR PERMIT?</h2>
+                            <h2 class="fw-bold text-success mb-3">Why Choose USA Truck Path?</h2>
                             <p class="lead text-muted">Your Fast-Track to a Truck Driving Career Starts Here
-                                We empower future truck drivers with an easy, effective, and guaranteed way to pass the DMV examâ€”regardless of language or background.</p>
+                                We empower future truck drivers with an easy, effective, and guaranteed way to pass the DMV exam—regardless of language or background.</p>
                         </div>
                     </div>
                 </div>
@@ -661,7 +661,7 @@
                                     <i class="bi bi-translate"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
-                                <p class="text-muted small">Study in your preferred languageâ€”English, Arabic, Somali, Amharic, French, or Nepaliâ€”with complete support for non-native speakers.
+                                <p class="text-muted small">Study in your preferred language—English, Arabic, Somali, Amharic, French, or Nepali—with complete support for non-native speakers.
                                 </p>
                             </div>
                         </div>
@@ -674,7 +674,7 @@
                                     <i class="bi bi-chat-left-text-fill"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Real DMV Test Questions & Answers</h5>
-                                <p class="text-muted small">Our course includes the actual test format and questions used by DMVs across all states, ensuring youâ€™re fully prepared.
+                                <p class="text-muted small">Our course includes the actual test format and questions used by DMVs across all states, ensuring you’re fully prepared.
                                 </p>
                             </div>
                         </div>
@@ -699,7 +699,7 @@
                                     <i class="bi bi-shield-fill-check"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
-                                <p class="text-muted small">Weâ€™re so confident in our system that we guarantee youâ€™ll pass your DMV test on the first tryâ€”or get extended access for free.
+                                <p class="text-muted small">We’re so confident in our system that we guarantee you’ll pass your DMV test on the first try—or get extended access for free.
                                 </p>
                             </div>
                         </div>
@@ -712,7 +712,7 @@
                                     <i class="bi bi-award-fill"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Learn at Your Own Pace</h5>
-                                <p class="text-muted small">Whether you have a full-time job or a busy life, our platform lets you study anytime, anywhereâ€”on any device.</p>
+                                <p class="text-muted small">Whether you have a full-time job or a busy life, our platform lets you study anytime, anywhere—on any device.</p>
                             </div>
                         </div>
                     </div>
@@ -724,7 +724,7 @@
                                     <i class="bi  bi-truck-front-fill"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck driversâ€”so youâ€™re not just passing a test, youâ€™re preparing for a career on the road.</p>
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so you’re not just passing a test, you’re preparing for a career on the road.</p>
                             </div>
                         </div>
                     </div>
@@ -738,7 +738,7 @@
                     <div class=" ">
                         <h2 class="fw-bold text-success mb-3 text-center">Interested in Preparing for Your CDL Permit Exam?</h2>
                         <p class="text-muted why-info-p">
-                            Are you ready to start your journey toward becoming a professional truck driver? Our CDL permit training courses are designed to help students pass their commercial learner's permit (CLP) exams with ease. We provide comprehensive courses that teach all the questions and exact answers found on the CDL permit tests. Our courses are available in multiple languages, including English, Arabic, French, Amharic, Somali, and Nepaliâ€”making it easier for students from all backgrounds to succeed
+                            Are you ready to start your journey toward becoming a professional truck driver? Our CDL permit training courses are designed to help students pass their commercial learner's permit (CLP) exams with ease. We provide comprehensive courses that teach all the questions and exact answers found on the CDL permit tests. Our courses are available in multiple languages, including English, Arabic, French, Amharic, Somali, and Nepali—making it easier for students from all backgrounds to succeed
                         </p>
                         <p class="text-muted text-center mb-0 mt-2" style="font-weight: 700; font-size:2rem; ">Here's what you need to do to get started:</p>
                     </div>
@@ -1110,7 +1110,7 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                 </div>
-                                <p class="text-muted mb-3">"Iâ€™m so glad I found PassYourPermit.com! The practice questions were just like the real test and gave me the confidence I needed. I passed my permit test on the first try and even joined their trucking school, CDL City Truck Driving School, which is very affordable. Now I have my CDL, and I couldnâ€™t be happier!"
+                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice questions were just like the real test and gave me the confidence I needed. I passed my permit test on the first try and even joined their trucking school, CDL City Truck Driving School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
@@ -1131,7 +1131,7 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Carlos Mendoza</h6>
                                 </div>
-                                <p class="text-muted mb-3">"Iâ€™m originally from Honduras and live in Columbus, Ohio. I had tried a couple of other programs to pass my CDL permit test, but they didnâ€™t work for me. Then I found PassYourPermit.com, and it changed everything! The questions were just like the real test, and the lessons were easy to understand. I passed my permit test on the first try and joined CDL City Truck Driving School here in Columbus. Now I have my CDL, and I couldnâ€™t be happier!"</p>
+                                <p class="text-muted mb-3">"I’m originally from Honduras and live in Columbus, Ohio. I had tried a couple of other programs to pass my CDL permit test, but they didn’t work for me. Then I found USATruckPath.com, and it changed everything! The questions were just like the real test, and the lessons were easy to understand. I passed my permit test on the first try and joined CDL City Truck Driving School here in Columbus. Now I have my CDL, and I couldn’t be happier!"</p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -1151,7 +1151,7 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Ahmed Hassan</h6>
                                 </div>
-                                <p class="text-muted mb-3">"Iâ€™m originally from Egypt and lived in Dearborn, Michigan, working as a DoorDash delivery driver. I was tired of the long hours and low pay and wanted a better career. Thatâ€™s when I found PassYourPermit.com and bought the Arabic version of the guide. It was perfect for me! The questions were just like the real test, and the lessons were so easy to follow in my own language. I passed my CDL permit test on the first try and joined CDL City Truck Driving School. Now I have my CDL and a new career Iâ€™m proud of. Thank you, PassYourPermit!"
+                                <p class="text-muted mb-3">"I’m originally from Egypt and lived in Dearborn, Michigan, working as a DoorDash delivery driver. I was tired of the long hours and low pay and wanted a better career. That’s when I found USATruckPath.com and bought the Arabic version of the guide. It was perfect for me! The questions were just like the real test, and the lessons were so easy to follow in my own language. I passed my CDL permit test on the first try and joined CDL City Truck Driving School. Now I have my CDL and a new career I’m proud of. Thank you, USATruckPath!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
@@ -1172,7 +1172,7 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                 </div>
-                                <p class="text-muted mb-3">"Iâ€™m so glad I found PassYourPermit.com! The practice questions were just like the real test and gave me the confidence I needed. I passed my permit test on the first try and even joined their trucking school, CDL City Truck Driving School, which is very affordable. Now I have my CDL, and I couldnâ€™t be happier!"
+                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice questions were just like the real test and gave me the confidence I needed. I passed my permit test on the first try and even joined their trucking school, CDL City Truck Driving School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>

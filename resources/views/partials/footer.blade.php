@@ -33,8 +33,8 @@
                     <li class="mb-2"><i class="bi bi-telephone text-success"></i> {{ $setting->contact_phone ?? '1-669-204-5626' }}</li>
                     <li class="mb-2">
                         <i class="bi bi-envelope text-success"></i>
-                        <a href="mailto:{{ $setting->contact_email ?? 'info@passyourpermit.com' }}" class="text-light text-decoration-none">
-                            {{ $setting->contact_email ?? 'info@passyourpermit.com' }}
+                        <a href="mailto:{{ $setting->contact_email ?? 'info@usatruckpath.com' }}" class="text-light text-decoration-none">
+                            {{ $setting->contact_email ?? 'info@usatruckpath.com' }}
                         </a>
                     </li>
                 </ul>

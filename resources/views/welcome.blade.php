@@ -493,10 +493,10 @@
                                     </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span>"I’m so glad I found PassYourPermit.com! The practice questions were just like
+                                        <span>"I'm so glad I found USATruckPath.com! The practice questions were just like
                                             the real test and gave me the confidence I needed. I passed my permit test on
                                             the first try and even joined their trucking school, CDL City Truck Driving
-                                            School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                            School, which is very affordable. Now I have my CDL, and I couldn't be happier!"
                                         </span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>
@@ -518,12 +518,12 @@
                                     </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span>"I’m originally from Honduras and live in Columbus, Ohio. I had tried a couple
-                                            of other programs to pass my CDL permit test, but they didn’t work for me. Then
-                                            I found PassYourPermit.com, and it changed everything! The questions were just
+                                        <span>"I'm originally from Honduras and live in Columbus, Ohio. I had tried a couple
+                                            of other programs to pass my CDL permit test, but they didn't work for me. Then
+                                            I found USATruckPath.com, and it changed everything! The questions were just
                                             like the real test, and the lessons were easy to understand. I passed my permit
                                             test on the first try and joined CDL City Truck Driving School here in Columbus.
-                                            Now I have my CDL, and I couldn’t be happier!"</span>
+                                            Now I have my CDL, and I couldn't be happier!"</span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>
                                 </div>
@@ -544,13 +544,13 @@
                                     </div>
                                     <p>
                                         <i class="bi bi-quote quote-icon-left"></i>
-                                        <span>"I’m originally from Egypt and lived in Dearborn, Michigan, working as a
+                                        <span>"I'm originally from Egypt and lived in Dearborn, Michigan, working as a
                                             DoorDash delivery driver. I was tired of the long hours and low pay and wanted a
-                                            better career. That’s when I found PassYourPermit.com and bought the Arabic
+                                            better career. That's when I found USATruckPath.com and bought the Arabic
                                             version of the guide. It was perfect for me! The questions were just like the
                                             real test, and the lessons were so easy to follow in my own language. I passed
                                             my CDL permit test on the first try and joined CDL City Truck Driving School.
-                                            Now I have my CDL and a new career I’m proud of. Thank you, PassYourPermit!"
+                                            Now I have my CDL and a new career I'm proud of. Thank you, USATruckPath!"
                                         </span>
                                         <i class="bi bi-quote quote-icon-right"></i>
                                     </p>

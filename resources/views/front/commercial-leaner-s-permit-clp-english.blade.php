@@ -1,4 +1,4 @@
-ï»¿@extends('partials.master')
+@extends('partials.master')
 
 
 
@@ -967,7 +967,7 @@
                                 {{ $course->title }}</h1>
 
                             <p class="lead mb-4">
-                                Unlock your trucking career with our full CDL permit prep course â€” available in English, with video, audio, and eBook lessons.
+                                Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.
                             </p>
 
                             <nav aria-label="breadcrumb">
@@ -1672,7 +1672,7 @@
 
                         <p class="lead mb-4">
 
-                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course â€” available in English, with video, audio, and eBook lessons.' }}
+                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.' }}
 
                         </p>
 
@@ -1778,9 +1778,9 @@
 
 
 
-                <h4 class="mb-3 text-center">Whatâ€™s Included in This Course </h4>
+                <h4 class="mb-3 text-center">What’s Included in This Course </h4>
 
-                <p>Get ready to pass your Commercial Learnerâ€™s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youâ€™ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersâ€”just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                <p>Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
 
@@ -1984,7 +1984,7 @@
 
                         <div class="section-title">
 
-                            <h2 class="fw-bold text-success mb-3">Why Choose PASS YOUR PERMIT?</h2>
+                            <h2 class="fw-bold text-success mb-3">Why Choose USA Truck Path?</h2>
 
                             <p class="lead text-muted">Your Fast-Track to a Truck Driving Career Starts Here
 
@@ -1992,7 +1992,7 @@
 
                                 the DMV
 
-                                examâ€”regardless of language or background.</p>
+                                exam—regardless of language or background.</p>
 
                         </div>
 
@@ -2018,11 +2018,11 @@
 
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
 
-                                <p class="text-muted small">Study in your preferred languageâ€”English, Arabic,
+                                <p class="text-muted small">Study in your preferred language—English, Arabic,
 
                                     Somali,
 
-                                    Amharic, French, or Nepaliâ€”with complete support for non-native speakers.
+                                    Amharic, French, or Nepali—with complete support for non-native speakers.
 
                                 </p>
 
@@ -2052,7 +2052,7 @@
 
                                     used
 
-                                    by DMVs across all states, ensuring youâ€™re fully prepared.
+                                    by DMVs across all states, ensuring you’re fully prepared.
 
                                 </p>
 
@@ -2106,11 +2106,11 @@
 
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
 
-                                <p class="text-muted small">Weâ€™re so confident in our system that we guarantee
+                                <p class="text-muted small">We’re so confident in our system that we guarantee
 
-                                    youâ€™ll pass
+                                    you’ll pass
 
-                                    your DMV test on the first tryâ€”or get extended access for free.
+                                    your DMV test on the first try—or get extended access for free.
 
                                 </p>
 
@@ -2140,7 +2140,7 @@
 
                                     platform
 
-                                    lets you study anytime, anywhereâ€”on any device.</p>
+                                    lets you study anytime, anywhere—on any device.</p>
 
                             </div>
 
@@ -2164,11 +2164,11 @@
 
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
 
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck driversâ€”so
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so
 
-                                    youâ€™re
+                                    you’re
 
-                                    not just passing a test, youâ€™re preparing for a career on the road.</p>
+                                    not just passing a test, you’re preparing for a career on the road.</p>
 
                             </div>
 
@@ -2800,17 +2800,17 @@
 
                     <div class=" ">
 
-                        <h2 class="fw-bold text-success mb-3 text-center">About PassYourPermit</h2>
+                        <h2 class="fw-bold text-success mb-3 text-center">About USATruckPath</h2>
 
                         <p class="text-muted why-info-p">
 
 
 
-                            We make it easy to pass your Commercial Learnerâ€™s Permit (CLP) test. Our all-in-one
+                            We make it easy to pass your Commercial Learner’s Permit (CLP) test. Our all-in-one
 
                             course
 
-                            includes video lessons, audio guides, and an eBookâ€”available in multiple languages. Itâ€™s
+                            includes video lessons, audio guides, and an eBook—available in multiple languages. It’s
 
                             everything you need to get started in trucking.
 
@@ -2840,7 +2840,7 @@
 
                                     <p class="text-muted mb-0">Original price $297, now only $80.
 
-                                        Youâ€™ll get full access to:
+                                        You’ll get full access to:
 
                                     <p>Video course, Audio course, Downloadable eBook, Covers all topics: General
 
@@ -2866,7 +2866,7 @@
 
                                     <p class="text-muted mb-0">Our study method is simple and guaranteed.
 
-                                        Youâ€™ll get one question and one correct answerâ€”no confusing multiple-choice
+                                        You’ll get one question and one correct answer—no confusing multiple-choice
 
                                         options.
 
@@ -2886,9 +2886,9 @@
 
                                         Join
 
-                                        thousands whoâ€™ve passed with our guide. Study at your own pace and pass with
+                                        thousands who’ve passed with our guide. Study at your own pace and pass with
 
-                                        confidenceâ€”guaranteed..</p>
+                                        confidence—guaranteed..</p>
 
                                 </div>
 
@@ -2958,7 +2958,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"Iâ€™m so glad I found PassYourPermit.com! The practice
+                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
 
                                     questions
 
@@ -2970,7 +2970,7 @@
 
                                     Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldnâ€™t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
 
                                 </p>
 
@@ -3012,15 +3012,15 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"Iâ€™m originally from Honduras and live in Columbus,
+                                <p class="text-muted mb-3">"I’m originally from Honduras and live in Columbus,
 
                                     Ohio. I had
 
-                                    tried a couple of other programs to pass my CDL permit test, but they didnâ€™t
+                                    tried a couple of other programs to pass my CDL permit test, but they didn’t
 
                                     work for
 
-                                    me. Then I found PassYourPermit.com, and it changed everything! The questions
+                                    me. Then I found USATruckPath.com, and it changed everything! The questions
 
                                     were just
 
@@ -3032,7 +3032,7 @@
 
                                     have my
 
-                                    CDL, and I couldnâ€™t be happier!"</p>
+                                    CDL, and I couldn’t be happier!"</p>
 
                                 <div class="rating text-warning">
 
@@ -3072,7 +3072,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"Iâ€™m originally from Egypt and lived in Dearborn,
+                                <p class="text-muted mb-3">"I’m originally from Egypt and lived in Dearborn,
 
                                     Michigan,
 
@@ -3080,7 +3080,7 @@
 
                                     and
 
-                                    wanted a better career. Thatâ€™s when I found PassYourPermit.com and bought the
+                                    wanted a better career. That’s when I found USATruckPath.com and bought the
 
                                     Arabic
 
@@ -3096,7 +3096,7 @@
 
                                     a new
 
-                                    career Iâ€™m proud of. Thank you, PassYourPermit!"
+                                    career I’m proud of. Thank you, USATruckPath!"
 
                                 </p>
 
@@ -3138,7 +3138,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"Iâ€™m so glad I found PassYourPermit.com! The practice
+                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
 
                                     questions
 
@@ -3150,7 +3150,7 @@
 
                                     Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldnâ€™t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
 
                                 </p>
 
@@ -3224,9 +3224,9 @@
 
 
 
-                <h4 class="mb-3 text-center">Whatâ€™s Included in This Course </h4>
+                <h4 class="mb-3 text-center">What’s Included in This Course </h4>
 
-                <p>Get ready to pass your Commercial Learnerâ€™s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youâ€™ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersâ€”just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                <p>Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
 

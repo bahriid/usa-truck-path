@@ -40,7 +40,7 @@
         <p><strong>Your Message:</strong></p>
         <p>{{ $data['message'] }}</p>
 
-        <p class="footer">Best regards,<br> Pass Your Permit</p>
+        <p class="footer">Best regards,<br> USA Truck Path</p>
     </div>
 </body>
 </html>
