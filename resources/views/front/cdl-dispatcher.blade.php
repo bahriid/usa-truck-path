@@ -883,12 +883,12 @@
 
                 <h4 class="mb-3">What's Included in This Course:</h4>
 
-                <p class="mb-3 text-justify">The trucking industry runs on brokers and dispatchers — and thousands of people worldwide are building six-figure incomes in this field without owning a truck. This course and mentorship program teaches you both sides of the business — how to dispatch loads for drivers and how to broker freight between shippers and carriers.</p>
+                <p class="mb-3">The trucking industry runs on brokers and dispatchers — and thousands of people worldwide are building six-figure incomes in this field without owning a truck. This course and mentorship program teaches you both sides of the business — how to dispatch loads for drivers and how to broker freight between shippers and carriers.</p>
 
-                <p class="mb-3 text-justify">You can do this from anywhere — at home, in the USA, or overseas. Many successful dispatchers and brokers are based outside the U.S., working remotely with American trucking companies. We'll show you how to get started, what tools you need, and how to build your own brand or land clients who pay you every week.</p>
+                <p class="mb-3">You can do this from anywhere — at home, in the USA, or overseas. Many successful dispatchers and brokers are based outside the U.S., working remotely with American trucking companies. We'll show you how to get started, what tools you need, and how to build your own brand or land clients who pay you every week.</p>
 
-                <p class="mb-3 text-justify"><strong>You'll learn:</strong></p>
-                <ul class="text-justify">
+                <p class="mb-3"><strong>You'll learn:</strong></p>
+                <ul>
                     <li>The difference between freight brokering and dispatching</li>
                     <li>How to get licensed as a broker or work as an independent dispatcher</li>
                     <li>How to find carriers, shippers, and loads online</li>
@@ -897,7 +897,7 @@
                     <li>How to start your own company or find job opportunities</li>
                 </ul>
 
-                <p class="mb-3 text-justify">Once you join, you'll be added to our private Telegram mentorship group, where you'll get daily support, business advice, and real-world job connections.</p>
+                <p class="mb-3">Once you join, you'll be added to our private Telegram mentorship group, where you'll get daily support, business advice, and real-world job connections.</p>
 
                 <div class="text-center">
                     <h5 class="mb-3">

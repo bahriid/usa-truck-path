@@ -1761,13 +1761,13 @@
 
                 <h4 class="mb-3">What's Included in This Course:</h4>
 
-                <p class="mb-3 text-justify">Get ready to pass your CDL exams worldwide with this all-in-one study program.</p>
+                <p class="mb-3">Get ready to pass your CDL exams worldwide with this all-in-one study program.</p>
 
-                <p class="mb-3 text-justify">Whether you're preparing in the United States, Canada, Europe, or internationally, you'll have access to video lessons, audiobooks, and eBooks designed to fit your study style and pace.</p>
+                <p class="mb-3">Whether you're preparing in the United States, Canada, Europe, or internationally, you'll have access to video lessons, audiobooks, and eBooks designed to fit your study style and pace.</p>
 
-                <p class="mb-3 text-justify">This course covers General Knowledge, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat / Dangerous Goods, Tanker, Passenger, and School Bus endorsements, along with real exam-style practice questions and answers.</p>
+                <p class="mb-3">This course covers General Knowledge, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat / Dangerous Goods, Tanker, Passenger, and School Bus endorsements, along with real exam-style practice questions and answers.</p>
 
-                <p class="mb-3 text-justify">Content is updated regularly to reflect global CDL standards and regional requirements.</p>
+                <p class="mb-3">Content is updated regularly to reflect global CDL standards and regional requirements.</p>
 
                 <p class="mb-4 text-justify">Accessible on phone, tablet, or computer, with lifetime access for a one-time payment. No matter where you are in the world, CDL Global makes it simple, flexible, and effective to study and pass with confidence.</p>
 

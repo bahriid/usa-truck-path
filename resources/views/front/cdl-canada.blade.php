@@ -883,10 +883,10 @@
 
                                 <h4 class="mb-3">What's Included in This Course:</h4>
 
-                <p class="mb-3 text-justify">Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.</p>
+                <p class="mb-3">Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.</p>
 
-                <p class="mb-3 text-justify"><strong>You'll learn:</strong></p>
-                <ul class="text-justify">
+                <p class="mb-3"><strong>You'll learn:</strong></p>
+                <ul>
                     <li>How to qualify and apply for the right work visa or cross-border permits</li>
                     <li>How to convert your Canadian Class 1 license to a U.S. CDL</li>
                     <li>How to find trusted U.S. trucking companies hiring Canadian drivers</li>
@@ -895,7 +895,7 @@
                     <li>How to avoid mistakes that delay your approval or job offer</li>
                 </ul>
 
-                <p class="mb-3 text-justify">After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.</p>
+                <p class="mb-3">After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.</p>
 
                 <div class="text-center">
                                     <div class="mt-4 ">

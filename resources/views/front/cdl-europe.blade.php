@@ -883,13 +883,13 @@
 
                 <h4 class="mb-3">What's Included in This Course:</h4>
 
-                <p class="mb-3 text-justify">Get ready to pass your European CDL / Driver CPC exams with this complete study program.</p>
+                <p class="mb-3">Get ready to pass your European CDL / Driver CPC exams with this complete study program.</p>
 
-                <p class="mb-3 text-justify">Learn with video lessons, audiobooks, and eBooks, all designed to help you study at your own pace.</p>
+                <p class="mb-3">Learn with video lessons, audiobooks, and eBooks, all designed to help you study at your own pace.</p>
 
-                <p class="mb-3 text-justify">This course includes Driver CPC theory test coverage, hazard perception training, case studies, and specialist modules such as Passenger Transport and Freight Transport.</p>
+                <p class="mb-3">This course includes Driver CPC theory test coverage, hazard perception training, case studies, and specialist modules such as Passenger Transport and Freight Transport.</p>
 
-                <p class="mb-3 text-justify">You'll also get real exam-style practice questions and answers, updated regularly to meet EU and UK standards.</p>
+                <p class="mb-3">You'll also get real exam-style practice questions and answers, updated regularly to meet EU and UK standards.</p>
 
                 <p class="mb-4 text-justify">Accessible on phone, tablet, or computer, with lifetime access for a one-time payment. Study anywhere, anytime, and pass with confidence.</p>
 
