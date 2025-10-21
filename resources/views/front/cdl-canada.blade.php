@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                        If you're a Canadian driver dreaming of working in the U.S., this course shows you exactly how to do it. Learn the visa options, job requirements, and application process step by step. We'll help you connect with trusted trucking companies and guide you until you start driving in the U.S. Plus, lifetime mentorship via our private Telegram group.
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                            If you're a Canadian driver dreaming of working in the U.S., this course shows you exactly how to do it. Learn the visa options, job requirements, and application process step by step. We'll help you connect with trusted trucking companies and guide you until you start driving in the U.S. Plus, lifetime mentorship via our private Telegram group.
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -936,14 +936,24 @@
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
                                     <div>
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This
-                                            Course
-                                        </h2>
-                                        {{-- <p class="card-subtitle text-muted mb-3">
-                                            <i class="bi bi-calendar-event me-1"></i>
-                                            {{ \Carbon\Carbon::parse($course->created_at ?? '')->format('l, F jS  ') }}
-                                        </p> --}}
-                                        <p class="card-text lead text-secondary">{!! $course->description !!}</p>
+                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                        <p class="card-text lead text-secondary">
+                                            Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.
+                                        </p>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            <strong>You'll learn:</strong>
+                                        </p>
+                                        <ul class="text-secondary">
+                                            <li>How to qualify and apply for the right work visa or cross-border permits</li>
+                                            <li>How to convert your Canadian Class 1 license to a U.S. CDL</li>
+                                            <li>How to find trusted U.S. trucking companies hiring Canadian drivers</li>
+                                            <li>What documents you need: passport, medical card, background checks, and insurance</li>
+                                            <li>How to prepare for your move — housing, taxes, and pay expectations</li>
+                                            <li>How to avoid mistakes that delay your approval or job offer</li>
+                                        </ul>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.
+                                        </p>
                                     </div>
                                     <div class="mt-4 ">
                                         @guest
@@ -1623,6 +1633,40 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- Closing Section / Call to Action -->
+        <section class="py-5 bg-light text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold text-success mb-4">🇨🇦➡🇺🇸 Ready to start your American trucking career?</h2>
+                        <p class="lead text-secondary mb-4">
+                            Join today and let us guide you from Canada to the U.S. step by step — from visa and license conversion to your first trucking job.
+                        </p>
+                        <p class="lead text-secondary mb-4">
+                            Enroll now and get lifetime mentorship and daily support until you're on the road in the USA.
+                        </p>
+                        <div class="mt-4">
+                            @guest
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="btn btn-success btn-lg px-5 py-3">Login to Enroll</a>
+                            @else
+                                @if (auth()->user()->hasApprovedCourse($course->id))
+                                    <button class="btn btn-success btn-lg px-5 py-3" disabled>Already Enrolled</button>
+                                @else
+                                    @if ($course->status === 'upcoming')
+                                        <button class="btn btn-secondary btn-lg px-5 py-3" disabled>Up Coming</button>
+                                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                        <button class="btn btn-info btn-lg px-5 py-3" disabled>Request Pending...</button>
+                                    @else
+                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="btn btn-success btn-lg px-5 py-3">Enroll Now</a>
+                                    @endif
+                                @endif
+                            @endguest
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- Main Course Content Section -->
         @endif

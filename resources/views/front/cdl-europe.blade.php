@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                        You don't need trucking experience. If you're over 21 and speak basic English, this course shows you how to move to the USA or Canada and start your driving career. We'll handle everything — from training guidance to helping you find a company that hires international drivers. Lifetime mentorship and daily support included through our private Telegram group.
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                            You don't need trucking experience. If you're over 21 and speak basic English, this course shows you how to move to the USA or Canada and start your driving career. We'll handle everything — from training guidance to helping you find a company that hires international drivers. Lifetime mentorship and daily support included through our private Telegram group.
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -935,14 +935,27 @@
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
                                     <div>
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This
-                                            Course
-                                        </h2>
-                                        {{-- <p class="card-subtitle text-muted mb-3">
-                                            <i class="bi bi-calendar-event me-1"></i>
-                                            {{ \Carbon\Carbon::parse($course->created_at ?? '')->format('l, F jS  ') }}
-                                        </p> --}}
-                                        <p class="card-text lead text-secondary">{!! $course->description !!}</p>
+                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                        <p class="card-text lead text-secondary">
+                                            Starting a new life in the USA or Canada as a truck driver is 100% possible — even if you've never driven a truck before. This course and mentorship program walks you through every step, from visa and relocation to CDL training and job placement.
+                                        </p>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            You'll get full guidance and real support — because it's our job to find you a trucking company that will hire you.
+                                        </p>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            <strong>You'll learn:</strong>
+                                        </p>
+                                        <ul class="text-secondary">
+                                            <li>How to apply for a U.S. or Canadian work visa</li>
+                                            <li>How to choose the best CDL school and complete your training</li>
+                                            <li>What documents you'll need: passport, background check, medical exam</li>
+                                            <li>How to pass your CDL test and qualify for company-sponsored positions</li>
+                                            <li>How we help you find verified trucking companies that hire international students</li>
+                                            <li>How to prepare for relocation, housing, and living costs in North America</li>
+                                        </ul>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            After enrollment, you'll join our private Telegram mentorship group, where we guide you daily, answer your questions, and connect you directly with hiring companies until you start driving.
+                                        </p>
                                     </div>
                                     <div class="mt-4 ">
                                         @guest
@@ -1622,6 +1635,43 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- Closing Section / Call to Action -->
+        <section class="py-5 bg-light text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold text-success mb-4">🇪🇺➡🇺🇸🇨🇦 Ready to start your new life in North America?</h2>
+                        <p class="lead text-secondary mb-3">
+                            You don't need experience — just be 21 or older and speak basic English.
+                        </p>
+                        <p class="lead text-secondary mb-3">
+                            Enroll today and let our team guide you step by step — from visa to CDL to job placement.
+                        </p>
+                        <p class="lead text-secondary mb-4">
+                            We'll help you train, get licensed, and find a trucking company ready to hire you.
+                        </p>
+                        <div class="mt-4">
+                            @guest
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="btn btn-success btn-lg px-5 py-3">Login to Enroll</a>
+                            @else
+                                @if (auth()->user()->hasApprovedCourse($course->id))
+                                    <button class="btn btn-success btn-lg px-5 py-3" disabled>Already Enrolled</button>
+                                @else
+                                    @if ($course->status === 'upcoming')
+                                        <button class="btn btn-secondary btn-lg px-5 py-3" disabled>Up Coming</button>
+                                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                        <button class="btn btn-info btn-lg px-5 py-3" disabled>Request Pending...</button>
+                                    @else
+                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="btn btn-success btn-lg px-5 py-3">Enroll Now</a>
+                                    @endif
+                                @endif
+                            @endguest
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- Main Course Content Section -->
         @endif

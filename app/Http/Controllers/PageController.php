@@ -97,7 +97,7 @@ class PageController extends Controller
             16 => 'front.cdl-europe',
             17 => 'front.cdl-global',
             18 => 'front.cdl-test-course',
-            19 => 'front.cdl-test-course',
+            19 => 'front.cdl-dispatcher',
         ];
 
         $viewName = $viewMap[$course->id] ?? null;

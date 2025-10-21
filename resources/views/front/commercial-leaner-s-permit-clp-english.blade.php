@@ -967,9 +967,7 @@
                                 {{ $course->title }}</h1>
 
                             <p class="lead mb-4">
-
-                                {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.' }}
-
+                                Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.
                             </p>
 
                             <nav aria-label="breadcrumb">

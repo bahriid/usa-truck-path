@@ -481,7 +481,7 @@
                     <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                         {{ $course->title }}</h1>
                     <p class="lead mb-4">
-                        {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                        This course and mentorship program walks you through everything you need to start your own trucking company in the U.S. You'll learn how to open your LLC, get USDOT and MC numbers, choose the best insurance, and buy the right truck. You'll also join our private Telegram group for lifetime guidance and daily business support.
                     </p>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb ">
@@ -831,7 +831,7 @@
                         <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                             {{ $course->title }}</h1>
                         <p class="lead mb-4">
-                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Arabic and English, with video, audio, and eBook lessons.' }}
+                            This course and mentorship program walks you through everything you need to start your own trucking company in the U.S. You'll learn how to open your LLC, get USDOT and MC numbers, choose the best insurance, and buy the right truck. You'll also join our private Telegram group for lifetime guidance and daily business support.
                         </p>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb ">
@@ -929,14 +929,24 @@
                                 <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
                                     <div>
 
-                                        <h2 class="card-title mb-3 fw-bold text-success">About This
-                                            Course
-                                        </h2>
-                                        {{-- <p class="card-subtitle text-muted mb-3">
-                                            <i class="bi bi-calendar-event me-1"></i>
-                                            {{ \Carbon\Carbon::parse($course->created_at ?? '')->format('l, F jS  ') }}
-                                        </p> --}}
-                                        <p class="card-text lead text-secondary">{!! $course->description !!}</p>
+                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                        <p class="card-text lead text-secondary">
+                                            Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.
+                                        </p>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            <strong>You'll learn:</strong>
+                                        </p>
+                                        <ul class="text-secondary">
+                                            <li>How to form your LLC, EIN, and business bank account</li>
+                                            <li>How to apply for USDOT, MC Authority, BOC-3, UCR, IRP, and IFTA</li>
+                                            <li>How to choose the best insurance and drug consortium (C/TPA)</li>
+                                            <li>How to buy the best truck — new or used — and what to inspect before purchase</li>
+                                            <li>How to find loads, work with dispatchers, and connect with direct shippers</li>
+                                            <li>How to stay compliant with ELD, maintenance, and safety records</li>
+                                        </ul>
+                                        <p class="card-text lead text-secondary mt-3">
+                                            Once enrolled, you'll be added to our private Telegram mentorship group where we'll help you daily until your business is fully running.
+                                        </p>
                                     </div>
                                     <div class="mt-4 ">
                                         @guest
@@ -1609,6 +1619,40 @@
                 </div>
             </div>
 
+        </section>
+
+        <!-- Closing Section / Call to Action -->
+        <section class="py-5 bg-light text-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        <h2 class="fw-bold text-success mb-4">🚛 Ready to start your own trucking company and become your own boss?</h2>
+                        <p class="lead text-secondary mb-4">
+                            Join today — learn how to start, grow, and manage your company with lifetime mentorship and step-by-step support.
+                        </p>
+                        <p class="lead text-secondary mb-4">
+                            Enroll now and let us help you buy your first truck the right way.
+                        </p>
+                        <div class="mt-4">
+                            @guest
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="btn btn-success btn-lg px-5 py-3">Login to Enroll</a>
+                            @else
+                                @if (auth()->user()->hasApprovedCourse($course->id))
+                                    <button class="btn btn-success btn-lg px-5 py-3" disabled>Already Enrolled</button>
+                                @else
+                                    @if ($course->status === 'upcoming')
+                                        <button class="btn btn-secondary btn-lg px-5 py-3" disabled>Up Coming</button>
+                                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                        <button class="btn btn-info btn-lg px-5 py-3" disabled>Request Pending...</button>
+                                    @else
+                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="btn btn-success btn-lg px-5 py-3">Enroll Now</a>
+                                    @endif
+                                @endif
+                            @endguest
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
         <!-- Main Course Content Section -->
         @endif
