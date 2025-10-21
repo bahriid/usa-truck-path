@@ -898,6 +898,51 @@
                 <p class="mb-3">After joining, you'll get access to our private Telegram mentorship group, where you'll receive personal guidance, job leads, and daily support from our mentors who have already gone through the same process.</p>
 
                 <div class="text-center">
+                    <h5 class="mb-3">
+                        <strong>Price:</strong> ${{ $course->price }}
+                    </h5>
+
+                    @guest
+
+                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                            Enroll</a>
+                    @else
+                        @if (auth()->user()->hasApprovedCourse($course->id))
+                            <button class="cta   mb-2" disabled>Already Enrolled</button>
+                        @else
+                            @if ($course->status === 'upcoming')
+                                <button class="cta   mb-2" disabled>Up Coming</button>
+                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                <button class="cta  mb-2" disabled>Request Pending...</button>
+                            @else
+                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                    Now</a>
+                            @endif
+                        @endif
+                    @endguest
+                </div>
+            </div>
+
+        </section>
+
+        <section class="bg-light">
+
+            <section class="course-details py-5 bg-light ">
+                <div class="container mx-auto">
+                    <div class="row">
+
+                        <!-- Left Column: Description + Curriculum -->
+                        <div class="col-lg-12 mb-5">
+
+                            <div class="row g-4  align-items-center">
+                                <div class="col-md-6 p-4 d-flex flex-column justify-content-between about-back">
+                                    <div>
+
+                                        <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
+                                        <p class="card-text lead text-secondary">
+                                            If you're a Canadian driver dreaming of working in the U.S., this course shows you exactly how to do it. Learn the visa options, job requirements, and application process step by step. We'll help you connect with trusted trucking companies and guide you until you start driving in the U.S. Plus, lifetime mentorship via our private Telegram group.
+                                        </p>
+                                    </div>
                                     <div class="mt-4 ">
                                         @guest
                                             <a href="{{ route('register') }}?course_id={{ $course->id }}"
