@@ -3,6 +3,11 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Mail\Events\MessageSending;
+use Illuminate\Mail\Events\MessageSent;
+use App\Listeners\LogSentMessage;
+use App\Listeners\LogMessageSent;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register mail event listeners for logging
+        Event::listen(MessageSending::class, LogSentMessage::class);
+        Event::listen(MessageSent::class, LogMessageSent::class);
     }
 }
