@@ -1747,7 +1747,7 @@
 
                 <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
 
-                    class="img-fluid rounded object-fit-cover mb-3">
+                    class="img-fluid rounded mb-3" style="object-fit: contain;">
 
                 {{-- </div> --}}
 
@@ -1759,7 +1759,7 @@
 
 
 
-                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
+                <h4 class="mb-3">What's Included in This Course:</h4>
 
                 <p class="mb-3 text-justify">Get ready to pass your CDL exams worldwide with this all-in-one study program.</p>
 

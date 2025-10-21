@@ -875,13 +875,13 @@
 
                 {{-- <div class="text-center mb-3"> --}}
                 <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
+                    class="img-fluid rounded mb-3" style="object-fit: contain;">
                 {{-- </div> --}}
             </div>
 
             <div class="col-md-6">
 
-                <h4 class="mb-3 text-center">What's Included in This Course:</h4>
+                <h4 class="mb-3">What's Included in This Course:</h4>
 
                 <p class="mb-3 text-justify">Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.</p>
 

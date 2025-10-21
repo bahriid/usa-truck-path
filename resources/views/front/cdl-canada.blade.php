@@ -875,13 +875,13 @@
 
                 {{-- <div class="text-center mb-3"> --}}
                 <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}"
-                    class="img-fluid rounded object-fit-cover mb-3">
+                    class="img-fluid rounded mb-3" style="object-fit: contain;">
                 {{-- </div> --}}
             </div>
 
             <div class="col-md-6">
 
-                                <h4 class="mb-4 text-center">What's Included in This Course:</h4>
+                                <h4 class="mb-3">What's Included in This Course:</h4>
 
                 <p class="mb-3 text-justify">Moving from Canada to the U.S. to drive a truck can be life-changing — but the process can also be confusing. This course and mentorship program simplifies every step, making it easy for Canadian drivers to start their U.S. trucking journey with confidence.</p>
 
