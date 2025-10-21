@@ -888,7 +888,7 @@
                 <p class="mb-3">You can do this from anywhere — at home, in the USA, or overseas. Many successful dispatchers and brokers are based outside the U.S., working remotely with American trucking companies. We'll show you how to get started, what tools you need, and how to build your own brand or land clients who pay you every week.</p>
 
                 <p class="mb-3"><strong>You'll learn:</strong></p>
-                <ul>
+                <ul class="text-start">
                     <li>The difference between freight brokering and dispatching</li>
                     <li>How to get licensed as a broker or work as an independent dispatcher</li>
                     <li>How to find carriers, shippers, and loads online</li>

@@ -886,7 +886,7 @@
                 <p class="mb-3">Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.</p>
 
                 <p class="mb-3"><strong>You'll learn:</strong></p>
-                <ul>
+                <ul class="text-start">
                     <li>How to form your LLC, EIN, and business bank account</li>
                     <li>How to apply for USDOT, MC Authority, BOC-3, UCR, IRP, and IFTA</li>
                     <li>How to choose the best insurance and drug consortium (C/TPA)</li>
