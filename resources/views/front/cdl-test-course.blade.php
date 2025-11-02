@@ -883,14 +883,14 @@
 
                 <h4 class="mb-3">What's Included in This Course:</h4>
 
-                <p class="mb-3">Starting a trucking company can feel overwhelming — but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.</p>
+                <p class="mb-3">Starting a trucking company can feel overwhelming ï¿½ but this course breaks it all down step by step. You'll learn exactly how to build a legal, profitable, and compliant trucking business from the ground up. Whether you plan to operate your own truck or hire drivers, this mentorship gives you everything you need to succeed.</p>
 
                 <p class="mb-3"><strong>You'll learn:</strong></p>
                 <ul class="text-start">
                     <li>How to form your LLC, EIN, and business bank account</li>
                     <li>How to apply for USDOT, MC Authority, BOC-3, UCR, IRP, and IFTA</li>
                     <li>How to choose the best insurance and drug consortium (C/TPA)</li>
-                    <li>How to buy the best truck — new or used — and what to inspect before purchase</li>
+                    <li>How to buy the best truck ï¿½ new or used ï¿½ and what to inspect before purchase</li>
                     <li>How to find loads, work with dispatchers, and connect with direct shippers</li>
                     <li>How to stay compliant with ELD, maintenance, and safety records</li>
                 </ul>
@@ -993,7 +993,7 @@
                             <h2 class="fw-bold text-success mb-3">Why Choose USA Truck Path?</h2>
                             <p class="lead text-muted">Your Fast-Track to a Truck Driving Career Starts Here
                                 We empower future truck drivers with an easy, effective, and guaranteed way to pass the DMV
-                                exam—regardless of language or background.</p>
+                                examï¿½regardless of language or background.</p>
                         </div>
                     </div>
                 </div>
@@ -1006,8 +1006,8 @@
                                     <i class="bi bi-translate"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
-                                <p class="text-muted small">Study in your preferred language—English, Arabic, Somali,
-                                    Amharic, French, or Nepali—with complete support for non-native speakers.
+                                <p class="text-muted small">Study in your preferred languageï¿½English, Arabic, Somali,
+                                    Amharic, French, or Nepaliï¿½with complete support for non-native speakers.
                                 </p>
                             </div>
                         </div>
@@ -1021,7 +1021,7 @@
                                 </div>
                                 <h5 class="fw-semibold mb-2">Real DMV Test Questions & Answers</h5>
                                 <p class="text-muted small">Our course includes the actual test format and questions used
-                                    by DMVs across all states, ensuring you’re fully prepared.
+                                    by DMVs across all states, ensuring youï¿½re fully prepared.
                                 </p>
                             </div>
                         </div>
@@ -1047,8 +1047,8 @@
                                     <i class="bi bi-shield-fill-check"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
-                                <p class="text-muted small">We’re so confident in our system that we guarantee you’ll pass
-                                    your DMV test on the first try—or get extended access for free.
+                                <p class="text-muted small">Weï¿½re so confident in our system that we guarantee youï¿½ll pass
+                                    your DMV test on the first tryï¿½or get extended access for free.
                                 </p>
                             </div>
                         </div>
@@ -1062,7 +1062,7 @@
                                 </div>
                                 <h5 class="fw-semibold mb-2">Learn at Your Own Pace</h5>
                                 <p class="text-muted small">Whether you have a full-time job or a busy life, our platform
-                                    lets you study anytime, anywhere—on any device.</p>
+                                    lets you study anytime, anywhereï¿½on any device.</p>
                             </div>
                         </div>
                     </div>
@@ -1074,8 +1074,8 @@
                                     <i class="bi  bi-truck-front-fill"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so you’re
-                                    not just passing a test, you’re preparing for a career on the road.</p>
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck driversï¿½so youï¿½re
+                                    not just passing a test, youï¿½re preparing for a career on the road.</p>
                             </div>
                         </div>
                     </div>
@@ -1382,6 +1382,68 @@
                         @empty
                             <p>No chapters found for this course.</p>
                         @endforelse
+
+                        {{-- Telegram Group Support Section --}}
+                        @auth
+                            @php
+                                $user = auth()->user();
+                                $enrollment = $user->purchasedCourses()->where('course_id', $course->id)->first();
+                                $hasAccess = $user && $user->hasApprovedCourse($course->id);
+                            @endphp
+
+                            @if ($hasAccess && $enrollment && $course->telegram_chat_id)
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#telegramSupport" aria-expanded="false"
+                                            aria-controls="telegramSupport">
+                                            <i class="bi bi-telegram me-2"></i> Group Support
+                                        </button>
+                                    </h2>
+                                    <div id="telegramSupport" class="accordion-collapse collapse">
+                                        <div class="accordion-body">
+                                            @if ($enrollment->pivot->telegram_invite_link)
+                                                <p class="mb-3">
+                                                    <i class="bi bi-info-circle text-primary me-1"></i>
+                                                    Join our exclusive Telegram group to connect with instructors and fellow students.
+                                                    Get support, ask questions, and stay updated!
+                                                </p>
+                                                <div class="alert alert-warning border-0 mb-3">
+                                                    <small>
+                                                        <i class="bi bi-exclamation-triangle me-1"></i>
+                                                        <strong>Important:</strong> This is a one-time invitation link generated uniquely for you.
+                                                        The link can only be used once and will stop working after one person joins.
+                                                    </small>
+                                                </div>
+                                                <a href="{{ route('telegram.invite.redeem', $course->id) }}"
+                                                   class="btn btn-success w-100"
+                                                   onclick="return confirm('Are you sure? This link can only be used once!')">
+                                                    <i class="bi bi-telegram me-2"></i> Join Telegram Group Now
+                                                </a>
+                                                <p class="text-muted small mt-2 mb-0">
+                                                    <i class="bi bi-clock me-1"></i>Link generated: {{ $enrollment->pivot->telegram_invite_generated_at ? \Carbon\Carbon::parse($enrollment->pivot->telegram_invite_generated_at)->diffForHumans() : 'Just now' }}
+                                                </p>
+
+                                                <div class="alert alert-light border mt-3 mb-0">
+                                                    <p class="small mb-0">
+                                                        <i class="bi bi-whatsapp text-success me-1"></i>
+                                                        <strong>Need Help?</strong><br>
+                                                        If, for any reason, the Telegram group link does not work for you, please contact me directly on WhatsApp at <a href="https://wa.me/16146052310" target="_blank" class="text-success fw-bold">+1 (614) 605-2310</a>.<br>
+                                                        <em class="text-muted">This number is for support purposes only to help resolve your issue â€” it is not a general communication line.</em>
+                                                    </p>
+                                                </div>
+                                            @else
+                                                <div class="alert alert-info border-0">
+                                                    <i class="bi bi-hourglass-split me-2"></i>
+                                                    Generating your unique Telegram invite link... Please refresh the page.
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
+
                     </div>
                 </div>
 
@@ -1394,8 +1456,8 @@
                         <h2 class="fw-bold text-success mb-3 text-center">About USATruckPath</h2>
                         <p class="text-muted why-info-p">
 
-                            We make it easy to pass your Commercial Learner’s Permit (CLP) test. Our all-in-one course
-                            includes video lessons, audio guides, and an eBook—available in multiple languages. It’s
+                            We make it easy to pass your Commercial Learnerï¿½s Permit (CLP) test. Our all-in-one course
+                            includes video lessons, audio guides, and an eBookï¿½available in multiple languages. Itï¿½s
                             everything you need to get started in trucking.
                         </p>
                         <!--p class="text-muted text-center mb-0 mt-2" style="font-weight: 700; font-size:2rem; ">Here's what
@@ -1409,7 +1471,7 @@
                                 <div class="ms-2">
                                     <div class="fw-bold">What You Get</div>
                                     <p class="text-muted mb-0">Original price $297, now only $80.
-                                        You’ll get full access to:
+                                        Youï¿½ll get full access to:
                                     <p>Video course, Audio course, Downloadable eBook, Covers all topics: General Knowledge,
                                         Air Brakes, Combination, Hazmat (H), Tanker (N), Doubles & Triples (T), Passenger
                                         (P), School Bus (S), Tanker + Hazmat (X).</p>
@@ -1420,7 +1482,7 @@
                                 <div class="ms-2">
                                     <div class="fw-bold">Proven Method</div>
                                     <p class="text-muted mb-0">Our study method is simple and guaranteed.
-                                        You’ll get one question and one correct answer—no confusing multiple-choice options.
+                                        Youï¿½ll get one question and one correct answerï¿½no confusing multiple-choice options.
                                         Everyone who purchased our course has passed their test.</p>
                                 </div>
                             </li>
@@ -1428,8 +1490,8 @@
                                 <div class="ms-2">
                                     <div class="fw-bold">Get Started Now</div>
                                     <p class="text-muted mb-0">This is your first step to becoming a CDL driver. Join
-                                        thousands who’ve passed with our guide. Study at your own pace and pass with
-                                        confidence—guaranteed..</p>
+                                        thousands whoï¿½ve passed with our guide. Study at your own pace and pass with
+                                        confidenceï¿½guaranteed..</p>
                                 </div>
                             </li>
                         </ul>
@@ -1464,10 +1526,10 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                 </div>
-                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice questions
+                                <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice questions
                                     were just like the real test and gave me the confidence I needed. I passed my permit
                                     test on the first try and even joined their trucking school, CDL City Truck Driving
-                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
@@ -1488,12 +1550,12 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Carlos Mendoza</h6>
                                 </div>
-                                <p class="text-muted mb-3">"I’m originally from Honduras and live in Columbus, Ohio. I had
-                                    tried a couple of other programs to pass my CDL permit test, but they didn’t work for
+                                <p class="text-muted mb-3">"Iï¿½m originally from Honduras and live in Columbus, Ohio. I had
+                                    tried a couple of other programs to pass my CDL permit test, but they didnï¿½t work for
                                     me. Then I found USATruckPath.com, and it changed everything! The questions were just
                                     like the real test, and the lessons were easy to understand. I passed my permit test on
                                     the first try and joined CDL City Truck Driving School here in Columbus. Now I have my
-                                    CDL, and I couldn’t be happier!"</p>
+                                    CDL, and I couldnï¿½t be happier!"</p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
                                     <i class="bi bi-star-fill"></i>
@@ -1513,13 +1575,13 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Ahmed Hassan</h6>
                                 </div>
-                                <p class="text-muted mb-3">"I’m originally from Egypt and lived in Dearborn, Michigan,
+                                <p class="text-muted mb-3">"Iï¿½m originally from Egypt and lived in Dearborn, Michigan,
                                     working as a DoorDash delivery driver. I was tired of the long hours and low pay and
-                                    wanted a better career. That’s when I found USATruckPath.com and bought the Arabic
+                                    wanted a better career. Thatï¿½s when I found USATruckPath.com and bought the Arabic
                                     version of the guide. It was perfect for me! The questions were just like the real test,
                                     and the lessons were so easy to follow in my own language. I passed my CDL permit test
                                     on the first try and joined CDL City Truck Driving School. Now I have my CDL and a new
-                                    career I’m proud of. Thank you, USATruckPath!"
+                                    career Iï¿½m proud of. Thank you, USATruckPath!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
@@ -1540,10 +1602,10 @@
                                     </div>
                                     <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                 </div>
-                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice questions
+                                <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice questions
                                     were just like the real test and gave me the confidence I needed. I passed my permit
                                     test on the first try and even joined their trucking school, CDL City Truck Driving
-                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
                                 </p>
                                 <div class="rating text-warning">
                                     <i class="bi bi-star-fill"></i>
@@ -1572,7 +1634,7 @@
                     <div class="col-lg-8">
                         <h2 class="fw-bold text-success mb-4">?? Ready to start your own trucking company and become your own boss?</h2>
                         <p class="lead text-secondary mb-4">
-                            Join today — learn how to start, grow, and manage your company with lifetime mentorship and step-by-step support.
+                            Join today ï¿½ learn how to start, grow, and manage your company with lifetime mentorship and step-by-step support.
                         </p>
                         <p class="lead text-secondary mb-4">
                             Enroll now and let us help you buy your first truck the right way.
@@ -1666,4 +1728,5 @@
             });
         </script>
     @endpush
+
 @endsection

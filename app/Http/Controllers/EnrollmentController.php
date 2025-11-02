@@ -55,6 +55,29 @@ class EnrollmentController extends Controller
                 return redirect()->back()->with('success', 'You already have an enrollment request or are already enrolled.');
             }
 
+            // PAYMENT DEBUG MODE: Bypass payment if enabled
+            if (config('app.payment_debug', false)) {
+                Log::info('Payment Debug Mode: Bypassing payment for user '.$user->id.' and course '.$course->id);
+
+                // Generate a fake transaction ID for testing
+                $fakeTransactionId = 'debug_'.uniqid();
+
+                // Enroll user directly with approved status
+                $this->enrollmentService->enrollUser($user, $course, $fakeTransactionId, 'pending');
+
+                // Get the enrollment
+                $enrollment = $user->purchasedCourses()
+                    ->wherePivot('transaction_id', $fakeTransactionId)
+                    ->first();
+
+                // Complete enrollment (approve, notify, generate Telegram invite)
+                $this->enrollmentService->completeEnrollment($user, $enrollment, $fakeTransactionId, $price);
+
+                // Redirect to success
+                return redirect()->route('front.course.details', $course->slug)
+                    ->with('success', 'DEBUG MODE: Enrollment successful! Payment bypassed for testing.');
+            }
+
             // Create Stripe checkout session
             $session = $this->paymentService->createCheckoutSession(
                 $course,

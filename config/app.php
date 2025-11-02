@@ -43,6 +43,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Payment Debug Mode
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, this bypasses payment processing for testing purposes.
+    | Users will be automatically enrolled without actually paying.
+    | WARNING: ONLY enable this in development environments!
+    |
+    */
+
+    'payment_debug' => (bool) env('PAYMENT_DEBUG', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application URL
     |--------------------------------------------------------------------------
     |

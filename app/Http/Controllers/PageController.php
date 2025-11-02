@@ -85,6 +85,20 @@ class PageController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
 
+        // If user is logged in and has approved enrollment, redirect to curriculum
+        if (auth()->check()) {
+            $user = auth()->user();
+
+            // Check if user has approved enrollment
+            if ($user->hasApprovedCourse($course->id)) {
+                return redirect()->route('course.curriculam', $course->id);
+            }
+
+            // Generate Telegram invite link if user is enrolled and hasn't got one yet
+            $enrollmentService = app(\App\Services\EnrollmentService::class);
+            $enrollmentService->generateTelegramInvite($user, $course);
+        }
+
         // Get view template from database
         $template = DB::table('course_view_templates')
             ->where('course_id', $course->id)

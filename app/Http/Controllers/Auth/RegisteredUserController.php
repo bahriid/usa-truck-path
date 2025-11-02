@@ -121,14 +121,21 @@ class RegisteredUserController extends Controller
         $course = Course::findOrFail($request->course_id);
         $price = $course->price;
 
-        $request->validate([
+        // PAYMENT DEBUG MODE: Skip Stripe token validation if debug mode is enabled
+        $validationRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['required', 'integer'],
             'course_id' => ['required', 'integer', 'exists:courses,id'],
-            'stripeToken' => ['required', 'string'],
-        ]);
+        ];
+
+        // Only require Stripe token if payment debug is disabled
+        if (!config('app.payment_debug', false)) {
+            $validationRules['stripeToken'] = ['required', 'string'];
+        }
+
+        $request->validate($validationRules);
 
         DB::beginTransaction();
 
@@ -137,12 +144,18 @@ class RegisteredUserController extends Controller
             $paymentService = app(\App\Services\PaymentService::class);
             $enrollmentService = app(\App\Services\EnrollmentService::class);
 
-            // Process payment
-            $transactionId = $paymentService->processCharge(
-                $price,
-                $request->stripeToken,
-                'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id
-            );
+            // PAYMENT DEBUG MODE: Bypass payment if enabled
+            if (config('app.payment_debug', false)) {
+                Log::info('Payment Debug Mode: Bypassing registration payment for '.$request->email);
+                $transactionId = 'debug_reg_'.uniqid();
+            } else {
+                // Process payment
+                $transactionId = $paymentService->processCharge(
+                    $price,
+                    $request->stripeToken,
+                    'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id
+                );
+            }
 
             // Create user account
             $user = User::create([
@@ -177,8 +190,12 @@ class RegisteredUserController extends Controller
                 $enrollmentService->generateTelegramInvite($user, $course);
             }
 
+            $successMessage = config('app.payment_debug', false)
+                ? 'DEBUG MODE: Registration and Enrollment successful! Payment bypassed for testing.'
+                : 'Registration and Enrollment successful!';
+
             return redirect()->route('course.curriculam', $course->id)
-                ->with('success', 'Registration and Enrollment successful!');
+                ->with('success', $successMessage);
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Registration and Enrollment Error: '.$e->getMessage());

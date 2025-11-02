@@ -110,6 +110,13 @@
                             <hr class="my-4">
                             <h5 class="mb-3">{{ __('Payment Information') }}</h5>
 
+                            @if(config('app.payment_debug', false))
+                                <div class="alert alert-warning mb-3">
+                                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                    <strong>DEBUG MODE:</strong> Payment is bypassed. Card details are optional for testing.
+                                </div>
+                            @endif
+
                             <div class="mb-3">
                                 <p class="mb-1">{{ __('You are registering for:') }}
                                     <strong>{{ \App\Models\Course::find($courseId)->title ?? 'Unknown Course' }}</strong>
@@ -154,6 +161,9 @@
 
     <script src="https://js.stripe.com/v3/"></script>
     <script>
+        // Payment Debug Mode Flag
+        const PAYMENT_DEBUG = {{ config('app.payment_debug', false) ? 'true' : 'false' }};
+
         document.addEventListener('DOMContentLoaded', () => {
             const stripe = Stripe('{{ env('STRIPE_KEY') }}');
             const elements = stripe.elements();
@@ -285,6 +295,15 @@
                 event.preventDefault();
                 registerButton.disabled = true;
 
+                // PAYMENT DEBUG MODE: Skip Stripe token creation
+                if (PAYMENT_DEBUG) {
+                    console.log('Payment Debug Mode: Bypassing Stripe token creation');
+                    stripeTokenInput.value = 'debug_token_bypass';
+                    registrationForm.submit();
+                    return;
+                }
+
+                // Normal flow: Create Stripe token
                 const { token, error } = await stripe.createToken(cardNumberElement);
 
                 if (error) {
