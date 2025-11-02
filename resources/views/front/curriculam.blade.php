@@ -383,6 +383,15 @@
                                                 <p class="text-muted small mt-2 mb-0">
                                                     <i class="bi bi-clock me-1"></i>Link generated: {{ $enrollment->pivot->telegram_invite_generated_at ? \Carbon\Carbon::parse($enrollment->pivot->telegram_invite_generated_at)->diffForHumans() : 'Just now' }}
                                                 </p>
+
+                                                <div class="alert alert-light border mt-3 mb-0">
+                                                    <p class="small mb-0">
+                                                        <i class="bi bi-whatsapp text-success me-1"></i>
+                                                        <strong>Need Help?</strong><br>
+                                                        If, for any reason, the Telegram group link does not work for you, please contact me directly on WhatsApp at <a href="https://wa.me/16146052310" target="_blank" class="text-success fw-bold">+1 (614) 605-2310</a>.<br>
+                                                        <em class="text-muted">This number is for support purposes only to help resolve your issue — it is not a general communication line.</em>
+                                                    </p>
+                                                </div>
                                             @else
                                                 <div class="alert alert-info border-0">
                                                     <i class="bi bi-hourglass-split me-2"></i>
