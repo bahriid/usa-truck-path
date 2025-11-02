@@ -133,23 +133,16 @@ class RegisteredUserController extends Controller
         DB::beginTransaction();
 
         try {
+            // Inject services
+            $paymentService = app(\App\Services\PaymentService::class);
+            $enrollmentService = app(\App\Services\EnrollmentService::class);
+
             // Process payment
-            Stripe::setApiKey(env('STRIPE_SECRET'));
-
-            $charge = Charge::create([
-                'amount' => $price * 100,
-                'currency' => 'usd',
-                'source' => $request->stripeToken,
-                'description' => 'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id,
-            ]);
-
-            if ($charge->status !== 'succeeded') {
-                DB::rollBack();
-
-                return redirect()->back()->withErrors(['payment' => 'Payment processing failed. Please try again.']);
-            }
-
-            $transactionId = $charge->id;
+            $transactionId = $paymentService->processCharge(
+                $price,
+                $request->stripeToken,
+                'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id
+            );
 
             // Create user account
             $user = User::create([
@@ -165,7 +158,7 @@ class RegisteredUserController extends Controller
             // Send welcome email
             Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
 
-            // Enroll user in course
+            // Enroll user in course with approved status
             $user->purchasedCourses()->attach($course->id, [
                 'full_name' => $user->name,
                 'email' => $user->email,
@@ -177,9 +170,12 @@ class RegisteredUserController extends Controller
 
             DB::commit();
 
-            // Send notification email
-            $adminEmail = config('mail.admin_email', 'abaadiracademy@gmail.com');
-            Mail::to($adminEmail)->send(new \App\Mail\NewCoursePurchaseNotification($user, $course));
+            // Send admin notification and generate Telegram invite
+            $enrollmentService->sendAdminNotification($user, $course);
+
+            if ($course->telegram_chat_id) {
+                $enrollmentService->generateTelegramInvite($user, $course);
+            }
 
             return redirect()->route('course.curriculam', $course->id)
                 ->with('success', 'Registration and Enrollment successful!');

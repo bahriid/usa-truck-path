@@ -104,6 +104,42 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
+                    {{-- Owner Operators --}}
+                    @php
+                        $ownerOperatorsCourse = App\Models\Course::find(18);
+                    @endphp
+                    @if($ownerOperatorsCourse)
+                    <li><a href="{{ route('front.course.details', $ownerOperatorsCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $ownerOperatorsCourse->slug) ? 'active' : '' }}">Owner Operators</a></li>
+                    @endif
+
+                    {{-- Canada-USA Program --}}
+                    @php
+                        $canadaCourse = App\Models\Course::find(15);
+                    @endphp
+                    @if($canadaCourse)
+                    <li><a href="{{ route('front.course.details', $canadaCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada–USA Program</a></li>
+                    @endif
+
+                    {{-- Europe-USA Program --}}
+                    @php
+                        $europeCourse = App\Models\Course::find(16);
+                    @endphp
+                    @if($europeCourse)
+                    <li><a href="{{ route('front.course.details', $europeCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe–USA Program</a></li>
+                    @endif
+
+                    {{-- Global CDL Program --}}
+                    @php
+                        $globalCourse = App\Models\Course::find(17);
+                    @endphp
+                    @if($globalCourse)
+                    <li><a href="{{ route('front.course.details', $globalCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Global CDL Program</a></li>
+                    @endif
+
                     {{-- U.S. CDL Permit Dropdown - Only CLP Courses (IDs 9-14) --}}
                     @php
                         $clpCourses = App\Models\Course::whereIn('id', [9, 10, 11, 12, 13, 14])
@@ -127,29 +163,14 @@
                         </li>
                     @endif
 
-                    @php
-                        $canadaCourse = App\Models\Course::find(15);
-                        $europeCourse = App\Models\Course::find(16);
-                        $globalCourse = App\Models\Course::find(17);
-                    @endphp
-
-                    @if($canadaCourse)
-                    <li><a href="{{ route('front.course.details', $canadaCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada → USA Program</a></li>
-                    @endif
-
-                    @if($europeCourse)
-                    <li><a href="{{ route('front.course.details', $europeCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe → USA Program</a></li>
-                    @endif
-
-                    @if($globalCourse)
-                    <li><a href="{{ route('front.course.details', $globalCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Global CDL Training</a></li>
-                    @endif
-
-                    <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
-                    <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') || request()->routeIs('front.contact_us') ? 'active' : '' }}">Why Us</a></li>
+                    {{-- How It Works & Why Us Combined Dropdown --}}
+                    <li class="dropdown">
+                        <a href="#"><span>About</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
+                            <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Us</a></li>
+                        </ul>
+                    </li>
 
                     {{-- User Menu --}}
                     @auth
@@ -173,7 +194,7 @@
             </nav>
 
             @guest
-                <a class="btn-getstarted" href="{{ route('login') }}">Register</a>
+                <a class="btn-getstarted" href="{{ route('login') }}">Login</a>
             @endguest
 
         </div>

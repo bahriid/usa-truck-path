@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SiteSetting;
-use Illuminate\Support\Facades\Storage;
+use App\Services\FileUploadService;
 
 class SettingController extends Controller
 {
+    protected FileUploadService $fileUploadService;
+
+    public function __construct(FileUploadService $fileUploadService)
+    {
+        $this->fileUploadService = $fileUploadService;
+    }
     public function site_setting()
     {
         // Get the first site setting (since there's usually only one)
@@ -40,60 +46,37 @@ class SettingController extends Controller
             'cash_app' => 'nullable|string',
             'zelle' => 'nullable|string',
         ]);
-        
 
-
- 
-        
         // Get the first site setting or create a new one if it doesn't exist
         $setting = SiteSetting::first();
-    
+
         if (!$setting) {
             $setting = SiteSetting::create([]);
         }
-    
-        // Delete old images if new ones are uploaded
-        if ($request->hasFile('main_logo') && $setting->main_logo) {
-            Storage::disk('public')->delete($setting->main_logo);
-        }
-    
-        if ($request->hasFile('sticky_logo') && $setting->sticky_logo) {
-            Storage::disk('public')->delete($setting->sticky_logo);
-        }
-    
-        if ($request->hasFile('footer_logo') && $setting->footer_logo) {
-            Storage::disk('public')->delete($setting->footer_logo);
-        }
-    
-        if ($request->hasFile('site_favicon') && $setting->site_favicon) {
-            Storage::disk('public')->delete($setting->site_favicon);
-        }
-    
+
         // Update the site setting values
         $setting->update($validated);
-    
-        // Handle logo uploads and store them
-        if ($request->hasFile('main_logo')) {
-       
 
-            $setting->main_logo = $request->file('main_logo')->store('logos', 'public');
-            // dd($request->all());    
+        // Handle file uploads using FileUploadService
+        $uploadedFiles = $this->fileUploadService->handleMultipleUploads(
+            ['main_logo', 'sticky_logo', 'footer_logo', 'site_favicon'],
+            $request,
+            $setting,
+            [
+                'main_logo' => 'logos',
+                'sticky_logo' => 'logos',
+                'footer_logo' => 'logos',
+                'site_favicon' => 'favicons',
+            ]
+        );
+
+        // Update setting with new file paths
+        foreach ($uploadedFiles as $field => $path) {
+            $setting->$field = $path;
         }
-    
-        if ($request->hasFile('sticky_logo')) {
-            $setting->sticky_logo = $request->file('sticky_logo')->store('logos', 'public');
-        }
-    
-        if ($request->hasFile('footer_logo')) {
-            $setting->footer_logo = $request->file('footer_logo')->store('logos', 'public');
-        }
-    
-        if ($request->hasFile('site_favicon')) {
-            $setting->site_favicon = $request->file('site_favicon')->store('favicons', 'public');
-        }
-    
+
         $setting->save();
-    
+
         return redirect()->back()->with('success', 'Site settings updated successfully!');
     }
     

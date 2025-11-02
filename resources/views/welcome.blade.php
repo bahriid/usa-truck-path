@@ -97,6 +97,46 @@
                 font-size: 1.75rem;
             }
         }
+
+        /* Multi-Language Courses Section */
+        .multilingual-courses {
+            padding: 80px 0;
+        }
+
+        .multilingual-courses .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 1rem;
+        }
+
+        .multilingual-courses .section-title p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2) !important;
+        }
+
+        @media (max-width: 768px) {
+            .multilingual-courses {
+                padding: 60px 0;
+            }
+
+            .multilingual-courses .section-title h2 {
+                font-size: 2rem;
+            }
+
+            .multilingual-courses .section-title p {
+                font-size: 1rem;
+            }
+        }
     </style>
 @endpush
 
@@ -232,6 +272,50 @@
 
             </div>
         </section><!-- /Courses Section -->
+
+        <!-- Multi-Language CDL Courses Section -->
+        <section id="multilingual-courses" class="multilingual-courses section bg-light">
+            <div class="container">
+                <div class="section-title text-center" data-aos="fade-up">
+                    <h2>Multi-Language CDL Permit Courses</h2>
+                    <p>Pass Your CDL Permit Test in Your Native Language</p>
+                </div>
+
+                <div class="row gy-4 mt-4">
+                    @php
+                        $multilingualCourses = App\Models\Course::whereIn('id', [9, 10, 11, 12, 13, 14])
+                            ->where('status', 'active')
+                            ->where('is_active', 1)
+                            ->get();
+                    @endphp
+
+                    @foreach($multilingualCourses as $langCourse)
+                    <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="card h-100 border-0 shadow-sm hover-card">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-box mb-3">
+                                    <i class="bi bi-translate" style="font-size: 3rem; color: var(--accent-color);"></i>
+                                </div>
+                                <h4 class="card-title fw-bold mb-3">{{ $langCourse->menu_name }}</h4>
+                                <p class="card-text text-muted mb-4">{{ Str::limit(strip_tags($langCourse->description ?? ''), 100, '...') }}</p>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    @if($langCourse->original_price)
+                                        <p class="price mb-0">
+                                            <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $langCourse->original_price }}</span>
+                                            <span style="color: #5fcf80; font-weight: bold; font-size: 1.5rem;">${{ $langCourse->price }}</span>
+                                        </p>
+                                    @else
+                                        <p class="price mb-0" style="font-size: 1.5rem; font-weight: bold; color: #5fcf80;">${{ $langCourse->price }}</p>
+                                    @endif
+                                </div>
+                                <a href="{{ route('front.course.details', $langCourse->slug) }}" class="btn btn-primary w-100">Learn More</a>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </section><!-- /Multi-Language CDL Courses Section -->
 
         <!-- Video Section -->
         <section id="video-section" class="video-section section bg-light">

@@ -5,10 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Slider;
-use Illuminate\Support\Facades\Storage;
+use App\Services\FileUploadService;
 
 class SliderController extends Controller
 {
+    protected FileUploadService $fileUploadService;
+
+    public function __construct(FileUploadService $fileUploadService)
+    {
+        $this->fileUploadService = $fileUploadService;
+    }
     public function index()
     {
         $sliders = Slider::all();
@@ -22,10 +28,10 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        
         $request->merge([
             'is_active' => $request->has('is_active') ? true : false,
         ]);
+
         $request->validate([
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
@@ -34,7 +40,7 @@ class SliderController extends Controller
             'redirect_url' => 'nullable|url',
         ]);
 
-        $imagePath = $request->file('image')->store('sliders', 'public');
+        $imagePath = $this->fileUploadService->upload($request->file('image'), 'sliders');
 
         Slider::create([
             'title' => $request->title,
@@ -57,6 +63,7 @@ class SliderController extends Controller
         $request->merge([
             'is_active' => $request->has('is_active') ? true : false,
         ]);
+
         $request->validate([
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
@@ -65,11 +72,10 @@ class SliderController extends Controller
             'redirect_url' => 'nullable|url',
         ]);
 
+        $imagePath = $slider->image;
+
         if ($request->hasFile('image')) {
-            Storage::disk('public')->delete($slider->image);
-            $imagePath = $request->file('image')->store('sliders', 'public');
-        } else {
-            $imagePath = $slider->image;
+            $imagePath = $this->fileUploadService->upload($request->file('image'), 'sliders', $slider->image);
         }
 
         $slider->update([
@@ -85,7 +91,7 @@ class SliderController extends Controller
 
     public function destroy(Slider $slider)
     {
-        Storage::disk('public')->delete($slider->image);
+        $this->fileUploadService->delete($slider->image);
         $slider->delete();
 
         return redirect()->route('sliders.index')->with('success', 'Slider deleted successfully.');

@@ -85,25 +85,19 @@ class PageController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
 
-        // Define a mapping between course IDs and view file names
-        $viewMap = [
-            9 => 'front.commercial-leaner-s-permit-clp-english',
-            10 => 'front.commercial-leaner-s-permit-clp-arabic',
-            11 => 'front.commercial-leaner-s-permit-clp-amharic',
-            12 => 'front.commercial-leaner-s-permit-clp-french',
-            13 => 'front.commercial-leaner-s-permit-clp-nepali',
-            14 => 'front.commercial-leaner-s-permit-clp-somali',
-            15 => 'front.cdl-canada',
-            16 => 'front.cdl-europe',
-            17 => 'front.cdl-global',
-            18 => 'front.cdl-test-course',
-            19 => 'front.cdl-dispatcher',
-        ];
+        // Get view template from database
+        $template = DB::table('course_view_templates')
+            ->where('course_id', $course->id)
+            ->where('is_active', true)
+            ->first();
 
-        $viewName = $viewMap[$course->id] ?? null;
+        if ($template && View::exists($template->view_name)) {
+            return view($template->view_name, compact('course'));
+        }
 
-        if ($viewName && View::exists($viewName)) {
-            return view($viewName, compact('course'));
+        // Fallback to generic course details view if no custom template exists
+        if (View::exists('front.course_details')) {
+            return view('front.course_details', compact('course'));
         }
 
         abort(404);
