@@ -64,7 +64,11 @@
                                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                                         <a href="{{ route('front.course.category', $course->category) }}"
                                             class="btn btn-info">More Details</a>
-                                        <p class="price">${{ $course->price ?? '' }}</p>
+                                        @if(($course->course_type ?? 'tier') === 'tier')
+                                            <p class="price" style="color: #5fcf80; font-weight: bold;">FREE</p>
+                                        @else
+                                            <p class="price">${{ $course->price ?? '' }}</p>
+                                        @endif
                                     </div>
 
                                     <h3><a

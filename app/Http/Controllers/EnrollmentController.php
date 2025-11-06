@@ -33,6 +33,87 @@ class EnrollmentController extends Controller
 
         return view('front.curriculam', compact('course'));
     }
+
+    /**
+     * Show enrollment form for a course
+     */
+    public function showEnrollForm(Course $course)
+    {
+        $user = auth()->user();
+
+        if ($user && $this->enrollmentService->isUserEnrolled($user, $course)) {
+            // Check enrollment status
+            $enrollment = $user->courses()->where('course_id', $course->id)->first();
+
+            if ($enrollment->pivot->status === 'pending') {
+                // If pending, show payment page to complete enrollment
+                return view('front.payment', compact('course'));
+            } elseif ($enrollment->pivot->status === 'approved') {
+                // If already approved, redirect to curriculum
+                return redirect()->route('course.curriculam', $course->id)
+                    ->with('info', 'You are already enrolled in this course.');
+            }
+        }
+
+        return view('front.enroll-form', compact('course'));
+    }
+
+    /**
+     * Process enrollment form submission
+     */
+    public function processEnrollForm(Request $request, Course $course)
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return redirect()->route('login')
+                ->with('error', 'Please log in to enroll.');
+        }
+
+        $request->validate([
+            'full_name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:100',
+        ]);
+
+        // Check enrollment status
+        $enrollment = $user->courses()->where('course_id', $course->id)->first();
+
+        if ($enrollment) {
+            if ($enrollment->pivot->status === 'approved') {
+                // Already approved, redirect to curriculum
+                return redirect()->route('course.curriculam', $course->id)
+                    ->with('info', 'You are already enrolled in this course.');
+            } elseif ($enrollment->pivot->status === 'pending') {
+                // Pending payment, show payment page
+                return view('front.payment', compact('course'));
+            }
+        }
+
+        // For tier courses, auto-enroll in free tier
+        if ($course->isTierCourse()) {
+            $this->enrollmentService->autoEnrollInFreeTier($user, $course);
+
+            return redirect()->route('dashboard')
+                ->with('success', 'You have been enrolled in the free tier! You can upgrade anytime.');
+        }
+
+        // For paid courses, create enrollment and redirect to payment
+        $transactionId = 'pending_' . time() . '_' . $user->id;
+
+        $this->enrollmentService->enrollUser(
+            $user,
+            $course,
+            $transactionId,
+            'pending',
+            'free'
+        );
+
+        // Redirect to payment page
+        return view('front.payment', compact('course'));
+    }
+
     public function createStripeCheckoutSession(Request $request)
     {
         // User must be logged in
@@ -50,10 +131,15 @@ class EnrollmentController extends Controller
         $price = $request->price;
 
         try {
-            // Check if user already enrolled
-            if ($this->enrollmentService->isUserEnrolled($user, $course)) {
-                return redirect()->back()->with('success', 'You already have an enrollment request or are already enrolled.');
+            // Check if user already enrolled with approved status
+            $enrollment = $user->courses()->where('course_id', $course->id)->first();
+
+            if ($enrollment && $enrollment->pivot->status === 'approved') {
+                return redirect()->route('course.curriculam', $course->id)
+                    ->with('info', 'You are already enrolled in this course.');
             }
+
+            // Allow payment for pending or new enrollments
 
             // PAYMENT DEBUG MODE: Bypass payment if enabled
             if (config('app.payment_debug', false)) {
@@ -62,12 +148,14 @@ class EnrollmentController extends Controller
                 // Generate a fake transaction ID for testing
                 $fakeTransactionId = 'debug_'.uniqid();
 
-                // Enroll user directly with approved status
-                $this->enrollmentService->enrollUser($user, $course, $fakeTransactionId, 'pending');
+                // Enroll user directly with approved status (if not already enrolled)
+                if (!$enrollment) {
+                    $this->enrollmentService->enrollUser($user, $course, $fakeTransactionId, 'pending');
+                }
 
                 // Get the enrollment
                 $enrollment = $user->purchasedCourses()
-                    ->wherePivot('transaction_id', $fakeTransactionId)
+                    ->where('course_id', $course->id)
                     ->first();
 
                 // Complete enrollment (approve, notify, generate Telegram invite)
@@ -86,8 +174,15 @@ class EnrollmentController extends Controller
                 url('/enrollment/failure')
             );
 
-            // Enroll user with pending status
-            $this->enrollmentService->enrollUser($user, $course, $session->id, 'pending');
+            // Only create enrollment if it doesn't exist
+            if (!$enrollment) {
+                $this->enrollmentService->enrollUser($user, $course, $session->id, 'pending');
+            } else {
+                // Update transaction_id for existing pending enrollment
+                $user->courses()->updateExistingPivot($course->id, [
+                    'transaction_id' => $session->id
+                ]);
+            }
 
             // Redirect to Stripe Checkout
             return Redirect::to($session->url);
@@ -156,12 +251,6 @@ class EnrollmentController extends Controller
     }
 
 
-    public function show($courseId)
-    {
-
-        $course = Course::findOrFail($courseId);
-        return view('front.payment', compact('course'));
-    }
 
     public function showFailurePage()
     {
@@ -200,5 +289,159 @@ class EnrollmentController extends Controller
         // Redirect to the Telegram invite link
         // Telegram will enforce the one-time usage limit (member_limit=1)
         return redirect()->away($enrollment->pivot->telegram_invite_link);
+    }
+
+    /**
+     * Show tier upgrade page
+     */
+    public function showTierUpgradePage(Course $course, string $tier)
+    {
+        $user = auth()->user();
+
+        // Validate tier
+        if (!in_array($tier, ['premium', 'mentorship'])) {
+            return redirect()->back()->with('error', 'Invalid tier selected.');
+        }
+
+        // Check if user is enrolled
+        if (!$this->enrollmentService->isUserEnrolled($user, $course)) {
+            return redirect()->route('register')
+                ->with('error', 'Please sign up for free access first.')
+                ->with('course_id', $course->id);
+        }
+
+        // Get current tier
+        $currentTier = $user->getSubscriptionTier($course->id);
+
+        // Validate upgrade path
+        if ($tier === 'premium' && $currentTier !== 'free') {
+            return redirect()->route('dashboard')
+                ->with('error', 'You already have Premium or Mentorship access.');
+        }
+
+        if ($tier === 'mentorship' && $currentTier === 'mentorship') {
+            return redirect()->route('dashboard')
+                ->with('error', 'You already have Mentorship access.');
+        }
+
+        // Get price for the tier
+        $price = $tier === 'premium' ? $course->getPremiumPrice() : $course->getMentorshipPrice();
+
+        return view('front.tier-upgrade', compact('course', 'tier', 'price', 'currentTier'));
+    }
+
+    /**
+     * Create Stripe checkout session for tier upgrade
+     */
+    public function createTierUpgradeCheckout(Request $request)
+    {
+        $user = auth()->user();
+
+        $request->validate([
+            'course_id' => 'required|integer|exists:courses,id',
+            'tier' => 'required|in:premium,mentorship',
+            'price' => 'required|numeric',
+        ]);
+
+        $course = Course::findOrFail($request->course_id);
+        $tier = $request->tier;
+        $price = $request->price;
+
+        try {
+            // Check if user is enrolled
+            if (!$this->enrollmentService->isUserEnrolled($user, $course)) {
+                return redirect()->back()->with('error', 'Please sign up for free access first.');
+            }
+
+            // Get current tier
+            $currentTier = $user->getSubscriptionTier($course->id);
+
+            // Validate upgrade
+            if ($tier === 'premium' && $currentTier !== 'free') {
+                return redirect()->back()->with('error', 'Invalid upgrade path.');
+            }
+            if ($tier === 'mentorship' && $currentTier === 'mentorship') {
+                return redirect()->back()->with('error', 'You already have this tier.');
+            }
+
+            // PAYMENT DEBUG MODE: Bypass payment if enabled
+            if (config('app.payment_debug', false)) {
+                Log::info('Payment Debug Mode: Bypassing tier upgrade payment for user '.$user->id.' and course '.$course->id);
+
+                $fakeTransactionId = 'debug_tier_upgrade_'.uniqid();
+
+                // Upgrade tier directly
+                $this->enrollmentService->upgradeTier($user, $course, $tier, $fakeTransactionId, $price);
+
+                return redirect()->route('dashboard')
+                    ->with('success', 'DEBUG MODE: Tier upgraded successfully!');
+            }
+
+            // Create Stripe checkout session
+            $session = $this->paymentService->createCheckoutSession(
+                $course,
+                $price,
+                url('/tier-upgrade/success').'?session_id={CHECKOUT_SESSION_ID}&tier='.$tier.'&course_id='.$course->id,
+                url('/enrollment/failure')
+            );
+
+            // Store tier upgrade info in session for success handler
+            session([
+                'tier_upgrade_session_id' => $session->id,
+                'tier_upgrade_tier' => $tier,
+                'tier_upgrade_course_id' => $course->id,
+                'tier_upgrade_price' => $price,
+            ]);
+
+            // Redirect to Stripe Checkout
+            return Redirect::to($session->url);
+        } catch (\Exception $e) {
+            Log::error('Tier upgrade checkout error: '.$e->getMessage());
+
+            return redirect()->back()->with('error', 'Failed to initiate checkout: '.$e->getMessage());
+        }
+    }
+
+    /**
+     * Handle successful tier upgrade payment
+     */
+    public function handleTierUpgradeSuccess(Request $request)
+    {
+        $user = auth()->user();
+
+        $sessionId = $request->get('session_id');
+        $tier = $request->get('tier');
+        $courseId = $request->get('course_id');
+
+        if (!$sessionId || !$tier || !$courseId) {
+            Log::error('Tier upgrade success: Missing parameters');
+            return redirect()->route('enrollment.failure')->with('error', 'Invalid upgrade session.');
+        }
+
+        try {
+            // Verify payment
+            if (!$this->paymentService->verifyPayment($sessionId)) {
+                Log::warning('Tier upgrade: Payment not completed. Session: '.$sessionId);
+                return redirect()->route('enrollment.failure')->with('error', 'Payment was not completed.');
+            }
+
+            $course = Course::findOrFail($courseId);
+
+            // Get price from session
+            $price = session('tier_upgrade_price', 0);
+
+            // Upgrade tier
+            $this->enrollmentService->upgradeTier($user, $course, $tier, $sessionId, $price);
+
+            // Clear session data
+            session()->forget(['tier_upgrade_session_id', 'tier_upgrade_tier', 'tier_upgrade_course_id', 'tier_upgrade_price']);
+
+            // Redirect to dashboard
+            return redirect()->route('dashboard')
+                ->with('success', 'Congratulations! Your tier has been upgraded successfully.');
+        } catch (\Exception $e) {
+            Log::error('Error in handleTierUpgradeSuccess: '.$e->getMessage());
+            return redirect()->route('enrollment.failure')->with('error', 'Failed to process upgrade. Please contact support.');
+        }
     }
 }

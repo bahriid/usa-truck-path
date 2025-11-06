@@ -1027,11 +1027,11 @@
 
                                     @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                        <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
 
                                     @else
 
-                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll
 
                                             Now</a>
 
@@ -1733,11 +1733,11 @@
 
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
 
                                 @else
 
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll
 
                                         Now</a>
 
@@ -1796,10 +1796,10 @@
                                 @if ($course->status === 'upcoming')
                                 <button class="btn btn-secondary" disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="btn btn-info " disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning">Continue Payment</a>
                                 @else
                                 <!-- Instead of directly purchasing, go to the enroll form -->
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                     class="btn btn-primary">Enroll
                                 Now</a>
                                 @endif
@@ -1808,13 +1808,20 @@
                                 <a href="{{ route('front.course.details', $course->slug) }}"
                                     class="btn btn-info">More Details</a>
                                 <div class="price-wrapper">
-                                    @if($course->original_price)
+                                    @if(($course->course_type ?? 'tier') === 'tier')
                                         <p class="price mb-0">
-                                            <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $course->original_price }}</span>
-                                            <span style="color: #5fcf80; font-weight: bold;">${{ $course->price ?? '' }}</span>
+                                            <span style="color: #5fcf80; font-weight: bold;">FREE</span>
+                                            <small class="text-muted d-block" style="font-size: 0.8em;">+ Premium upgrades available</small>
                                         </p>
                                     @else
-                                        <p class="price mb-0">${{ $course->price ?? '' }}</p>
+                                        @if($course->original_price)
+                                            <p class="price mb-0">
+                                                <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $course->original_price }}</span>
+                                                <span style="color: #5fcf80; font-weight: bold;">${{ $course->price ?? '' }}</span>
+                                            </p>
+                                        @else
+                                            <p class="price mb-0">${{ $course->price ?? '' }}</p>
+                                        @endif
                                     @endif
                                 </div>
                             </div>

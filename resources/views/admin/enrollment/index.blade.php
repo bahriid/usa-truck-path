@@ -54,7 +54,8 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Course</th>
-                                        {{-- <th>Status</th> --}}
+                                        <th>Tier</th>
+                                        <th>Status</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -65,16 +66,24 @@
                                             <td>{{ $enroll->email }}</td>
                                             <td>{{ $enroll->phone }}</td>
                                             <td>{{ $enroll->course_title }}</td>
-                                            {{-- <td>
+                                            <td>
+                                                @if ($enroll->tier === 'free')
+                                                    <span class="badge bg-success">FREE</span>
+                                                @elseif($enroll->tier === 'premium')
+                                                    <span class="badge bg-primary">PREMIUM</span>
+                                                @elseif($enroll->tier === 'mentorship')
+                                                    <span class="badge bg-warning text-dark">MENTORSHIP</span>
+                                                @endif
+                                            </td>
+                                            <td>
                                                 @if ($enroll->status === 'pending')
-                                                    <span
-                                                        class="badge bg-warning text-dark">{{ ucfirst($enroll->status) }}</span>
+                                                    <span class="badge bg-warning text-dark">{{ ucfirst($enroll->status) }}</span>
                                                 @elseif($enroll->status === 'approved')
                                                     <span class="badge bg-success">{{ ucfirst($enroll->status) }}</span>
                                                 @elseif($enroll->status === 'rejected')
                                                     <span class="badge bg-danger">{{ ucfirst($enroll->status) }}</span>
                                                 @endif
-                                            </td> --}}
+                                            </td>
                                             <td>
                                                 <a href="{{ route('admin.users.show', $enroll->user_id) }}"
                                                    class="btn btn-sm btn-info"
@@ -110,7 +119,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">No enrollments found.</td>
+                                            <td colspan="7">No enrollments found.</td>
                                         </tr>
                                     @endforelse
                                     </tbody>

@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CourseContentController;
 use App\Http\Controllers\Admin\TopicController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
@@ -16,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Dashboard - shows courses in user's funnel
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
 
     Route::name('front.')->group(function () {
 
@@ -63,8 +65,7 @@ Route::get('/dashboard', function () {
 
 Route::get('/telegram-group/{course}', [EnrollmentController::class, 'redeemTelegramInvite'])->middleware('auth')->name('telegram.invite.redeem');
 
-Route::get('/payment/{course}',[EnrollmentController::class,'show'])->name('stripe.payment.view');
-
+// Payment checkout for enrollments
 Route::post('/payemnt/checkout',[EnrollmentController::class,'createStripeCheckoutSession'])->name('stripe.checkout');
 
 Route::get('/enrollment/success', [EnrollmentController::class, 'handleSuccessfulPayment'])->name('enrollment.success');
@@ -74,6 +75,17 @@ Route::get('/enrollment/failure/show', [EnrollmentController::class, 'showFailur
 
 Route::get('/stripe',[EnrollmentController::class,'payment'])->name('stripe.payment');
 Route::get('/stripe',[EnrollmentController::class,'success'])->name('stripe.payment.success');
+
+// Tier upgrade routes
+Route::get('/tier-upgrade/{course}/{tier}', [EnrollmentController::class, 'showTierUpgradePage'])
+    ->middleware(['auth'])
+    ->name('tier.upgrade.page');
+Route::post('/tier-upgrade/checkout', [EnrollmentController::class, 'createTierUpgradeCheckout'])
+    ->middleware(['auth'])
+    ->name('tier.upgrade.checkout');
+Route::get('/tier-upgrade/success', [EnrollmentController::class, 'handleTierUpgradeSuccess'])
+    ->middleware(['auth'])
+    ->name('tier.upgrade.success');
 
     Route::middleware('auth')->group(function () {
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -21,6 +21,7 @@
             <thead>
               <tr>
                 <th>Type</th>
+                <th>Tier</th>
                 <th>Title</th>
                 <th>Duration</th>
                 <th>Source</th>
@@ -33,6 +34,15 @@
               @forelse ($topics as $topic)
                 <tr>
                   <td>{{ ucfirst($topic->type) }}</td>
+                  <td>
+                    @if (($topic->tier ?? 'free') === 'free')
+                      <span class="badge bg-success">FREE</span>
+                    @elseif($topic->tier === 'premium')
+                      <span class="badge bg-primary">PREMIUM</span>
+                    @elseif($topic->tier === 'mentorship')
+                      <span class="badge bg-warning text-dark">MENTORSHIP</span>
+                    @endif
+                  </td>
                   <td>{{ $topic->title }}</td>
                   <td>{{ $topic->duration ?? '-' }}</td>
                   <td>{{ $topic->source_from ?? '-' }}</td>
@@ -95,7 +105,7 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="6" class="text-center">No topics found!</td>
+                  <td colspan="8" class="text-center">No topics found!</td>
                 </tr>
               @endforelse
             </tbody>

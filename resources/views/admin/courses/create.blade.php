@@ -55,22 +55,69 @@
                                 @enderror
                             </div>
 
+                            <hr class="my-4">
+                            <h5 class="mb-3">Course Pricing Model</h5>
+
                             <div class="form-group mb-3">
-                                <label for="price">Price</label>
-                                <input type="number" step="0.01" name="price" class="form-control" id="price" value="{{ old('price', $course->price ?? '') }}" required>
-                                @error('price')
+                                <label for="course_type">Course Type</label>
+                                <select name="course_type" class="form-control" id="course_type" required>
+                                    <option value="tier" {{ old('course_type', $course->course_type ?? 'tier') == 'tier' ? 'selected' : '' }}>
+                                        Tier Course - Free signup with Premium/Mentorship upgrades
+                                    </option>
+                                    <option value="paid" {{ old('course_type', $course->course_type ?? '') == 'paid' ? 'selected' : '' }}>
+                                        Paid Course - Traditional one-time payment
+                                    </option>
+                                </select>
+                                <small class="text-muted">Choose how students will pay for this course</small>
+                                @error('course_type')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+                            {{-- Paid Course Fields --}}
+                            <div id="paid-course-fields" style="display: none;">
+                                <div class="form-group mb-3">
+                                    <label for="price">Price</label>
+                                    <input type="number" step="0.01" name="price" class="form-control" id="price" value="{{ old('price', $course->price ?? '') }}">
+                                    @error('price')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="original_price">Original Price (Strikethrough)</label>
+                                    <input type="number" step="0.01" name="original_price" class="form-control" id="original_price" value="{{ old('original_price', $course->original_price ?? '') }}">
+                                    <small class="text-muted">Leave empty to hide strikethrough price</small>
+                                    @error('original_price')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            {{-- Tier Course Fields --}}
+                            <div id="tier-course-fields" style="display: none;">
+                                <p class="text-muted">Users sign up for FREE and can upgrade to premium tiers inside the course.</p>
+
+                            <div class="form-group mb-3">
+                                <label for="premium_price">Premium Tier Price</label>
+                                <input type="number" step="0.01" name="premium_price" class="form-control" id="premium_price" value="{{ old('premium_price', $course->premium_price ?? '150.00') }}" required>
+                                <small class="text-muted">Price for users to upgrade from FREE to PREMIUM tier</small>
+                                @error('premium_price')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
 
                             <div class="form-group mb-3">
-                                <label for="original_price">Original Price (Strikethrough)</label>
-                                <input type="number" step="0.01" name="original_price" class="form-control" id="original_price" value="{{ old('original_price', $course->original_price ?? '') }}">
-                                <small class="text-muted">Leave empty to hide strikethrough price</small>
-                                @error('original_price')
+                                <label for="mentorship_price">Mentorship Tier Price</label>
+                                <input type="number" step="0.01" name="mentorship_price" class="form-control" id="mentorship_price" value="{{ old('mentorship_price', $course->mentorship_price ?? '297.00') }}">
+                                <small class="text-muted">Price for users to upgrade to MENTORSHIP tier (from any tier)</small>
+                                @error('mentorship_price')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
+                            </div>
+
+                            <hr class="my-4">
 
                             <div class="form-group mb-3">
                                 <label for="is_active">Active</label>
@@ -144,7 +191,21 @@
                                     @enderror
                             </div>
 
-                          
+                            {{-- TELEGRAM INTEGRATION --}}
+                            <hr class="my-4">
+                            <h5 class="mb-3">Telegram Integration</h5>
+                            <p class="text-muted">Connect a Telegram group for student community and support</p>
+
+                            <div class="form-group mb-3">
+                                <label for="telegram_chat_id">Telegram Chat ID (optional)</label>
+                                <input type="text" name="telegram_chat_id" class="form-control" id="telegram_chat_id"
+                                       value="{{ old('telegram_chat_id', $course->telegram_chat_id ?? '') }}"
+                                       placeholder="e.g., -1001234567890">
+                                <small class="text-muted">Telegram group/channel ID for automatic invite generation</small>
+                                @error('telegram_chat_id')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
 
                             <button type="submit" class="btn btn-success">{{ isset($course) ? 'Update' : 'Create' }} Course</button>
                             <a href="{{ route('admin.courses.index') }}" class="btn btn-secondary">Cancel</a>
@@ -158,6 +219,41 @@
 
 @push('scripts')
 <script src="{{asset('asset_admin/vendor/ckeditor/ckeditor.js')}}"></script>
+
+<script>
+// Toggle course type fields
+function toggleCourseTypeFields() {
+    const courseType = document.getElementById('course_type').value;
+    const paidFields = document.getElementById('paid-course-fields');
+    const tierFields = document.getElementById('tier-course-fields');
+
+    if (courseType === 'paid') {
+        paidFields.style.display = 'block';
+        tierFields.style.display = 'none';
+
+        // Make paid fields required
+        document.getElementById('price').required = true;
+        document.getElementById('premium_price').required = false;
+        document.getElementById('mentorship_price').required = false;
+    } else {
+        paidFields.style.display = 'none';
+        tierFields.style.display = 'block';
+
+        // Make tier fields required
+        document.getElementById('price').required = false;
+        document.getElementById('premium_price').required = true;
+        document.getElementById('mentorship_price').required = true;
+    }
+}
+
+// Run on page load
+document.addEventListener('DOMContentLoaded', function() {
+    toggleCourseTypeFields();
+
+    // Run when course type changes
+    document.getElementById('course_type').addEventListener('change', toggleCourseTypeFields);
+});
+</script>
 
 <script>
 

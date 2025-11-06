@@ -49,10 +49,25 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{ Str::limit($course->title, 20) }}</h5>
                                             <p class="card-text">
-                                                <strong><i class="bi bi-check-circle"></i> Enrollment:</strong>  
+                                                <strong><i class="bi bi-check-circle"></i> Enrollment:</strong>
                                                 {{ $enrollmentStatus }}<br>
-                                                <strong><i class="bi bi-cash"></i> Price:</strong> 
-                                                ${{ $course->price }}<br>
+                                                @if($course->isTierCourse())
+                                                    @php
+                                                        $userTier = auth()->user()->getSubscriptionTier($course->id);
+                                                    @endphp
+                                                    <strong><i class="bi bi-star"></i> Tier:</strong>
+                                                    @if($userTier === 'free')
+                                                        <span class="badge bg-success">FREE</span>
+                                                    @elseif($userTier === 'premium')
+                                                        <span class="badge bg-primary">PREMIUM</span>
+                                                    @elseif($userTier === 'mentorship')
+                                                        <span class="badge bg-warning text-dark">MENTORSHIP</span>
+                                                    @endif
+                                                @else
+                                                    <strong><i class="bi bi-cash"></i> Price:</strong>
+                                                    ${{ $course->price }}
+                                                @endif
+                                                <br>
                                             </p>
                                         </div>
                                     </div>

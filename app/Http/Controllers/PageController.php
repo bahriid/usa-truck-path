@@ -15,7 +15,7 @@ class PageController extends Controller
     {
         $sliders = Slider::where('is_active', 1)->get();
 
-        // Get one latest course per category
+        // Get one latest course per category (original behavior)
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')

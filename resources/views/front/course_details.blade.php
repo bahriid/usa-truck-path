@@ -505,9 +505,9 @@
                                 @if ($course->status === 'upcoming')
                                     <button class="btn btn-secondary " disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                                 @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
                                 @endif
                             @endif
                         @endguest
@@ -569,9 +569,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="cta   mb-2" disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
                                     Now</a>
                             @endif
                         @endif
@@ -616,9 +616,9 @@
                                                 @if ($course->status === 'upcoming')
                                                     <button class="cta-btn-course mb-2" disabled>Up Coming</button>
                                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                                    <button class="cta-btn-course  mb-2" disabled>Request Pending...</button>
+                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn-course mb-2">Continue Payment</a>
                                                 @else
-                                                    <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                                         class="cta-btn-course mb-2 ">Enroll
                                                         Now</a>
                                                 @endif
@@ -1298,9 +1298,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="cta w-100 mb-2" disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                     class="btn btn-primary w-100">Enroll
                                     Now</a>
                             @endif

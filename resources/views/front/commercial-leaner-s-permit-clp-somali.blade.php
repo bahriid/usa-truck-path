@@ -482,7 +482,7 @@
                             <h1 class="mb-4" style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                                 {{ $course->title }}</h1>
                             <p class="lead mb-4">
-                                {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Somali and English, with video, audio, and eBook lessons.' }}
+                                {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course ï¿½ available in both Somali and English, with video, audio, and eBook lessons.' }}
                             </p>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb ">
@@ -506,9 +506,9 @@
                                     @if ($course->status === 'upcoming')
                                         <button class="btn btn-secondary " disabled>Up Coming</button>
                                     @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                        <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                                     @else
-                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
                                     @endif
                                 @endif
                             @endguest
@@ -516,6 +516,27 @@
                     </div>
                 </div>
             </section>
+
+            @if($course->isTierCourse())
+            <section class="container my-4">
+                <div class="alert alert-success border-0 shadow-sm">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="mb-2"><i class="bi bi-gift me-2"></i><strong>Start Learning FREE Today!</strong></h5>
+                            <p class="mb-0 small">Enroll now at no cost and upgrade anytime to unlock premium content and mentorship.</p>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-2 mt-md-0">
+                            <div class="d-flex flex-column gap-1">
+                                <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i> <strong>FREE</strong> tier included</small>
+                                <small class="text-muted"><i class="bi bi-star-fill text-primary"></i> <strong>Premium</strong> ${{ number_format($course->premium_price ?? 150, 0) }}</small>
+                                <small class="text-muted"><i class="bi bi-trophy-fill text-warning"></i> <strong>Mentorship</strong> ${{ number_format($course->mentorship_price ?? 297, 0) }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            @endif
+
             <section class="row container mx-auto bg-light">
                 <div class="col-lg-12">
                     <div class="course-curriculum">
@@ -834,7 +855,7 @@
                                 style="font-size: 2.5rem; font-weight: bold;  color:var(--accent-color)  ;">
                                 {{ $course->title }}</h1>
                             <p class="lead mb-4">
-                                {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in both Somali and English, with video, audio, and eBook lessons.' }}
+                                {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course ï¿½ available in both Somali and English, with video, audio, and eBook lessons.' }}
                             </p>
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb ">
@@ -858,9 +879,9 @@
                                     @if ($course->status === 'upcoming')
                                         <button class="btn btn-secondary " disabled>Up Coming</button>
                                     @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                        <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                                     @else
-                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll
                                             Now</a>
                                     @endif
                                 @endif
@@ -887,8 +908,8 @@
 
                 <div class="col-md-6">
 
-                    <h4 class="mb-3 text-center">What’s Included in This Course :</h4>
-                    <p class="text-muted why-info-p"> Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Somali. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                    <h4 class="mb-3 text-center">Whatï¿½s Included in This Course :</h4>
+                    <p class="text-muted why-info-p"> Get ready to pass your Commercial Learnerï¿½s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youï¿½ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Somali. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersï¿½just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
                     {{-- <ul class="list-unstyled mb-4">
@@ -911,8 +932,26 @@
 
                     <div class="text-center">
                         <h5 class="mb-3">
-                            <strong>Price:</strong> ${{ $course->price }}
+                            <strong>Price:</strong>
+                            @if($course->isTierCourse())
+                                <span style="color: #5fcf80;">FREE</span> <small>(+ Premium upgrades available)</small>
+                            @else
+                                ${{ $course->price }}
+                            @endif
                         </h5>
+
+                        @if($course->isTierCourse())
+                            <div class="alert alert-info border-0 mb-4 text-start">
+                                <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
+                                <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                                <ul class="small mb-0">
+                                    <li><strong>FREE Tier:</strong> Access essential course content</li>
+                                    <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
+                                    <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                                </ul>
+                                <p class="small text-muted mb-0 mt-2">ðŸ’¡ Enroll for free now, upgrade anytime!</p>
+                            </div>
+                        @endif
 
                         @guest
 
@@ -925,9 +964,9 @@
                                 @if ($course->status === 'upcoming')
                                     <button class="cta   mb-2" disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="cta  mb-2" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
                                 @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
                                         Now</a>
                                 @endif
                             @endif
@@ -973,7 +1012,7 @@
                                                         <button class="cta-btn-course  mb-2" disabled>Request
                                                             Pending...</button>
                                                     @else
-                                                        <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                                             class="cta-btn-course mb-2 ">Enroll
                                                             Now</a>
                                                     @endif
@@ -1011,7 +1050,7 @@
                                 <p class="lead text-muted">Your Fast-Track to a Truck Driving Career Starts Here
                                     We empower future truck drivers with an easy, effective, and guaranteed way to pass the
                                     DMV
-                                    exam—regardless of language or background.</p>
+                                    examï¿½regardless of language or background.</p>
                             </div>
                         </div>
                     </div>
@@ -1024,8 +1063,8 @@
                                         <i class="bi bi-translate"></i>
                                     </div>
                                     <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
-                                    <p class="text-muted small">Study in your preferred language—English, Arabic, Somali,
-                                        Amharic, French, or Nepali—with complete support for non-native speakers.
+                                    <p class="text-muted small">Study in your preferred languageï¿½English, Arabic, Somali,
+                                        Amharic, French, or Nepaliï¿½with complete support for non-native speakers.
                                     </p>
                                 </div>
                             </div>
@@ -1040,7 +1079,7 @@
                                     <h5 class="fw-semibold mb-2">Real DMV Test Questions & Answers</h5>
                                     <p class="text-muted small">Our course includes the actual test format and questions
                                         used
-                                        by DMVs across all states, ensuring you’re fully prepared.
+                                        by DMVs across all states, ensuring youï¿½re fully prepared.
                                     </p>
                                 </div>
                             </div>
@@ -1067,9 +1106,9 @@
                                         <i class="bi bi-shield-fill-check"></i>
                                     </div>
                                     <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
-                                    <p class="text-muted small">We’re so confident in our system that we guarantee you’ll
+                                    <p class="text-muted small">Weï¿½re so confident in our system that we guarantee youï¿½ll
                                         pass
-                                        your DMV test on the first try—or get extended access for free.
+                                        your DMV test on the first tryï¿½or get extended access for free.
                                     </p>
                                 </div>
                             </div>
@@ -1084,7 +1123,7 @@
                                     <h5 class="fw-semibold mb-2">Learn at Your Own Pace</h5>
                                     <p class="text-muted small">Whether you have a full-time job or a busy life, our
                                         platform
-                                        lets you study anytime, anywhere—on any device.</p>
+                                        lets you study anytime, anywhereï¿½on any device.</p>
                                 </div>
                             </div>
                         </div>
@@ -1096,9 +1135,9 @@
                                         <i class="bi  bi-truck-front-fill"></i>
                                     </div>
                                     <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
-                                    <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so
-                                        you’re
-                                        not just passing a test, you’re preparing for a career on the road.</p>
+                                    <p class="text-muted small">We specialize in helping aspiring CDL truck driversï¿½so
+                                        youï¿½re
+                                        not just passing a test, youï¿½re preparing for a career on the road.</p>
                                 </div>
                             </div>
                         </div>
@@ -1422,8 +1461,8 @@
                             <h2 class="fw-bold text-success mb-3 text-center">About USATruckPath</h2>
                             <p class="text-muted why-info-p">
 
-                                We make it easy to pass your Commercial Learner’s Permit (CLP) test. Our all-in-one course
-                                includes video lessons, audio guides, and an eBook—available in multiple languages. It’s
+                                We make it easy to pass your Commercial Learnerï¿½s Permit (CLP) test. Our all-in-one course
+                                includes video lessons, audio guides, and an eBookï¿½available in multiple languages. Itï¿½s
                                 everything you need to get started in trucking.
                             </p>
                             <p class="text-muted text-center mb-0 mt-2" style="font-weight: 700; font-size:2rem; ">Here's
@@ -1438,7 +1477,7 @@
                                     <div class="ms-2">
                                         <div class="fw-bold">What You Get</div>
                                         <p class="text-muted mb-0">Original price $297, now only $80.
-                                            You’ll get full access to:
+                                            Youï¿½ll get full access to:
                                             Video course, Audio course, Downloadable eBook, Covers all topics: General
                                             Knowledge, Air Brakes, Combination, Hazmat (H), Tanker (N), Doubles & Triples
                                             (T), Passenger (P), School Bus (S), Tanker + Hazmat (X).
@@ -1449,7 +1488,7 @@
                                     <div class="ms-2">
                                         <div class="fw-bold">Proven Method</div>
                                         <p class="text-muted mb-0">Our study method is simple and guaranteed.
-                                            You’ll get one question and one correct answer—no confusing multiple-choice
+                                            Youï¿½ll get one question and one correct answerï¿½no confusing multiple-choice
                                             options.
                                             Everyone who purchased our course has passed their test.</p>
                                     </div>
@@ -1458,8 +1497,8 @@
                                     <div class="ms-2">
                                         <div class="fw-bold">Get Started Now</div>
                                         <p class="text-muted mb-0">This is your first step to becoming a CDL driver. Join
-                                            thousands who’ve passed with our guide. Study at your own pace and pass with
-                                            confidence—guaranteed..</p>
+                                            thousands whoï¿½ve passed with our guide. Study at your own pace and pass with
+                                            confidenceï¿½guaranteed..</p>
                                     </div>
                                 </li>
                             </ul>
@@ -1498,11 +1537,11 @@
                                         </div>
                                         <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                     </div>
-                                    <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
+                                    <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice
                                         questions
                                         were just like the real test and gave me the confidence I needed. I passed my permit
                                         test on the first try and even joined their trucking school, CDL City Truck Driving
-                                        School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                        School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
                                     </p>
                                     <div class="rating text-warning">
                                         <i class="bi bi-star-fill"></i>
@@ -1523,9 +1562,9 @@
                                         </div>
                                         <h6 class="fw-semibold mb-0">Carlos Mendoza</h6>
                                     </div>
-                                    <p class="text-muted mb-3">"I’m originally from Honduras and live in Columbus, Ohio. I
+                                    <p class="text-muted mb-3">"Iï¿½m originally from Honduras and live in Columbus, Ohio. I
                                         had
-                                        tried a couple of other programs to pass my CDL permit test, but they didn’t work
+                                        tried a couple of other programs to pass my CDL permit test, but they didnï¿½t work
                                         for
                                         me. Then I found USATruckPath.com, and it changed everything! The questions were
                                         just
@@ -1533,7 +1572,7 @@
                                         on
                                         the first try and joined CDL City Truck Driving School here in Columbus. Now I have
                                         my
-                                        CDL, and I couldn’t be happier!"</p>
+                                        CDL, and I couldnï¿½t be happier!"</p>
                                     <div class="rating text-warning">
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
@@ -1553,16 +1592,16 @@
                                         </div>
                                         <h6 class="fw-semibold mb-0">Ahmed Hassan</h6>
                                     </div>
-                                    <p class="text-muted mb-3">"I’m originally from Egypt and lived in Dearborn, Michigan,
+                                    <p class="text-muted mb-3">"Iï¿½m originally from Egypt and lived in Dearborn, Michigan,
                                         working as a DoorDash delivery driver. I was tired of the long hours and low pay and
-                                        wanted a better career. That’s when I found USATruckPath.com and bought the Arabic
+                                        wanted a better career. Thatï¿½s when I found USATruckPath.com and bought the Arabic
                                         version of the guide. It was perfect for me! The questions were just like the real
                                         test,
                                         and the lessons were so easy to follow in my own language. I passed my CDL permit
                                         test
                                         on the first try and joined CDL City Truck Driving School. Now I have my CDL and a
                                         new
-                                        career I’m proud of. Thank you, USATruckPath!"
+                                        career Iï¿½m proud of. Thank you, USATruckPath!"
                                     </p>
                                     <div class="rating text-warning">
                                         <i class="bi bi-star-fill"></i>
@@ -1583,11 +1622,11 @@
                                         </div>
                                         <h6 class="fw-semibold mb-0">Yodit Tadesse</h6>
                                     </div>
-                                    <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
+                                    <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice
                                         questions
                                         were just like the real test and gave me the confidence I needed. I passed my permit
                                         test on the first try and even joined their trucking school, CDL City Truck Driving
-                                        School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                        School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
                                     </p>
                                     <div class="rating text-warning">
                                         <i class="bi bi-star-fill"></i>
@@ -1624,8 +1663,8 @@
 
                 <div class="col-md-6">
 
-                    <h4 class="mb-3 text-center">What’s Included in This Course :</h4>
-                    <p class="text-muted why-info-p"> Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Somali. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                    <h4 class="mb-3 text-center">Whatï¿½s Included in This Course :</h4>
+                    <p class="text-muted why-info-p"> Get ready to pass your Commercial Learnerï¿½s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youï¿½ll learn everything you need to know through video lessons, audiobooks, and eBooks in English and Somali. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersï¿½just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
                     {{-- <ul class="list-unstyled mb-4">
@@ -1648,8 +1687,26 @@
 
                     <div class="text-center">
                         <h5 class="mb-3">
-                            <strong>Price:</strong> ${{ $course->price }}
+                            <strong>Price:</strong>
+                            @if($course->isTierCourse())
+                                <span style="color: #5fcf80;">FREE</span> <small>(+ Premium upgrades available)</small>
+                            @else
+                                ${{ $course->price }}
+                            @endif
                         </h5>
+
+                        @if($course->isTierCourse())
+                            <div class="alert alert-info border-0 mb-4 text-start">
+                                <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
+                                <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                                <ul class="small mb-0">
+                                    <li><strong>FREE Tier:</strong> Access essential course content</li>
+                                    <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
+                                    <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                                </ul>
+                                <p class="small text-muted mb-0 mt-2">ðŸ’¡ Enroll for free now, upgrade anytime!</p>
+                            </div>
+                        @endif
 
                         @guest
                             <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login
@@ -1662,9 +1719,9 @@
                                 @if ($course->status === 'upcoming')
                                     <button class="cta w-100 mb-2" disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="cta w-100 mb-2" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
                                 @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                         class="btn btn-primary w-100">Enroll
                                         Now</a>
                                 @endif

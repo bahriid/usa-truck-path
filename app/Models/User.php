@@ -22,7 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'phone'
+        'phone',
+        'country',
     ];
 
     /**
@@ -55,13 +56,21 @@ class User extends Authenticatable implements MustVerifyEmail
                 'full_name',
                 'email',
                 'phone',
+                'country',
                 'status',
+                'subscription_tier',
                 'transaction_amount',
                 'transaction_id',
                 'telegram_invite_link',
                 'telegram_invite_generated_at',
             ])
             ->withTimestamps();
+    }
+
+    // Alias for purchasedCourses (used in new funnel logic)
+    public function courses()
+    {
+        return $this->purchasedCourses();
     }
 
     // Helper to check if user has purchased a specific course
@@ -78,5 +87,85 @@ class User extends Authenticatable implements MustVerifyEmail
             ->wherePivot('status', 'approved')
             ->where('course_id', $courseId)
             ->exists();
+    }
+
+    /**
+     * Check if user can access a course.
+     */
+    public function canAccessCourse($courseId)
+    {
+        $enrollment = $this->courses()
+            ->where('course_id', $courseId)
+            ->where('status', 'approved')
+            ->first();
+
+        return $enrollment !== null;
+    }
+
+    /**
+     * Get user's subscription tier for a course.
+     *
+     * @return string|null 'free', 'premium', 'mentorship', or null
+     */
+    public function getSubscriptionTier($courseId)
+    {
+        $enrollment = $this->courses()
+            ->where('course_id', $courseId)
+            ->first();
+
+        return $enrollment ? $enrollment->pivot->subscription_tier : null;
+    }
+
+    /**
+     * Check if user can access a specific topic based on their subscription tier.
+     */
+    public function canAccessTopic($topic, $courseId)
+    {
+        $userTier = $this->getSubscriptionTier($courseId);
+
+        if (!$userTier) {
+            return false;
+        }
+
+        // Tier hierarchy: mentorship > premium > free
+        $tierHierarchy = [
+            'free' => ['free'],
+            'premium' => ['free', 'premium'],
+            'mentorship' => ['free', 'premium', 'mentorship'],
+        ];
+
+        return in_array($topic->tier, $tierHierarchy[$userTier] ?? []);
+    }
+
+    /**
+     * Get user's enrollment status for a course.
+     *
+     * @return string|null 'approved', 'pending', 'rejected', or null
+     */
+    public function getEnrollmentStatus($courseId)
+    {
+        $enrollment = $this->courses()
+            ->where('course_id', $courseId)
+            ->first();
+
+        return $enrollment ? $enrollment->pivot->status : null;
+    }
+
+    /**
+     * Check if user is enrolled in a course (any status).
+     */
+    public function isEnrolledIn($courseId)
+    {
+        return $this->courses()->where('course_id', $courseId)->exists();
+    }
+
+    /**
+     * Get the user's enrolled courses.
+     */
+    public function getEnrolledCourses()
+    {
+        return $this->courses()
+            ->where('course_user.status', 'approved')
+            ->get();
     }
 }

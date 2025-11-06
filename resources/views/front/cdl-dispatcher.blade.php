@@ -503,9 +503,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="btn btn-secondary " disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
                             @endif
                         @endif
                     @endguest
@@ -513,6 +513,27 @@
             </div>
         </div>
     </section>
+
+    @if($course->isTierCourse())
+    <section class="container my-4">
+        <div class="alert alert-success border-0 shadow-sm">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="mb-2"><i class="bi bi-gift me-2"></i><strong>Start Learning FREE Today!</strong></h5>
+                    <p class="mb-0 small">Enroll now at no cost and upgrade anytime to unlock premium content and mentorship.</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-2 mt-md-0">
+                    <div class="d-flex flex-column gap-1">
+                        <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i> <strong>FREE</strong> tier included</small>
+                        <small class="text-muted"><i class="bi bi-star-fill text-primary"></i> <strong>Premium</strong> ${{ number_format($course->premium_price ?? 150, 0) }}</small>
+                        <small class="text-muted"><i class="bi bi-trophy-fill text-warning"></i> <strong>Mentorship</strong> ${{ number_format($course->mentorship_price ?? 297, 0) }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
     <section class="row container mx-auto bg-light">
         <div class="col-lg-12">
             <div class="course-curriculum">
@@ -853,9 +874,9 @@
                                 @if ($course->status === 'upcoming')
                                     <button class="btn btn-secondary " disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                                 @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
                                 @endif
                             @endif
                         @endguest
@@ -901,8 +922,26 @@
 
                 <div class="text-center">
                     <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
+                        <strong>Price:</strong>
+                        @if($course->isTierCourse())
+                            <span style="color: #5fcf80;">FREE</span> <small>(+ Premium upgrades available)</small>
+                        @else
+                            ${{ $course->price }}
+                        @endif
                     </h5>
+
+                    @if($course->isTierCourse())
+                        <div class="alert alert-info border-0 mb-4 text-start">
+                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
+                            <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                            <ul class="small mb-0">
+                                <li><strong>FREE Tier:</strong> Access essential course content</li>
+                                <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
+                                <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                            </ul>
+                            <p class="small text-muted mb-0 mt-2">💡 Enroll for free now, upgrade anytime!</p>
+                        </div>
+                    @endif
 
                     @guest
 
@@ -915,9 +954,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="cta   mb-2" disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
                                     Now</a>
                             @endif
                         @endif
@@ -956,9 +995,9 @@
                                                 @if ($course->status === 'upcoming')
                                                     <button class="cta-btn-course mb-2" disabled>Up Coming</button>
                                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                                    <button class="cta-btn-course  mb-2" disabled>Request Pending...</button>
+                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn-course mb-2">Continue Payment</a>
                                                 @else
-                                                    <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                                         class="cta-btn-course mb-2 ">Enroll
                                                         Now</a>
                                                 @endif
@@ -1652,9 +1691,9 @@
                                     @if ($course->status === 'upcoming')
                                         <button class="btn btn-secondary btn-lg px-5 py-3" disabled>Up Coming</button>
                                     @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                        <button class="btn btn-info btn-lg px-5 py-3" disabled>Request Pending...</button>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning btn-lg px-5 py-3">Continue Payment</a>
                                     @else
-                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="btn btn-success btn-lg px-5 py-3">Enroll Now</a>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-success btn-lg px-5 py-3">Enroll Now</a>
                                     @endif
                                 @endif
                             @endguest

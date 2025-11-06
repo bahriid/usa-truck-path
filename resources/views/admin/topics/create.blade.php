@@ -41,6 +41,19 @@
               <input type="text" name="title" class="form-control" placeholder="Enter topic title" required>
             </div>
 
+            <!-- Tier Selection -->
+            <div class="form-group mb-3">
+              <label for="tier">Access Tier</label>
+              <select name="tier" id="tier" class="form-control" required>
+                <option value="free">Free - Accessible to all users</option>
+                <option value="premium">Premium - Requires premium tier</option>
+                <option value="mentorship">Mentorship - Requires mentorship tier</option>
+              </select>
+              <small class="form-text text-muted">
+                Select the access tier required to view this topic. Free topics are visible to all enrolled users.
+              </small>
+            </div>
+
             <!-- Video-specific Fields -->
             <div id="videoFields" style="display: none;">
               <div class="form-group mb-3">

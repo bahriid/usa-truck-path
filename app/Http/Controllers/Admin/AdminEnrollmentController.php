@@ -20,7 +20,9 @@ class AdminEnrollmentController extends Controller
                 'users.id as user_id',
                 'users.name as user_name',
                 'users.email as email',
-                'course_user.phone as phone'
+                'course_user.phone as phone',
+                'course_user.subscription_tier as tier',
+                'course_user.status as status'
             );
     
             // dd($query);
@@ -54,9 +56,11 @@ class AdminEnrollmentController extends Controller
             ->select(
                 'course_user.*',
                 'courses.title as course_title',
-                'courses.price as course_price', // Include course price
+                'courses.price as course_price',
                 'users.name as user_name',
-                'users.email as user_email'
+                'users.email as user_email',
+                'course_user.subscription_tier as tier',
+                'course_user.status as status'
             );
 
         // Apply search if keyword exists

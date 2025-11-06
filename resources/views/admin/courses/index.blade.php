@@ -28,10 +28,11 @@
                                     <th>image</th>
                                     <th>Title</th>
                                     <th>Category</th>
-
                                     <th>Status</th>
                                     <th>Price</th>
                                     <th>Original Price</th>
+                                    <th>Premium Tier</th>
+                                    <th>Mentorship Tier</th>
                                     <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
@@ -42,10 +43,15 @@
                                     <td> <img src="{{ Storage::url($course->image) }}"  style="height: 50px; width: 50px;border-radius: 50%;"/></td>
                                     <td>{{ $course->title }}</td>
                                     <td>{{ $course->category ?? '' }}</td>
-
                                     <td>{{ ucfirst($course->status) }}</td>
                                     <td>${{ $course->price }}</td>
                                     <td>{{ $course->original_price ? '$' . $course->original_price : '-' }}</td>
+                                    <td>
+                                        <span class="badge bg-primary">${{ number_format($course->premium_price ?? 150, 0) }}</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark">${{ number_format($course->mentorship_price ?? 297, 0) }}</span>
+                                    </td>
                                     <td>{{ $course->is_active ? 'Yes' : 'No' }}</td>
                                     <td>
                                         <a href="{{ route('admin.courses.edit', $course) }}"
@@ -64,7 +70,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="8">No Course found !</td>
+                                    <td class="text-center" colspan="10">No Course found !</td>
                                 </tr>
                                 @endforelse
 

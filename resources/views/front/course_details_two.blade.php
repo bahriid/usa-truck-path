@@ -504,9 +504,9 @@
                                 @if ($course->status === 'upcoming')
                                     <button class="btn btn-secondary " disabled>Up Coming</button>
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
                                 @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
                                 @endif
                             @endif
                         @endguest
@@ -566,9 +566,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="cta   mb-2" disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
                                     Now</a>
                             @endif
                         @endif
@@ -608,9 +608,9 @@
                                             @if ($course->status === 'upcoming')
                                                 <button class="cta-btn-course mb-2" disabled>Up Coming</button>
                                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                                <button class="cta-btn-course  mb-2" disabled>Request Pending...</button>
+                                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn-course mb-2">Continue Payment</a>
                                             @else
-                                                <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                                     class="cta-btn-course mb-2 ">Enroll
                                                     Now</a>
                                             @endif
@@ -645,7 +645,7 @@
                             <h2 class="fw-bold text-primary mb-3">Why Choose USA Truck Path?</h2>
                             <p class="lead text-muted">Your Fast-Track to a Truck Driving Career Starts Here
                                 We empower future truck drivers with an easy, effective, and guaranteed way to pass the DMV
-                                exam—regardless of language or background.</p>
+                                examï¿½regardless of language or background.</p>
                         </div>
                     </div>
                 </div>
@@ -658,8 +658,8 @@
                                     <i class="bi bi-translate"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
-                                <p class="text-muted small">Study in your preferred language—English, Arabic, Somali,
-                                    Amharic, French, or Nepali—with complete support for non-native speakers.
+                                <p class="text-muted small">Study in your preferred languageï¿½English, Arabic, Somali,
+                                    Amharic, French, or Nepaliï¿½with complete support for non-native speakers.
                                 </p>
                             </div>
                         </div>
@@ -673,7 +673,7 @@
                                 </div>
                                 <h5 class="fw-semibold mb-2">Real DMV Test Questions & Answers</h5>
                                 <p class="text-muted small">Our course includes the actual test format and questions used
-                                    by DMVs across all states, ensuring you’re fully prepared.
+                                    by DMVs across all states, ensuring youï¿½re fully prepared.
                                 </p>
                             </div>
                         </div>
@@ -699,8 +699,8 @@
                                     <i class="bi bi-shield-fill-check"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
-                                <p class="text-muted small">We’re so confident in our system that we guarantee you’ll pass
-                                    your DMV test on the first try—or get extended access for free.
+                                <p class="text-muted small">Weï¿½re so confident in our system that we guarantee youï¿½ll pass
+                                    your DMV test on the first tryï¿½or get extended access for free.
                                 </p>
                             </div>
                         </div>
@@ -714,7 +714,7 @@
                                 </div>
                                 <h5 class="fw-semibold mb-2">Learn at Your Own Pace</h5>
                                 <p class="text-muted small">Whether you have a full-time job or a busy life, our platform
-                                    lets you study anytime, anywhere—on any device.</p>
+                                    lets you study anytime, anywhereï¿½on any device.</p>
                             </div>
                         </div>
                     </div>
@@ -726,8 +726,8 @@
                                     <i class="bi  bi-truck-front-fill"></i>
                                 </div>
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so you’re
-                                    not just passing a test, you’re preparing for a career on the road.</p>
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck driversï¿½so youï¿½re
+                                    not just passing a test, youï¿½re preparing for a career on the road.</p>
                             </div>
                         </div>
                     </div>
@@ -741,7 +741,7 @@
                     <div class=" ">
                         <h2 class="fw-bold text-primary mb-3 text-center">Interested in Preparing for Your CDL Permit Exam?</h2>
                         <p class="text-muted why-info-p">
-                            Are you ready to start your journey toward becoming a professional truck driver? Our CDL permit training courses are designed to help students pass their commercial learner's permit (CLP) exams with ease. We provide comprehensive courses that teach all the questions and exact answers found on the CDL permit tests. Our courses are available in multiple languages, including English, Arabic, French, Amharic, Somali, and Nepali—making it easier for students from all backgrounds to succeed
+                            Are you ready to start your journey toward becoming a professional truck driver? Our CDL permit training courses are designed to help students pass their commercial learner's permit (CLP) exams with ease. We provide comprehensive courses that teach all the questions and exact answers found on the CDL permit tests. Our courses are available in multiple languages, including English, Arabic, French, Amharic, Somali, and Nepaliï¿½making it easier for students from all backgrounds to succeed
                         </p>
                         <p class="text-muted text-center mb-0 mt-2" style="font-weight: 700; font-size:2rem; ">Here's what you need to do to get started:</p>
                     </div>
@@ -1242,9 +1242,9 @@
                             @if ($course->status === 'upcoming')
                                 <button class="cta w-100 mb-2" disabled>Up Coming</button>
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
                             @else
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
                                     class="btn btn-primary w-100">Enroll
                                     Now</a>
                             @endif

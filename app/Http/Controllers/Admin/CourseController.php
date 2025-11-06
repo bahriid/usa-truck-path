@@ -34,7 +34,11 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'menu_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
+            'course_type' => 'required|in:tier,paid',
+            'price' => 'required_if:course_type,paid|nullable|numeric|min:0',
+            'original_price' => 'nullable|numeric|min:0',
+            'premium_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
+            'mentorship_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
             'duration' => 'nullable|string',
             'category' => 'nullable|string',
             'status' => 'required|in:active,inactive,draft',
@@ -48,7 +52,18 @@ class CourseController extends Controller
             'meta_description' => 'nullable|string',
         ]);
 
-        $course = new Course($request->all());
+        $data = $request->all();
+
+        // For tier-based courses, set base price to 0 and is_free to true
+        if ($request->course_type === 'tier') {
+            $data['price'] = 0;
+            $data['is_free'] = true;
+        } else {
+            // For paid courses, set is_free to false
+            $data['is_free'] = false;
+        }
+
+        $course = new Course($data);
 
         if ($request->hasFile('image')) {
             $course->image = $this->fileUploadService->upload($request->file('image'), 'courses');
@@ -71,7 +86,11 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'menu_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'price' => 'required|numeric|min:0',
+            'course_type' => 'required|in:tier,paid',
+            'price' => 'required_if:course_type,paid|nullable|numeric|min:0',
+            'original_price' => 'nullable|numeric|min:0',
+            'premium_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
+            'mentorship_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
             'duration' => 'nullable|string',
             'category' => 'nullable|string',
             'status' => 'required|in:active,inactive,draft',
@@ -85,7 +104,18 @@ class CourseController extends Controller
             'meta_description' => 'nullable|string',
         ]);
 
-        $course->update($request->all());
+        $data = $request->all();
+
+        // For tier-based courses, set base price to 0 and is_free to true
+        if ($request->course_type === 'tier') {
+            $data['price'] = 0;
+            $data['is_free'] = true;
+        } else {
+            // For paid courses, set is_free to false
+            $data['is_free'] = false;
+        }
+
+        $course->update($data);
 
         // Handle image upload if provided
         if ($request->hasFile('image')) {

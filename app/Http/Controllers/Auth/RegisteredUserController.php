@@ -118,89 +118,88 @@ class RegisteredUserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $course = Course::findOrFail($request->course_id);
-        $price = $course->price;
-
-        // PAYMENT DEBUG MODE: Skip Stripe token validation if debug mode is enabled
-        $validationRules = [
+        // Validate input (simplified - no payment fields)
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
+            'phone' => ['required', 'string', 'max:20'],
+            'country' => ['required', 'string', 'max:100'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'phone' => ['required', 'integer'],
-            'course_id' => ['required', 'integer', 'exists:courses,id'],
-        ];
-
-        // Only require Stripe token if payment debug is disabled
-        if (!config('app.payment_debug', false)) {
-            $validationRules['stripeToken'] = ['required', 'string'];
-        }
-
-        $request->validate($validationRules);
+            'course_id' => ['nullable', 'integer', 'exists:courses,id'], // Optional course ID
+        ]);
 
         DB::beginTransaction();
 
         try {
-            // Inject services
-            $paymentService = app(\App\Services\PaymentService::class);
-            $enrollmentService = app(\App\Services\EnrollmentService::class);
-
-            // PAYMENT DEBUG MODE: Bypass payment if enabled
-            if (config('app.payment_debug', false)) {
-                Log::info('Payment Debug Mode: Bypassing registration payment for '.$request->email);
-                $transactionId = 'debug_reg_'.uniqid();
-            } else {
-                // Process payment
-                $transactionId = $paymentService->processCharge(
-                    $price,
-                    $request->stripeToken,
-                    'Course Purchase for '.$request->email.' - Course ID: '.$request->course_id
-                );
-            }
-
-            // Create user account
+            // Create user
             $user = User::create([
                 'name' => $request->name,
                 'email' => strtolower(trim($request->email)),
                 'phone' => $request->phone,
+                'country' => $request->country,
                 'password' => Hash::make($request->password),
             ]);
 
+            // Fire registration event (sends verification email if enabled)
             event(new Registered($user));
+
+            // Log user in
             Auth::login($user);
+
+            // Auto-enroll in the free tier course they clicked (if provided and it's a tier course)
+            if ($request->course_id) {
+                $course = Course::find($request->course_id);
+
+                // Only auto-enroll if it's a tier-based course (free signup)
+                if ($course && $course->isTierCourse()) {
+                    $this->enrollInFreeCourse($user, $request->course_id);
+                }
+                // For paid courses, don't auto-enroll - they'll need to complete payment
+            }
 
             // Send welcome email
             Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
 
-            // Enroll user in course with approved status
-            $user->purchasedCourses()->attach($course->id, [
-                'full_name' => $user->name,
-                'email' => $user->email,
-                'phone' => $user->phone ?? null,
-                'status' => 'approved',
-                'transaction_amount' => $price,
-                'transaction_id' => $transactionId,
-            ]);
-
             DB::commit();
 
-            // Send admin notification and generate Telegram invite
-            $enrollmentService->sendAdminNotification($user, $course);
+            // Determine redirect based on course type
+            if ($request->course_id) {
+                $course = Course::find($request->course_id);
 
-            if ($course->telegram_chat_id) {
-                $enrollmentService->generateTelegramInvite($user, $course);
+                if ($course && !$course->isTierCourse()) {
+                    // For paid courses, redirect to enrollment form to complete payment
+                    return redirect()->route('front.courses.enrollForm', $course->id)
+                        ->with('success', 'Registration successful! Please complete your course enrollment.');
+                }
             }
 
-            $successMessage = config('app.payment_debug', false)
-                ? 'DEBUG MODE: Registration and Enrollment successful! Payment bypassed for testing.'
-                : 'Registration and Enrollment successful!';
-
-            return redirect()->route('course.curriculam', $course->id)
-                ->with('success', $successMessage);
+            // For tier courses or no course, redirect to dashboard
+            return redirect()->route('dashboard')
+                ->with('success', 'Welcome! You now have access to the free course.');
         } catch (\Exception $e) {
             DB::rollBack();
-            Log::error('Registration and Enrollment Error: '.$e->getMessage());
+            Log::error('Registration Error: '.$e->getMessage());
 
-            return redirect()->back()->withErrors(['payment' => 'Failed to process registration and enrollment. Please try again later.']);
+            return redirect()->back()
+                ->withErrors(['error' => 'Failed to complete registration. Please try again.'])
+                ->withInput();
         }
+    }
+
+    /**
+     * Auto-enroll user in a course with free tier.
+     */
+    protected function enrollInFreeCourse(User $user, int $courseId): void
+    {
+        $course = Course::find($courseId);
+
+        if (!$course) {
+            Log::error("Course ID {$courseId} not found during registration");
+            return;
+        }
+
+        // Use enrollment service to handle enrollment with free tier
+        $enrollmentService = app(\App\Services\EnrollmentService::class);
+        $enrollmentService->autoEnrollInFreeTier($user, $course);
     }
 }

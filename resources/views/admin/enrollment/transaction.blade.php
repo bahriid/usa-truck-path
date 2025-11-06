@@ -39,6 +39,7 @@
                                         <th>User Name</th>
                                         <th>Email</th>
                                         <th>Course Name</th>
+                                        <th>Tier</th>
                                         <th>Price</th>
                                         <th>Transaction ID</th>
                                         <th>Date</th>
@@ -50,13 +51,22 @@
                                             <td>{{ $transaction->user_name }}</td>
                                             <td>{{ $transaction->user_email }}</td>
                                             <td>{{ $transaction->course_title }}</td>
+                                            <td>
+                                                @if ($transaction->tier === 'free')
+                                                    <span class="badge bg-success">FREE</span>
+                                                @elseif($transaction->tier === 'premium')
+                                                    <span class="badge bg-primary">PREMIUM</span>
+                                                @elseif($transaction->tier === 'mentorship')
+                                                    <span class="badge bg-warning text-dark">MENTORSHIP</span>
+                                                @endif
+                                            </td>
                                             <td>${{ number_format($transaction->transaction_amount, 2) }}</td>
                                             <td>{{ $transaction->transaction_id }}</td>
                                             <td>{{ $transaction->created_at->format('Y-m-d H:i:s') }}</td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">No transactions found.</td>
+                                            <td colspan="7">No transactions found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>

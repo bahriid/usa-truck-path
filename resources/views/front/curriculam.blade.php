@@ -24,25 +24,64 @@
                     </div>
                     <div class="col-md-4 text-md-end button-section">
                         @guest
-                            {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
-                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Sign Up Free</a>
                         @else
-                            @if (auth()->user()->hasApprovedCourse($course->id))
-                                <button class="btn btn-success " disabled>Already Enrolled</button>
+                            @php
+                                $currentTier = auth()->user()->getSubscriptionTier($course->id);
+                            @endphp
+
+                            @if ($currentTier === 'free')
+                                <span class="badge bg-success fs-6 me-2">FREE ACCESS</span>
+                            @elseif ($currentTier === 'premium')
+                                <span class="badge bg-primary fs-6 me-2">PREMIUM ACCESS</span>
+                            @elseif ($currentTier === 'mentorship')
+                                <span class="badge bg-warning fs-6 me-2">MENTORSHIP ACCESS</span>
                             @else
-                                @if ($course->status === 'upcoming')
-                                    <button class="btn btn-secondary " disabled>Up Coming</button>
-                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
-                                @else
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll Now</a>
-                                @endif
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Sign Up Free</a>
                             @endif
                         @endguest
                     </div>
                 </div>
             </div>
         </section>
+
+        {{-- Tier-based Upgrade Banner --}}
+        @auth
+            @php
+                $user = auth()->user();
+                $currentTier = $user->getSubscriptionTier($course->id);
+            @endphp
+
+            @if($course->isTierCourse() && $currentTier && $currentTier !== 'mentorship')
+                <section class="container my-4">
+                    <div class="alert alert-info border-0 shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <div class="row align-items-center text-white">
+                            <div class="col-md-8">
+                                <h3 class="mb-2">🚀 Ready to Level Up?</h3>
+                                <p class="mb-0">Unlock more content and features with our premium tiers.</p>
+                            </div>
+                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                                @if($currentTier === 'free')
+                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
+                                       class="btn btn-light btn-lg me-2 mb-2">
+                                        <i class="bi bi-arrow-up-circle"></i> Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                    </a>
+                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
+                                       class="btn btn-warning btn-lg mb-2">
+                                        <i class="bi bi-star"></i> Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
+                                    </a>
+                                @elseif($currentTier === 'premium')
+                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
+                                       class="btn btn-warning btn-lg mb-2">
+                                        <i class="bi bi-star"></i> Upgrade to Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
+                                    </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            @endif
+        @endauth
 
         <section class="row container mx-auto">
 
@@ -71,10 +110,11 @@
                                         @if ($chapter->topics->count() > 0)
                                             <ul class="list-group">
                                                 @foreach ($chapter->topics as $topic)
-                                                    <li
-                                                        class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
                                                         <div>
                                                             <strong>{{ $topic->title }}</strong>
+
+                                                            {{-- Content Type Badge --}}
                                                             @if ($topic->type === 'video')
                                                                 <span class="badge bg-primary ms-2">Video</span>
                                                             @elseif ($topic->type === 'voice')
@@ -84,11 +124,20 @@
                                                             @else
                                                                 <span class="badge bg-success ms-2">Reading</span>
                                                             @endif
+
+                                                            {{-- Tier Badge --}}
+                                                            @if ($topic->tier === 'free')
+                                                                <span class="badge bg-success ms-2">✓ FREE</span>
+                                                            @elseif ($topic->tier === 'premium')
+                                                                <span class="badge bg-primary ms-2">🔒 PREMIUM</span>
+                                                            @elseif ($topic->tier === 'mentorship')
+                                                                <span class="badge bg-warning text-dark ms-2">🔒 MENTORSHIP</span>
+                                                            @endif
                                                         </div>
 
                                                         @php
                                                             $user = auth()->user();
-                                                            $hasAccess = $user && $user->hasApprovedCourse($course->id);
+                                                            $hasAccess = $user && $user->canAccessTopic($topic, $course->id);
                                                         @endphp
 
                                                         @if ($hasAccess)
@@ -327,8 +376,33 @@
                                                                 @endif
                                                             @endif
                                                         @else
-                                                            <button class="btn btn-sm btn-secondary"
-                                                                disabled>Locked</button>
+                                                            {{-- Locked content with upgrade CTA --}}
+                                                            @auth
+                                                                @php
+                                                                    $currentTier = auth()->user()->getSubscriptionTier($course->id);
+                                                                @endphp
+
+                                                                @if ($topic->tier === 'premium' && $currentTier === 'free')
+                                                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
+                                                                       class="btn btn-sm btn-primary">
+                                                                        <i class="bi bi-lock"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                                                    </a>
+                                                                @elseif ($topic->tier === 'mentorship')
+                                                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
+                                                                       class="btn btn-sm btn-warning">
+                                                                        <i class="bi bi-lock"></i> Upgrade to Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
+                                                                    </a>
+                                                                @else
+                                                                    <button class="btn btn-sm btn-secondary" disabled>
+                                                                        <i class="bi bi-lock"></i> Locked
+                                                                    </button>
+                                                                @endif
+                                                            @else
+                                                                <a href="{{ route('register') }}?course_id={{ $course->id }}"
+                                                                   class="btn btn-sm btn-success">
+                                                                    <i class="bi bi-lock"></i> Sign Up Free to Access
+                                                                </a>
+                                                            @endauth
                                                         @endif
                                                     </li>
                                                 @endforeach
@@ -348,10 +422,11 @@
                             @php
                                 $user = auth()->user();
                                 $enrollment = $user->purchasedCourses()->where('course_id', $course->id)->first();
-                                $hasAccess = $user && $user->hasApprovedCourse($course->id);
+                                $currentTier = $user->getSubscriptionTier($course->id);
+                                $hasAccess = $enrollment && $enrollment->pivot->status === 'approved';
                             @endphp
 
-                            @if ($hasAccess && $enrollment && $course->telegram_chat_id)
+                            @if ($hasAccess && $enrollment && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -362,42 +437,35 @@
                                     </h2>
                                     <div id="telegramSupport" class="accordion-collapse collapse">
                                         <div class="accordion-body">
-                                            @if ($enrollment->pivot->telegram_invite_link)
-                                                <p class="mb-3">
-                                                    <i class="bi bi-info-circle text-primary me-1"></i>
-                                                    Join our exclusive Telegram group to connect with instructors and fellow students.
-                                                    Get support, ask questions, and stay updated!
-                                                </p>
-                                                <div class="alert alert-warning border-0 mb-3">
-                                                    <small>
-                                                        <i class="bi bi-exclamation-triangle me-1"></i>
-                                                        <strong>Important:</strong> This is a one-time invitation link generated uniquely for you.
-                                                        The link can only be used once and will stop working after one person joins.
-                                                    </small>
-                                                </div>
-                                                <a href="{{ route('telegram.invite.redeem', $course->id) }}"
-                                                   class="btn btn-success w-100"
-                                                   onclick="return confirm('Are you sure? This link can only be used once!')">
-                                                    <i class="bi bi-telegram me-2"></i> Join Telegram Group Now
-                                                </a>
-                                                <p class="text-muted small mt-2 mb-0">
-                                                    <i class="bi bi-clock me-1"></i>Link generated: {{ $enrollment->pivot->telegram_invite_generated_at ? \Carbon\Carbon::parse($enrollment->pivot->telegram_invite_generated_at)->diffForHumans() : 'Just now' }}
-                                                </p>
+                                            <p class="mb-3">
+                                                <i class="bi bi-info-circle text-primary me-1"></i>
+                                                Join our exclusive Telegram group to connect with instructors and fellow students.
+                                                Get support, ask questions, and stay updated!
+                                            </p>
+                                            <div class="alert alert-warning border-0 mb-3">
+                                                <small>
+                                                    <i class="bi bi-exclamation-triangle me-1"></i>
+                                                    <strong>Important:</strong> This is a one-time invitation link generated uniquely for you.
+                                                    The link can only be used once and will stop working after one person joins.
+                                                </small>
+                                            </div>
+                                            <a href="{{ route('telegram.invite.redeem', $course->id) }}"
+                                               class="btn btn-success w-100"
+                                               onclick="return confirm('Are you sure? This link can only be used once!')">
+                                                <i class="bi bi-telegram me-2"></i> Join Telegram Group Now
+                                            </a>
+                                            <p class="text-muted small mt-2 mb-0">
+                                                <i class="bi bi-clock me-1"></i>Link generated: {{ $enrollment->pivot->telegram_invite_generated_at ? \Carbon\Carbon::parse($enrollment->pivot->telegram_invite_generated_at)->diffForHumans() : 'Just now' }}
+                                            </p>
 
-                                                <div class="alert alert-light border mt-3 mb-0">
-                                                    <p class="small mb-0">
-                                                        <i class="bi bi-whatsapp text-success me-1"></i>
-                                                        <strong>Need Help?</strong><br>
-                                                        If, for any reason, the Telegram group link does not work for you, please contact me directly on WhatsApp at <a href="https://wa.me/16146052310" target="_blank" class="text-success fw-bold">+1 (614) 605-2310</a>.<br>
-                                                        <em class="text-muted">This number is for support purposes only to help resolve your issue — it is not a general communication line.</em>
-                                                    </p>
-                                                </div>
-                                            @else
-                                                <div class="alert alert-info border-0">
-                                                    <i class="bi bi-hourglass-split me-2"></i>
-                                                    Generating your unique Telegram invite link... Please refresh the page.
-                                                </div>
-                                            @endif
+                                            <div class="alert alert-light border mt-3 mb-0">
+                                                <p class="small mb-0">
+                                                    <i class="bi bi-whatsapp text-success me-1"></i>
+                                                    <strong>Need Help?</strong><br>
+                                                    If, for any reason, the Telegram group link does not work for you, please contact me directly on WhatsApp at <a href="https://wa.me/16146052310" target="_blank" class="text-success fw-bold">+1 (614) 605-2310</a>.<br>
+                                                    <em class="text-muted">This number is for support purposes only to help resolve your issue — it is not a general communication line.</em>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

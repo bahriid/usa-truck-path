@@ -14,21 +14,27 @@ class Course extends Model
         'category',
         'instructor_id',
         'status',
+        'course_type',
         'price',
         'original_price',
+        'premium_price',
+        'mentorship_price',
         'is_active',
         'description',
         'duration',
         'start_date',
         'end_date',
         'thumbnail',
+        'image',
         'level',
         'slug',
         'tags',
         'meta_title',
         'meta_description',
         'menu_name',
+        'short_description',
         'telegram_chat_id',
+        'is_free',
     ];
 
     // Define relationship with CourseContent
@@ -44,7 +50,9 @@ class Course extends Model
                 'full_name',
                 'email',
                 'phone',
+                'country',
                 'status',
+                'subscription_tier',
                 'transaction_amount',
                 'transaction_id',
                 'telegram_invite_link',
@@ -52,7 +60,51 @@ class Course extends Model
             ])
             ->withTimestamps();
     }
-      
-      
+
+    /**
+     * Check if course allows free tier signup.
+     * All courses in the tier system should have this set to true
+     * to allow users to sign up for free and access free-tier content.
+     */
+    public function isFree()
+    {
+        return $this->is_free ?? true;
+    }
+
+    /**
+     * Get premium tier price.
+     */
+    public function getPremiumPrice()
+    {
+        return $this->premium_price ?? 150.00;
+    }
+
+    /**
+     * Get mentorship tier price.
+     */
+    public function getMentorshipPrice()
+    {
+        return $this->mentorship_price ?? 297.00;
+    }
+
+    /**
+     * Get display price (for frontend display).
+     * Returns "FREE" for tier courses, actual price for paid courses.
+     */
+    public function getDisplayPrice()
+    {
+        if (($this->course_type ?? 'paid') === 'tier') {
+            return 'FREE';
+        }
+        return '$' . number_format($this->price, 2);
+    }
+
+    /**
+     * Check if course is a tier-based course.
+     */
+    public function isTierCourse()
+    {
+        return ($this->course_type ?? 'paid') === 'tier';
+    }
 
 }

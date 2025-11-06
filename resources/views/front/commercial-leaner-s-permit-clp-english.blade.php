@@ -967,7 +967,7 @@
                                 {{ $course->title }}</h1>
 
                             <p class="lead mb-4">
-                                Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.
+                                Unlock your trucking career with our full CDL permit prep course ï¿½ available in English, with video, audio, and eBook lessons.
                             </p>
 
                             <nav aria-label="breadcrumb">
@@ -1014,11 +1014,11 @@
 
                                     @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                        <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
 
                                     @else
 
-                                        <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll
 
                                             Now</a>
 
@@ -1672,7 +1672,7 @@
 
                         <p class="lead mb-4">
 
-                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course — available in English, with video, audio, and eBook lessons.' }}
+                            {{ $course->short_description ?? 'Unlock your trucking career with our full CDL permit prep course ï¿½ available in English, with video, audio, and eBook lessons.' }}
 
                         </p>
 
@@ -1720,11 +1720,11 @@
 
                                 @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                    <button class="btn btn-info  w-100" disabled>Request Pending...</button>
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
 
                                 @else
 
-                                    <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta-btn">Enroll
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll
 
                                         Now</a>
 
@@ -1778,9 +1778,9 @@
 
 
 
-                <h4 class="mb-3 text-center">What’s Included in This Course </h4>
+                <h4 class="mb-3 text-center">Whatï¿½s Included in This Course </h4>
 
-                <p>Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                <p>Get ready to pass your Commercial Learnerï¿½s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youï¿½ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersï¿½just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
 
@@ -1790,11 +1790,27 @@
 
                     <h5 class="mb-3">
 
-                        <strong>Price:</strong> ${{ $course->price }}
+                        <strong>Price:</strong>
+                        @if($course->isTierCourse())
+                            <span style="color: #5fcf80;">FREE</span> <small>(+ Premium upgrades available)</small>
+                        @else
+                            ${{ $course->price }}
+                        @endif
 
                     </h5>
 
-
+                    @if($course->isTierCourse())
+                        <div class="alert alert-info border-0 mb-4 text-start">
+                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
+                            <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                            <ul class="small mb-0">
+                                <li><strong>FREE Tier:</strong> Access essential course content</li>
+                                <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
+                                <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                            </ul>
+                            <p class="small text-muted mb-0 mt-2">ðŸ’¡ Enroll for free now, upgrade anytime!</p>
+                        </div>
+                    @endif
 
                     @guest
 
@@ -1820,11 +1836,11 @@
 
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                <button class="cta  mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
 
                             @else
 
-                                <a href="{{ route('stripe.payment.view', $course->id) }}" class="cta w-100">Enroll
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
 
                                     Now</a>
 
@@ -1916,7 +1932,7 @@
 
                                                 @else
 
-                                                    <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
 
                                                         class="cta-btn-course mb-2 ">Enroll
 
@@ -1992,7 +2008,7 @@
 
                                 the DMV
 
-                                exam—regardless of language or background.</p>
+                                examï¿½regardless of language or background.</p>
 
                         </div>
 
@@ -2018,11 +2034,11 @@
 
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
 
-                                <p class="text-muted small">Study in your preferred language—English, Arabic,
+                                <p class="text-muted small">Study in your preferred languageï¿½English, Arabic,
 
                                     Somali,
 
-                                    Amharic, French, or Nepali—with complete support for non-native speakers.
+                                    Amharic, French, or Nepaliï¿½with complete support for non-native speakers.
 
                                 </p>
 
@@ -2052,7 +2068,7 @@
 
                                     used
 
-                                    by DMVs across all states, ensuring you’re fully prepared.
+                                    by DMVs across all states, ensuring youï¿½re fully prepared.
 
                                 </p>
 
@@ -2106,11 +2122,11 @@
 
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
 
-                                <p class="text-muted small">We’re so confident in our system that we guarantee
+                                <p class="text-muted small">Weï¿½re so confident in our system that we guarantee
 
-                                    you’ll pass
+                                    youï¿½ll pass
 
-                                    your DMV test on the first try—or get extended access for free.
+                                    your DMV test on the first tryï¿½or get extended access for free.
 
                                 </p>
 
@@ -2140,7 +2156,7 @@
 
                                     platform
 
-                                    lets you study anytime, anywhere—on any device.</p>
+                                    lets you study anytime, anywhereï¿½on any device.</p>
 
                             </div>
 
@@ -2164,11 +2180,11 @@
 
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
 
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers—so
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck driversï¿½so
 
-                                    you’re
+                                    youï¿½re
 
-                                    not just passing a test, you’re preparing for a career on the road.</p>
+                                    not just passing a test, youï¿½re preparing for a career on the road.</p>
 
                             </div>
 
@@ -2806,11 +2822,11 @@
 
 
 
-                            We make it easy to pass your Commercial Learner’s Permit (CLP) test. Our all-in-one
+                            We make it easy to pass your Commercial Learnerï¿½s Permit (CLP) test. Our all-in-one
 
                             course
 
-                            includes video lessons, audio guides, and an eBook—available in multiple languages. It’s
+                            includes video lessons, audio guides, and an eBookï¿½available in multiple languages. Itï¿½s
 
                             everything you need to get started in trucking.
 
@@ -2840,7 +2856,7 @@
 
                                     <p class="text-muted mb-0">Original price $297, now only $80.
 
-                                        You’ll get full access to:
+                                        Youï¿½ll get full access to:
 
                                     <p>Video course, Audio course, Downloadable eBook, Covers all topics: General
 
@@ -2866,7 +2882,7 @@
 
                                     <p class="text-muted mb-0">Our study method is simple and guaranteed.
 
-                                        You’ll get one question and one correct answer—no confusing multiple-choice
+                                        Youï¿½ll get one question and one correct answerï¿½no confusing multiple-choice
 
                                         options.
 
@@ -2886,9 +2902,9 @@
 
                                         Join
 
-                                        thousands who’ve passed with our guide. Study at your own pace and pass with
+                                        thousands whoï¿½ve passed with our guide. Study at your own pace and pass with
 
-                                        confidence—guaranteed..</p>
+                                        confidenceï¿½guaranteed..</p>
 
                                 </div>
 
@@ -2958,7 +2974,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
+                                <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice
 
                                     questions
 
@@ -2970,7 +2986,7 @@
 
                                     Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
 
                                 </p>
 
@@ -3012,11 +3028,11 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I’m originally from Honduras and live in Columbus,
+                                <p class="text-muted mb-3">"Iï¿½m originally from Honduras and live in Columbus,
 
                                     Ohio. I had
 
-                                    tried a couple of other programs to pass my CDL permit test, but they didn’t
+                                    tried a couple of other programs to pass my CDL permit test, but they didnï¿½t
 
                                     work for
 
@@ -3032,7 +3048,7 @@
 
                                     have my
 
-                                    CDL, and I couldn’t be happier!"</p>
+                                    CDL, and I couldnï¿½t be happier!"</p>
 
                                 <div class="rating text-warning">
 
@@ -3072,7 +3088,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I’m originally from Egypt and lived in Dearborn,
+                                <p class="text-muted mb-3">"Iï¿½m originally from Egypt and lived in Dearborn,
 
                                     Michigan,
 
@@ -3080,7 +3096,7 @@
 
                                     and
 
-                                    wanted a better career. That’s when I found USATruckPath.com and bought the
+                                    wanted a better career. Thatï¿½s when I found USATruckPath.com and bought the
 
                                     Arabic
 
@@ -3096,7 +3112,7 @@
 
                                     a new
 
-                                    career I’m proud of. Thank you, USATruckPath!"
+                                    career Iï¿½m proud of. Thank you, USATruckPath!"
 
                                 </p>
 
@@ -3138,7 +3154,7 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I’m so glad I found USATruckPath.com! The practice
+                                <p class="text-muted mb-3">"Iï¿½m so glad I found USATruckPath.com! The practice
 
                                     questions
 
@@ -3150,7 +3166,7 @@
 
                                     Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldn’t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldnï¿½t be happier!"
 
                                 </p>
 
@@ -3224,9 +3240,9 @@
 
 
 
-                <h4 class="mb-3 text-center">What’s Included in This Course </h4>
+                <h4 class="mb-3 text-center">Whatï¿½s Included in This Course </h4>
 
-                <p>Get ready to pass your Commercial Learner’s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You’ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
+                <p>Get ready to pass your Commercial Learnerï¿½s Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. Youï¿½ll learn everything you need to know through video lessons, audiobooks, and eBooks in English. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answersï¿½just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence</p>
 
 
 
@@ -3236,11 +3252,27 @@
 
                     <h5 class="mb-3">
 
-                        <strong>Price:</strong> ${{ $course->price }}
+                        <strong>Price:</strong>
+                        @if($course->isTierCourse())
+                            <span style="color: #5fcf80;">FREE</span> <small>(+ Premium upgrades available)</small>
+                        @else
+                            ${{ $course->price }}
+                        @endif
 
                     </h5>
 
-
+                    @if($course->isTierCourse())
+                        <div class="alert alert-info border-0 mb-4 text-start">
+                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
+                            <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                            <ul class="small mb-0">
+                                <li><strong>FREE Tier:</strong> Access essential course content</li>
+                                <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
+                                <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                            </ul>
+                            <p class="small text-muted mb-0 mt-2">ðŸ’¡ Enroll for free now, upgrade anytime!</p>
+                        </div>
+                    @endif
 
                     @guest
 
@@ -3264,11 +3296,11 @@
 
                             @elseif(auth()->user()->hasPurchasedCourse($course->id))
 
-                                <button class="cta w-100 mb-2" disabled>Request Pending...</button>
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
 
                             @else
 
-                                <a href="{{ route('stripe.payment.view', $course->id) }}"
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
 
                                     class="btn btn-primary w-100">Enroll
 

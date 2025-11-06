@@ -26,7 +26,7 @@ class EnrollmentService
      * @param string $status
      * @return void
      */
-    public function enrollUser(User $user, Course $course, string $transactionId, string $status = 'pending'): void
+    public function enrollUser(User $user, Course $course, string $transactionId, string $status = 'pending', string $tier = 'free'): void
     {
         // Check if user is already enrolled
         if ($this->isUserEnrolled($user, $course)) {
@@ -37,8 +37,62 @@ class EnrollmentService
             'full_name' => $user->name,
             'email' => $user->email,
             'phone' => $user->phone,
+            'country' => $user->country,
             'status' => $status,
+            'subscription_tier' => $tier,
             'transaction_id' => $transactionId,
+        ]);
+    }
+
+    /**
+     * Auto-enroll user in free tier (no payment, immediate approval).
+     *
+     * @param User $user
+     * @param Course $course
+     * @return void
+     */
+    public function autoEnrollInFreeTier(User $user, Course $course): void
+    {
+        // Check if already enrolled
+        if ($this->isUserEnrolled($user, $course)) {
+            return;
+        }
+
+        // Enroll with approved status and free tier
+        $user->purchasedCourses()->attach($course->id, [
+            'full_name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone,
+            'country' => $user->country,
+            'status' => 'approved',
+            'subscription_tier' => 'free',
+            'transaction_id' => 'free_enrollment_' . time(),
+            'transaction_amount' => 0,
+        ]);
+
+        // Generate Telegram invite if course has chat
+        if ($course->telegram_chat_id) {
+            $this->generateTelegramInvite($user, $course);
+        }
+    }
+
+    /**
+     * Upgrade user's subscription tier in a course.
+     *
+     * @param User $user
+     * @param Course $course
+     * @param string $newTier
+     * @param string $transactionId
+     * @param float $amount
+     * @return void
+     */
+    public function upgradeTier(User $user, Course $course, string $newTier, string $transactionId, float $amount): void
+    {
+        $user->purchasedCourses()->updateExistingPivot($course->id, [
+            'subscription_tier' => $newTier,
+            'transaction_id' => $transactionId,
+            'transaction_amount' => $amount,
+            'status' => 'approved',
         ]);
     }
 
