@@ -417,7 +417,7 @@
                             <p>No chapters found for this course.</p>
                         @endforelse
 
-                        {{-- Telegram Group Support Section --}}
+                        {{-- Telegram Group Support Section (ONLY for Mentorship Tier) --}}
                         @auth
                             @php
                                 $user = auth()->user();
@@ -426,7 +426,7 @@
                                 $hasAccess = $enrollment && $enrollment->pivot->status === 'approved';
                             @endphp
 
-                            @if ($hasAccess && $enrollment && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
+                            @if ($hasAccess && $enrollment && $currentTier === 'mentorship' && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

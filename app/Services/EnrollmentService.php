@@ -70,10 +70,7 @@ class EnrollmentService
             'transaction_amount' => 0,
         ]);
 
-        // Generate Telegram invite if course has chat
-        if ($course->telegram_chat_id) {
-            $this->generateTelegramInvite($user, $course);
-        }
+        // No Telegram invite for free tier (only mentorship tier gets Telegram group access)
     }
 
     /**
@@ -94,6 +91,11 @@ class EnrollmentService
             'transaction_amount' => $amount,
             'status' => 'approved',
         ]);
+
+        // Generate Telegram invite ONLY for mentorship tier
+        if ($newTier === 'mentorship' && $course->telegram_chat_id) {
+            $this->generateTelegramInvite($user, $course);
+        }
     }
 
     /**
@@ -140,6 +142,7 @@ class EnrollmentService
 
     /**
      * Generate and store Telegram invite link for an enrollment
+     * Note: Telegram group is ONLY for mentorship tier users
      *
      * @param User $user
      * @param Course $course
@@ -166,6 +169,13 @@ class EnrollmentService
         // Check if enrollment is approved
         if ($enrollment->pivot->status !== 'approved') {
             Log::warning("User {$user->id} enrollment in course {$course->id} is not approved");
+
+            return null;
+        }
+
+        // Check if user has mentorship tier (Telegram group is ONLY for mentorship)
+        if ($enrollment->pivot->subscription_tier !== 'mentorship') {
+            Log::info("User {$user->id} does not have mentorship tier for course {$course->id}. Telegram invite not generated.");
 
             return null;
         }
@@ -221,7 +231,8 @@ class EnrollmentService
     }
 
     /**
-     * Complete enrollment process: approve, notify admin, generate Telegram invite
+     * Complete enrollment process: approve, notify admin
+     * Note: Telegram invites are ONLY for mentorship tier (generated in upgradeTier method)
      *
      * @param User $user
      * @param Course $course
@@ -237,9 +248,6 @@ class EnrollmentService
         // Send admin notification
         $this->sendAdminNotification($user, $course);
 
-        // Generate Telegram invite if configured
-        if ($course->telegram_chat_id) {
-            $this->generateTelegramInvite($user, $course);
-        }
+        // No Telegram invite here - only mentorship tier gets Telegram group access (see upgradeTier method)
     }
 }
