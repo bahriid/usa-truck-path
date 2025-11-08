@@ -2779,7 +2779,7 @@
 
                         @endforelse
 
-                        {{-- Telegram Group Support Section (ONLY for Mentorship Tier) --}}
+                        {{-- Telegram Group Support Section (ONLY for Premium Tier) --}}
                         @auth
                             @php
                                 $user = auth()->user();
@@ -2788,7 +2788,7 @@
                                 $hasAccess = $user && $user->hasApprovedCourse($course->id);
                             @endphp
 
-                            @if ($hasAccess && $enrollment && $currentTier === 'mentorship' && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
+                            @if ($hasAccess && $enrollment && $currentTier === 'premium' && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

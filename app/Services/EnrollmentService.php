@@ -92,8 +92,8 @@ class EnrollmentService
             'status' => 'approved',
         ]);
 
-        // Generate Telegram invite ONLY for mentorship tier
-        if ($newTier === 'mentorship' && $course->telegram_chat_id) {
+        // Generate Telegram invite ONLY for premium tier
+        if ($newTier === 'premium' && $course->telegram_chat_id) {
             $this->generateTelegramInvite($user, $course);
         }
     }
@@ -142,7 +142,7 @@ class EnrollmentService
 
     /**
      * Generate and store Telegram invite link for an enrollment
-     * Note: Telegram group is ONLY for mentorship tier users
+     * Note: Telegram group is ONLY for premium tier users
      *
      * @param User $user
      * @param Course $course
@@ -173,9 +173,9 @@ class EnrollmentService
             return null;
         }
 
-        // Check if user has mentorship tier (Telegram group is ONLY for mentorship)
-        if ($enrollment->pivot->subscription_tier !== 'mentorship') {
-            Log::info("User {$user->id} does not have mentorship tier for course {$course->id}. Telegram invite not generated.");
+        // Check if user has premium tier (Telegram group is ONLY for premium)
+        if ($enrollment->pivot->subscription_tier !== 'premium') {
+            Log::info("User {$user->id} does not have premium tier for course {$course->id}. Telegram invite not generated.");
 
             return null;
         }
@@ -232,7 +232,7 @@ class EnrollmentService
 
     /**
      * Complete enrollment process: approve, notify admin
-     * Note: Telegram invites are ONLY for mentorship tier (generated in upgradeTier method)
+     * Note: Telegram invites are ONLY for premium tier (generated in upgradeTier method)
      *
      * @param User $user
      * @param Course $course
@@ -248,6 +248,6 @@ class EnrollmentService
         // Send admin notification
         $this->sendAdminNotification($user, $course);
 
-        // No Telegram invite here - only mentorship tier gets Telegram group access (see upgradeTier method)
+        // No Telegram invite here - only premium tier gets Telegram group access (see upgradeTier method)
     }
 }

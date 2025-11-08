@@ -34,8 +34,6 @@
                                 <span class="badge bg-success fs-6 me-2">FREE ACCESS</span>
                             @elseif ($currentTier === 'premium')
                                 <span class="badge bg-primary fs-6 me-2">PREMIUM ACCESS</span>
-                            @elseif ($currentTier === 'mentorship')
-                                <span class="badge bg-warning fs-6 me-2">MENTORSHIP ACCESS</span>
                             @else
                                 <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Sign Up Free</a>
                             @endif
@@ -52,30 +50,19 @@
                 $currentTier = $user->getSubscriptionTier($course->id);
             @endphp
 
-            @if($course->isTierCourse() && $currentTier && $currentTier !== 'mentorship')
+            @if($course->isTierCourse() && $currentTier && $currentTier === 'free')
                 <section class="container my-4">
                     <div class="alert alert-info border-0 shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                         <div class="row align-items-center text-white">
                             <div class="col-md-8">
                                 <h3 class="mb-2">🚀 Ready to Level Up?</h3>
-                                <p class="mb-0">Unlock more content and features with our premium tiers.</p>
+                                <p class="mb-0">Unlock all premium content and features, including exclusive Telegram group access!</p>
                             </div>
                             <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                @if($currentTier === 'free')
-                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
-                                       class="btn btn-light btn-lg me-2 mb-2">
-                                        <i class="bi bi-arrow-up-circle"></i> Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
-                                    </a>
-                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
-                                       class="btn btn-warning btn-lg mb-2">
-                                        <i class="bi bi-star"></i> Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
-                                    </a>
-                                @elseif($currentTier === 'premium')
-                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
-                                       class="btn btn-warning btn-lg mb-2">
-                                        <i class="bi bi-star"></i> Upgrade to Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
-                                    </a>
-                                @endif
+                                <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
+                                   class="btn btn-light btn-lg mb-2">
+                                    <i class="bi bi-arrow-up-circle"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -130,8 +117,6 @@
                                                                 <span class="badge bg-success ms-2">✓ FREE</span>
                                                             @elseif ($topic->tier === 'premium')
                                                                 <span class="badge bg-primary ms-2">🔒 PREMIUM</span>
-                                                            @elseif ($topic->tier === 'mentorship')
-                                                                <span class="badge bg-warning text-dark ms-2">🔒 MENTORSHIP</span>
                                                             @endif
                                                         </div>
 
@@ -387,11 +372,6 @@
                                                                        class="btn btn-sm btn-primary">
                                                                         <i class="bi bi-lock"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
                                                                     </a>
-                                                                @elseif ($topic->tier === 'mentorship')
-                                                                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
-                                                                       class="btn btn-sm btn-warning">
-                                                                        <i class="bi bi-lock"></i> Upgrade to Mentorship - ${{ number_format($course->getMentorshipPrice(), 0) }}
-                                                                    </a>
                                                                 @else
                                                                     <button class="btn btn-sm btn-secondary" disabled>
                                                                         <i class="bi bi-lock"></i> Locked
@@ -417,7 +397,7 @@
                             <p>No chapters found for this course.</p>
                         @endforelse
 
-                        {{-- Telegram Group Support Section (ONLY for Mentorship Tier) --}}
+                        {{-- Telegram Group Support Section (ONLY for Premium Tier) --}}
                         @auth
                             @php
                                 $user = auth()->user();
@@ -426,7 +406,7 @@
                                 $hasAccess = $enrollment && $enrollment->pivot->status === 'approved';
                             @endphp
 
-                            @if ($hasAccess && $enrollment && $currentTier === 'mentorship' && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
+                            @if ($hasAccess && $enrollment && $currentTier === 'premium' && $course->telegram_chat_id && $enrollment->pivot->telegram_invite_link)
                                 <div class="accordion-item">
                                     <h2 class="accordion-header">
                                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

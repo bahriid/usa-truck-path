@@ -18,7 +18,6 @@ class Course extends Model
         'price',
         'original_price',
         'premium_price',
-        'mentorship_price',
         'is_active',
         'description',
         'duration',
@@ -77,14 +76,6 @@ class Course extends Model
     public function getPremiumPrice()
     {
         return $this->premium_price ?? 150.00;
-    }
-
-    /**
-     * Get mentorship tier price.
-     */
-    public function getMentorshipPrice()
-    {
-        return $this->mentorship_price ?? 297.00;
     }
 
     /**

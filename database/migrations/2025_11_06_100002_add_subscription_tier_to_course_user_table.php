@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('course_user', function (Blueprint $table) {
-            $table->enum('subscription_tier', ['free', 'premium', 'mentorship'])
+            $table->enum('subscription_tier', ['free', 'premium'])
                   ->default('free')
                   ->after('status')
                   ->comment('User subscription tier for this course');

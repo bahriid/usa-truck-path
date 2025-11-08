@@ -298,8 +298,8 @@ class EnrollmentController extends Controller
     {
         $user = auth()->user();
 
-        // Validate tier
-        if (!in_array($tier, ['premium', 'mentorship'])) {
+        // Validate tier (only premium allowed)
+        if ($tier !== 'premium') {
             return redirect()->back()->with('error', 'Invalid tier selected.');
         }
 
@@ -313,19 +313,14 @@ class EnrollmentController extends Controller
         // Get current tier
         $currentTier = $user->getSubscriptionTier($course->id);
 
-        // Validate upgrade path
-        if ($tier === 'premium' && $currentTier !== 'free') {
+        // Validate upgrade path (can only upgrade from free to premium once)
+        if ($currentTier !== 'free') {
             return redirect()->route('dashboard')
-                ->with('error', 'You already have Premium or Mentorship access.');
+                ->with('error', 'You already have Premium access or have already upgraded.');
         }
 
-        if ($tier === 'mentorship' && $currentTier === 'mentorship') {
-            return redirect()->route('dashboard')
-                ->with('error', 'You already have Mentorship access.');
-        }
-
-        // Get price for the tier
-        $price = $tier === 'premium' ? $course->getPremiumPrice() : $course->getMentorshipPrice();
+        // Get price for premium tier
+        $price = $course->getPremiumPrice();
 
         return view('front.tier-upgrade', compact('course', 'tier', 'price', 'currentTier'));
     }
@@ -339,7 +334,7 @@ class EnrollmentController extends Controller
 
         $request->validate([
             'course_id' => 'required|integer|exists:courses,id',
-            'tier' => 'required|in:premium,mentorship',
+            'tier' => 'required|in:premium',
             'price' => 'required|numeric',
         ]);
 
@@ -356,12 +351,9 @@ class EnrollmentController extends Controller
             // Get current tier
             $currentTier = $user->getSubscriptionTier($course->id);
 
-            // Validate upgrade
-            if ($tier === 'premium' && $currentTier !== 'free') {
-                return redirect()->back()->with('error', 'Invalid upgrade path.');
-            }
-            if ($tier === 'mentorship' && $currentTier === 'mentorship') {
-                return redirect()->back()->with('error', 'You already have this tier.');
+            // Validate upgrade (can only upgrade from free to premium once)
+            if ($currentTier !== 'free') {
+                return redirect()->back()->with('error', 'You already have Premium access or have already upgraded.');
             }
 
             // PAYMENT DEBUG MODE: Bypass payment if enabled
