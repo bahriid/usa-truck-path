@@ -1810,14 +1810,13 @@
 
                     @if($course->isTierCourse())
                         <div class="alert alert-info border-0 mb-4 text-start">
-                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Tiers</h6>
-                            <p class="small mb-2"><strong>Start FREE</strong> and unlock more content as you grow:</p>
+                            <h6 class="fw-bold mb-3"><i class="bi bi-info-circle me-2"></i>Flexible Learning Options</h6>
+                            <p class="small mb-2"><strong>Start FREE</strong> and upgrade to unlock everything:</p>
                             <ul class="small mb-0">
                                 <li><strong>FREE Tier:</strong> Access essential course content</li>
-                                <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Advanced lessons, exclusive videos & PDF resources</li>
-                                <li><strong>Mentorship Tier (${{ number_format($course->mentorship_price ?? 297, 0) }}):</strong> Everything + 1-on-1 mentorship & priority support</li>
+                                <li><strong>Premium Tier (${{ number_format($course->premium_price ?? 150, 0) }}):</strong> Full course access, exclusive videos, PDF resources & Telegram group support</li>
                             </ul>
-                            <p class="small text-muted mb-0 mt-2">💡 Enroll for free now, upgrade anytime!</p>
+                            <p class="small text-muted mb-0 mt-2">💡 Enroll for free now, upgrade once to Premium!</p>
                         </div>
                     @endif
 

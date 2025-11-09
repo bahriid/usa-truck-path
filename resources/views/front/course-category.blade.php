@@ -1805,13 +1805,19 @@
                                 @endif
                                 @endif
                                 @endguest --}}
-                                <a href="{{ route('front.course.details', $course->slug) }}"
-                                    class="btn btn-info">More Details</a>
+                                @if(($course->course_type ?? 'paid') === 'tier')
+                                    <a href="{{ route('front.course.details', $course->slug) }}"
+                                        class="btn btn-success">Start Free Course</a>
+                                @else
+                                    <a href="{{ route('front.course.details', $course->slug) }}"
+                                        class="btn btn-success">More Details</a>
+                                @endif
+
                                 <div class="price-wrapper">
-                                    @if(($course->course_type ?? 'tier') === 'tier')
+                                    @if(($course->course_type ?? 'paid') === 'tier')
                                         <p class="price mb-0">
+                                            <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">$0</span>
                                             <span style="color: #5fcf80; font-weight: bold;">FREE</span>
-                                            <small class="text-muted d-block" style="font-size: 0.8em;">+ Premium upgrades available</small>
                                         </p>
                                     @else
                                         @if($course->original_price)

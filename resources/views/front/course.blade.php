@@ -62,13 +62,31 @@
                                         style="width: 100%; height: 274px; display: block;"></a>
                                 <div class="course-content">
                                     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                                        <a href="{{ route('front.course.category', $course->category) }}"
-                                            class="btn btn-info">More Details</a>
-                                        @if(($course->course_type ?? 'tier') === 'tier')
-                                            <p class="price" style="color: #5fcf80; font-weight: bold;">FREE</p>
+                                        @if(($course->course_type ?? 'paid') === 'tier')
+                                            <a href="{{ route('front.course.details', $course->slug) }}"
+                                                class="btn btn-success">Start Free Course</a>
                                         @else
-                                            <p class="price">${{ $course->price ?? '' }}</p>
+                                            <a href="{{ route('front.course.details', $course->slug) }}"
+                                                class="btn btn-success">More Details</a>
                                         @endif
+
+                                        <div class="price-wrapper">
+                                            @if(($course->course_type ?? 'paid') === 'tier')
+                                                <p class="price mb-0">
+                                                    <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">$0</span>
+                                                    <span style="color: #5fcf80; font-weight: bold;">FREE</span>
+                                                </p>
+                                            @else
+                                                @if($course->original_price)
+                                                    <p class="price mb-0">
+                                                        <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $course->original_price }}</span>
+                                                        <span style="color: #5fcf80; font-weight: bold;">${{ $course->price ?? '' }}</span>
+                                                    </p>
+                                                @else
+                                                    <p class="price mb-0">${{ $course->price ?? '' }}</p>
+                                                @endif
+                                            @endif
+                                        </div>
                                     </div>
 
                                     <h3><a
