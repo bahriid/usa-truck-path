@@ -41,11 +41,101 @@ class AdminEnrollmentController extends Controller
         if ($request->has('status') && $request->status != '') {
             $query->where('course_user.status', $request->status);
         }
-    
+
+        // Apply filter by tier
+        if ($request->has('tier') && $request->tier != '') {
+            $query->where('course_user.subscription_tier', $request->tier);
+        }
+
         // Get paginated results
         $enrollments = $query->orderBy('course_user.status', 'asc')->paginate(10);
-    
+
         return view('admin.enrollment.index', compact('enrollments'));
+    }
+
+    public function export(Request $request)
+    {
+        $query = DB::table('course_user')
+            ->join('courses', 'course_user.course_id', '=', 'courses.id')
+            ->join('users', 'course_user.user_id', '=', 'users.id')
+            ->select(
+                'users.name as user_name',
+                'users.email as email',
+                'course_user.phone as phone',
+                'course_user.country as country',
+                'courses.title as course_title',
+                'course_user.subscription_tier as tier',
+                'course_user.status as status',
+                'course_user.transaction_amount as amount',
+                'course_user.transaction_id as transaction_id',
+                'course_user.created_at as enrolled_at'
+            );
+
+        // Apply same filters as index
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'LIKE', "%{$search}%")
+                  ->orWhere('users.email', 'LIKE', "%{$search}%")
+                  ->orWhere('course_user.phone', 'LIKE', "%{$search}%")
+                  ->orWhere('courses.title', 'LIKE', "%{$search}%");
+            });
+        }
+
+        if ($request->has('status') && $request->status != '') {
+            $query->where('course_user.status', $request->status);
+        }
+
+        if ($request->has('tier') && $request->tier != '') {
+            $query->where('course_user.subscription_tier', $request->tier);
+        }
+
+        $enrollments = $query->orderBy('course_user.created_at', 'desc')->get();
+
+        // Create CSV
+        $filename = 'enrollments_' . date('Y-m-d_His') . '.csv';
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        $callback = function() use ($enrollments) {
+            $file = fopen('php://output', 'w');
+
+            // Add CSV headers
+            fputcsv($file, [
+                'Full Name',
+                'Email',
+                'Phone',
+                'Country',
+                'Course',
+                'Tier',
+                'Status',
+                'Amount',
+                'Transaction ID',
+                'Enrolled At'
+            ]);
+
+            // Add data rows
+            foreach ($enrollments as $enrollment) {
+                fputcsv($file, [
+                    $enrollment->user_name,
+                    $enrollment->email,
+                    $enrollment->phone,
+                    $enrollment->country,
+                    $enrollment->course_title,
+                    ucfirst($enrollment->tier),
+                    ucfirst($enrollment->status),
+                    $enrollment->amount ? '$' . number_format($enrollment->amount, 2) : 'N/A',
+                    $enrollment->transaction_id,
+                    $enrollment->enrolled_at
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
     
     public function transactions(Request $request)

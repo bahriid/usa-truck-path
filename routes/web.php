@@ -142,6 +142,7 @@ Route::prefix('admin')->group(function () {
 
 
         Route::get('/enrollments', [AdminEnrollmentController::class, 'index'])->name('admin.enrollment.index');
+        Route::get('/enrollments/export', [AdminEnrollmentController::class, 'export'])->name('admin.enrollment.export');
 
         // new transactions
         Route::get('/transactions',[AdminEnrollmentController::class,'transactions'])->name('admin.transaction.index');

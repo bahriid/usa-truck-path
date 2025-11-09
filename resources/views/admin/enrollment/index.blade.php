@@ -20,14 +20,21 @@
                         </div>
 
                         <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div></div>
+                                <a href="{{ route('admin.enrollment.export') }}?{{ http_build_query(request()->only(['search', 'status', 'tier'])) }}" class="btn btn-success">
+                                    <i class="bi bi-file-earmark-excel"></i> Export to Excel
+                                </a>
+                            </div>
+
                             <form method="GET" action="{{ route('admin.enrollment.index') }}" class="mb-3">
                                 <div class="row">
-                                    <div class="col-md-4 mb-2">
-                                        <input type="text" name="search" class="form-control" placeholder="Search..."
+                                    <div class="col-md-3 mb-2">
+                                        <input type="text" name="search" class="form-control" placeholder="Search by name, email, phone..."
                                                value="{{ request('search') }}">
                                     </div>
 
-                                    {{-- <div class="col-md-3 mb-2">
+                                    <div class="col-md-2 mb-2">
                                         <select name="status" class="form-control">
                                             <option value="">All Status</option>
                                             <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>
@@ -37,11 +44,25 @@
                                             <option value="rejected"
                                                 {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
                                         </select>
-                                    </div> --}}
+                                    </div>
 
-                                    <div class="col-md-4 mb-2">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                        <a href="{{ route('admin.enrollment.index') }}" class="btn btn-secondary">Reset</a>
+                                    <div class="col-md-2 mb-2">
+                                        <select name="tier" class="form-control">
+                                            <option value="">All Tiers</option>
+                                            <option value="free" {{ request('tier') === 'free' ? 'selected' : '' }}>
+                                                Free</option>
+                                            <option value="premium"
+                                                {{ request('tier') === 'premium' ? 'selected' : '' }}>Premium</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-5 mb-2">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-search"></i> Search
+                                        </button>
+                                        <a href="{{ route('admin.enrollment.index') }}" class="btn btn-secondary">
+                                            <i class="bi bi-arrow-clockwise"></i> Reset
+                                        </a>
                                     </div>
                                 </div>
                             </form>
@@ -71,8 +92,6 @@
                                                     <span class="badge bg-success">FREE</span>
                                                 @elseif($enroll->tier === 'premium')
                                                     <span class="badge bg-primary">PREMIUM</span>
-                                                @elseif($enroll->tier === 'mentorship')
-                                                    <span class="badge bg-warning text-dark">MENTORSHIP</span>
                                                 @endif
                                             </td>
                                             <td>

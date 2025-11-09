@@ -107,14 +107,6 @@
                                 @enderror
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label for="mentorship_price">Mentorship Tier Price</label>
-                                <input type="number" step="0.01" name="mentorship_price" class="form-control" id="mentorship_price" value="{{ old('mentorship_price', $course->mentorship_price ?? '297.00') }}">
-                                <small class="text-muted">Price for users to upgrade to MENTORSHIP tier (from any tier)</small>
-                                @error('mentorship_price')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                            </div>
                             </div>
 
                             <hr class="my-4">
@@ -234,7 +226,6 @@ function toggleCourseTypeFields() {
         // Make paid fields required
         document.getElementById('price').required = true;
         document.getElementById('premium_price').required = false;
-        document.getElementById('mentorship_price').required = false;
     } else {
         paidFields.style.display = 'none';
         tierFields.style.display = 'block';
@@ -242,7 +233,6 @@ function toggleCourseTypeFields() {
         // Make tier fields required
         document.getElementById('price').required = false;
         document.getElementById('premium_price').required = true;
-        document.getElementById('mentorship_price').required = true;
     }
 }
 
