@@ -31,7 +31,6 @@ class DashboardController extends Controller
                 'course' => $course,
                 'current_tier' => $tier,
                 'premium_price' => $course->getPremiumPrice(),
-                'mentorship_price' => $course->getMentorshipPrice(),
             ];
         });
 

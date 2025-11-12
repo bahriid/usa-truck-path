@@ -50,7 +50,7 @@ class UserEnrollmentSeeder extends Seeder
                 'phone' => $user->phone,
                 'country' => $user->country,
                 'status' => 'approved', // Automatically approved
-                'subscription_tier' => 'premium', // Highest tier - access to all content
+                'subscription_tier' => 'premium', // Premium tier - access to all content (free + premium)
                 'transaction_amount' => $course->price ?? 0,
                 'transaction_id' => 'SEEDER_MANUAL_ENROLL_' . time() . '_' . $course->id,
                 'created_at' => now(),

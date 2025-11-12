@@ -105,7 +105,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * Get user's subscription tier for a course.
      *
-     * @return string|null 'free', 'premium', 'mentorship', or null
+     * @return string|null 'free', 'premium', or null
      */
     public function getSubscriptionTier($courseId)
     {
@@ -127,11 +127,10 @@ class User extends Authenticatable implements MustVerifyEmail
             return false;
         }
 
-        // Tier hierarchy: mentorship > premium > free
+        // Tier hierarchy: premium > free
         $tierHierarchy = [
             'free' => ['free'],
             'premium' => ['free', 'premium'],
-            'mentorship' => ['free', 'premium', 'mentorship'],
         ];
 
         return in_array($topic->tier, $tierHierarchy[$userTier] ?? []);
