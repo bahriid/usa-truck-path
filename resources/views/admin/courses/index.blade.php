@@ -32,7 +32,6 @@
                                     <th>Price</th>
                                     <th>Original Price</th>
                                     <th>Premium Tier</th>
-                                    <th>Mentorship Tier</th>
                                     <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
@@ -48,9 +47,6 @@
                                     <td>{{ $course->original_price ? '$' . $course->original_price : '-' }}</td>
                                     <td>
                                         <span class="badge bg-primary">${{ number_format($course->premium_price ?? 150, 0) }}</span>
-                                    </td>
-                                    <td>
-                                        <span class="badge bg-warning text-dark">${{ number_format($course->mentorship_price ?? 297, 0) }}</span>
                                     </td>
                                     <td>{{ $course->is_active ? 'Yes' : 'No' }}</td>
                                     <td>

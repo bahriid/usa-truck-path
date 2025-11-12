@@ -13,7 +13,6 @@
                     $course = $item['course'];
                     $currentTier = $item['current_tier'];
                     $premiumPrice = $item['premium_price'];
-                    $mentorshipPrice = $item['mentorship_price'];
                 @endphp
 
                 <div class="col-md-12">
@@ -41,19 +40,15 @@
                                             <span class="badge bg-success fs-6">FREE TIER ✓</span>
                                         @elseif($currentTier === 'premium')
                                             <span class="badge bg-primary fs-6">PREMIUM TIER ✓</span>
-                                        @elseif($currentTier === 'mentorship')
-                                            <span class="badge bg-warning fs-6">MENTORSHIP TIER ✓</span>
                                         @endif
                                     </div>
 
                                     {{-- Tier Progress Bar --}}
                                     <div class="progress mb-3" style="height: 10px;">
                                         @if($currentTier === 'free')
-                                            <div class="progress-bar bg-success" style="width: 33%"></div>
+                                            <div class="progress-bar bg-success" style="width: 50%"></div>
                                         @elseif($currentTier === 'premium')
-                                            <div class="progress-bar bg-primary" style="width: 66%"></div>
-                                        @elseif($currentTier === 'mentorship')
-                                            <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                            <div class="progress-bar bg-primary" style="width: 100%"></div>
                                         @endif
                                     </div>
 
@@ -70,15 +65,6 @@
                                             <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
                                                class="btn btn-lg btn-primary">
                                                 <i class="bi bi-arrow-up-circle"></i> Upgrade to Premium - ${{ number_format($premiumPrice, 0) }}
-                                            </a>
-                                            <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
-                                               class="btn btn-lg btn-warning">
-                                                <i class="bi bi-star"></i> Upgrade to Mentorship - ${{ number_format($mentorshipPrice, 0) }}
-                                            </a>
-                                        @elseif($currentTier === 'premium')
-                                            <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'mentorship']) }}"
-                                               class="btn btn-lg btn-warning">
-                                                <i class="bi bi-star"></i> Upgrade to Mentorship - ${{ number_format($mentorshipPrice, 0) }}
                                             </a>
                                         @endif
                                     </div>

@@ -528,7 +528,6 @@
                         <div class="d-flex flex-column gap-1">
                             <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i> <strong>FREE</strong> tier included</small>
                             <small class="text-muted"><i class="bi bi-star-fill text-primary"></i> <strong>Premium</strong> ${{ number_format($course->premium_price ?? 150, 0) }}</small>
-                            <small class="text-muted"><i class="bi bi-trophy-fill text-warning"></i> <strong>Mentorship</strong> ${{ number_format($course->mentorship_price ?? 297, 0) }}</small>
                         </div>
                     </div>
                 </div>
