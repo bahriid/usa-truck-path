@@ -76,6 +76,7 @@
                                         <th>Phone</th>
                                         <th>Course</th>
                                         <th>Tier</th>
+                                        <th>Date</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -94,6 +95,7 @@
                                                     <span class="badge bg-primary">PREMIUM</span>
                                                 @endif
                                             </td>
+                                            <td>{{ \Carbon\Carbon::parse($enroll->created_at)->format('M d, Y') }}</td>
                                             <td>
                                                 @if ($enroll->status === 'pending')
                                                     <span class="badge bg-warning text-dark">{{ ucfirst($enroll->status) }}</span>
@@ -138,7 +140,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="7">No enrollments found.</td>
+                                            <td colspan="8">No enrollments found.</td>
                                         </tr>
                                     @endforelse
                                     </tbody>

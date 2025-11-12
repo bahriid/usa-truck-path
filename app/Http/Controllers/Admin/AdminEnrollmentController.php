@@ -47,8 +47,8 @@ class AdminEnrollmentController extends Controller
             $query->where('course_user.subscription_tier', $request->tier);
         }
 
-        // Get paginated results
-        $enrollments = $query->orderBy('course_user.status', 'asc')->paginate(10);
+        // Get paginated results - sorted by latest first
+        $enrollments = $query->orderBy('course_user.created_at', 'desc')->paginate(10);
 
         return view('admin.enrollment.index', compact('enrollments'));
     }
