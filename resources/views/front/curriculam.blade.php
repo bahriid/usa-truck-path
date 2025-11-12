@@ -270,7 +270,7 @@
                                                                                     <div class="plyr__video-embed"
                                                                                         id="player-embed-{{ $topic->id }}">
                                                                                         <iframe
-                                                                                            src="{{ $topic->video_url }}?origin={{ url('/') }}&amp;iv_load_policy=3&amp;modestbranding=1&amp;rel=0"
+                                                                                            src="{{ $topic->getEmbedUrl() }}?origin={{ url('/') }}&amp;iv_load_policy=3&amp;modestbranding=1&amp;rel=0"
                                                                                             allowfullscreen
                                                                                             allowtransparency
                                                                                             allow="autoplay"></iframe>
@@ -305,7 +305,7 @@
                                                                                     <div class="plyr__video-embed"
                                                                                         id="player-embed-{{ $topic->id }}">
                                                                                         <iframe
-                                                                                            src="{{ $topic->video_url }}"
+                                                                                            src="{{ $topic->getEmbedUrl() }}"
                                                                                             allowfullscreen
                                                                                             allowtransparency
                                                                                             allow="autoplay"></iframe>
