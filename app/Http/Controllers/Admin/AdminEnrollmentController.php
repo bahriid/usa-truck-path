@@ -107,13 +107,13 @@ class AdminEnrollmentController extends Controller
                 'Full Name',
                 'Email',
                 'Phone',
-                'Country',
                 'Course',
                 'Tier',
+                'Date',
                 'Status',
+                'Country',
                 'Amount',
-                'Transaction ID',
-                'Enrolled At'
+                'Transaction ID'
             ]);
 
             // Add data rows
@@ -122,13 +122,13 @@ class AdminEnrollmentController extends Controller
                     $enrollment->user_name,
                     $enrollment->email,
                     $enrollment->phone,
-                    $enrollment->country,
                     $enrollment->course_title,
                     ucfirst($enrollment->tier),
+                    \Carbon\Carbon::parse($enrollment->enrolled_at)->format('M d, Y'),
                     ucfirst($enrollment->status),
+                    $enrollment->country,
                     $enrollment->amount ? '$' . number_format($enrollment->amount, 2) : 'N/A',
-                    $enrollment->transaction_id,
-                    $enrollment->enrolled_at
+                    $enrollment->transaction_id
                 ]);
             }
 
