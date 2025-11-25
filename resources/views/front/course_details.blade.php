@@ -497,11 +497,9 @@
                     <div class="col-md-4 text-md-end button-section">
                         @if($course->isLanguageSelectorCourse())
                             @guest
-                                <a href="{{ route('login') }}" class="cta-btn">Login to Start Free Course</a>
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
                             @else
-                                <div class="alert alert-success">
-                                    <i class="bi bi-check-circle-fill me-2"></i>You're enrolled! Scroll down to choose your language and upgrade to the full course.
-                                </div>
+                                <a href="{{ route('course.curriculam', $course->id) }}" class="cta-btn">Start Free Course</a>
                             @endguest
                         @else
                             @guest
@@ -578,7 +576,7 @@
 
                     @if($course->isLanguageSelectorCourse())
                         @guest
-                            <a href="{{ route('login') }}" class="cta w-100 mb-2">Login to Start Free Course</a>
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to Enroll</a>
                         @else
                             <a href="{{ route('course.curriculam', $course->id) }}" class="cta w-100 mb-2">Start Free Course</a>
                         @endguest
@@ -633,7 +631,7 @@
                                     <div class="mt-4 ">
                                         @if($course->isLanguageSelectorCourse())
                                             @guest
-                                                <a href="{{ route('login') }}" class="cta-btn-course w-100 mb-2">Login to Start Free Course</a>
+                                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn-course w-100 mb-2">Login to Enroll</a>
                                             @else
                                                 <a href="{{ route('course.curriculam', $course->id) }}" class="cta-btn-course w-100 mb-2">Start Free Course</a>
                                             @endguest
@@ -1327,7 +1325,7 @@
 
                     @if($course->isLanguageSelectorCourse())
                         @guest
-                            <a href="{{ route('login') }}" class="cta w-100 mb-2">Login to Start Free Course</a>
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to Enroll</a>
                         @else
                             <a href="{{ route('course.curriculam', $course->id) }}" class="cta w-100 mb-2">Start Free Course</a>
                         @endguest
