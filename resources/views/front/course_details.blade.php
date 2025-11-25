@@ -576,24 +576,34 @@
                         @endif
                     </h5>
 
-                    @guest
-
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta   mb-2" disabled>Already Enrolled</button>
+                    @if($course->isLanguageSelectorCourse())
+                        @guest
+                            <a href="{{ route('login') }}" class="cta w-100 mb-2">Login to Start Free Course</a>
                         @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta   mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
+                            <div class="alert alert-success mb-2">
+                                <i class="bi bi-check-circle-fill me-2"></i>You're enrolled! Scroll down to choose your language.
+                            </div>
+                            <a href="#language-selector-section" class="cta w-100">Choose Your Language</a>
+                        @endguest
+                    @else
+                        @guest
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                                Enroll</a>
+                        @else
+                            @if (auth()->user()->hasApprovedCourse($course->id))
+                                <button class="cta   mb-2" disabled>Already Enrolled</button>
                             @else
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
-                                    Now</a>
+                                @if ($course->status === 'upcoming')
+                                    <button class="cta   mb-2" disabled>Up Coming</button>
+                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta mb-2">Continue Payment</a>
+                                @else
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100">Enroll
+                                        Now</a>
+                                @endif
                             @endif
-                        @endif
-                    @endguest
+                        @endguest
+                    @endif
                 </div>
             </div>
 
@@ -624,24 +634,32 @@
                                         <p class="card-text lead text-secondary">{!! $course->description !!}</p>
                                     </div>
                                     <div class="mt-4 ">
-                                        @guest
-                                            <a href="{{ route('register') }}?course_id={{ $course->id }}"
-                                                class="cta-btn-course w-100 mb-2">Login to Enroll</a>
-                                        @else
-                                            @if (auth()->user()->hasApprovedCourse($course->id))
-                                                <button class="cta-btn-course  mb-2" disabled>Already Enrolled</button>
+                                        @if($course->isLanguageSelectorCourse())
+                                            @guest
+                                                <a href="{{ route('login') }}" class="cta-btn-course w-100 mb-2">Login to Start Free Course</a>
                                             @else
-                                                @if ($course->status === 'upcoming')
-                                                    <button class="cta-btn-course mb-2" disabled>Up Coming</button>
-                                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn-course mb-2">Continue Payment</a>
+                                                <a href="#language-selector-section" class="cta-btn-course w-100 mb-2">Choose Your Language to Upgrade</a>
+                                            @endguest
+                                        @else
+                                            @guest
+                                                <a href="{{ route('register') }}?course_id={{ $course->id }}"
+                                                    class="cta-btn-course w-100 mb-2">Login to Enroll</a>
+                                            @else
+                                                @if (auth()->user()->hasApprovedCourse($course->id))
+                                                    <button class="cta-btn-course  mb-2" disabled>Already Enrolled</button>
                                                 @else
-                                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
-                                                        class="cta-btn-course mb-2 ">Enroll
-                                                        Now</a>
+                                                    @if ($course->status === 'upcoming')
+                                                        <button class="cta-btn-course mb-2" disabled>Up Coming</button>
+                                                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn-course mb-2">Continue Payment</a>
+                                                    @else
+                                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}"
+                                                            class="cta-btn-course mb-2 ">Enroll
+                                                            Now</a>
+                                                    @endif
                                                 @endif
-                                            @endif
-                                        @endguest
+                                            @endguest
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-md-6   ">
@@ -1065,7 +1083,7 @@
 
         {{-- Language Selection Section (only for language_selector courses) --}}
         @if($course->isLanguageSelectorCourse())
-            <section class="language-selector-section py-5">
+            <section id="language-selector-section" class="language-selector-section py-5">
                 <div class="container">
                     <div class="row justify-content-center mb-4">
                         <div class="col-lg-10 text-center">
@@ -1369,27 +1387,39 @@
 
                 <div class="text-center">
                     <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
+                        @if($course->isLanguageSelectorCourse())
+                            <strong>Price:</strong> <span style="color: #5fcf80;">FREE</span>
+                        @else
+                            <strong>Price:</strong> ${{ $course->price }}
+                        @endif
                     </h5>
 
-                    @guest
-                        <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
-                            Enroll</a>
-                    @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
+                    @if($course->isLanguageSelectorCourse())
+                        @guest
+                            <a href="{{ route('login') }}" class="cta w-100 mb-2">Login to Start Free Course</a>
                         @else
-                            @if ($course->status === 'upcoming')
-                                <button class="cta w-100 mb-2" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
+                            <a href="#language-selector-section" class="cta w-100 mb-2">Choose Your Language to Upgrade</a>
+                        @endguest
+                    @else
+                        @guest
+                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta w-100 mb-2">Login to
+                                Enroll</a>
+                        @else
+                            @if (auth()->user()->hasApprovedCourse($course->id))
+                                <button class="cta w-100 mb-2" disabled>Already Enrolled</button>
                             @else
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}"
-                                    class="btn btn-primary w-100">Enroll
-                                    Now</a>
+                                @if ($course->status === 'upcoming')
+                                    <button class="cta w-100 mb-2" disabled>Up Coming</button>
+                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta w-100 mb-2">Continue Payment</a>
+                                @else
+                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}"
+                                        class="btn btn-primary w-100">Enroll
+                                        Now</a>
+                                @endif
                             @endif
-                        @endif
-                    @endguest
+                        @endguest
+                    @endif
                 </div>
             </div>
 
