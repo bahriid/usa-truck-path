@@ -1884,7 +1884,7 @@
 
                                                                                 <h2 class="card-title mb-3 fw-bold text-success">About This Course</h2>
                                         <p class="card-text lead text-secondary">
-                                            You don't need to be a truck driver to start. If you're over 21 and speak basic English, this course shows you exactly how to move to the USA or Canada and become a professional truck driver. We'll help you with the visa process, CDL school, and connect you to real hiring companies � with lifetime mentorship and daily support.
+                                            You don't need to be a truck driver to start. If you're over 21 and speak basic English, this course shows you exactly how to move to the USA or Canada and become a professional truck driver. We'll help you with the visa process, CDL school, and connect you to real hiring companies ' with lifetime mentorship and daily support.
                                         </p>
                                     </div>
 
@@ -1988,7 +1988,7 @@
 
                                 We empower future truck drivers with an easy, effective, and guaranteed way to pass the DMV
 
-                                exam�regardless of language or background.</p>
+                                exam'regardless of language or background.</p>
 
                         </div>
 
@@ -2014,9 +2014,9 @@
 
                                 <h5 class="fw-semibold mb-2">Multilingual Learning System</h5>
 
-                                <p class="text-muted small">Study in your preferred language�English, Arabic, Somali,
+                                <p class="text-muted small">Study in your preferred language'English, Arabic, Somali,
 
-                                    Amharic, French, or Nepali�with complete support for non-native speakers.
+                                    Amharic, French, or Nepali'with complete support for non-native speakers.
 
                                 </p>
 
@@ -2044,7 +2044,7 @@
 
                                 <p class="text-muted small">Our course includes the actual test format and questions used
 
-                                    by DMVs across all states, ensuring you�re fully prepared.
+                                    by DMVs across all states, ensuring you're fully prepared.
 
                                 </p>
 
@@ -2096,9 +2096,9 @@
 
                                 <h5 class="fw-semibold mb-2">100% Pass Guarantee</h5>
 
-                                <p class="text-muted small">We�re so confident in our system that we guarantee you�ll pass
+                                <p class="text-muted small">We're so confident in our system that we guarantee you'll pass
 
-                                    your DMV test on the first try�or get extended access for free.
+                                    your DMV test on the first try'or get extended access for free.
 
                                 </p>
 
@@ -2126,7 +2126,7 @@
 
                                 <p class="text-muted small">Whether you have a full-time job or a busy life, our platform
 
-                                    lets you study anytime, anywhere�on any device.</p>
+                                    lets you study anytime, anywhere'on any device.</p>
 
                             </div>
 
@@ -2150,9 +2150,9 @@
 
                                 <h5 class="fw-semibold mb-2">Built for Future Truckers</h5>
 
-                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers�so you�re
+                                <p class="text-muted small">We specialize in helping aspiring CDL truck drivers'so you're
 
-                                    not just passing a test, you�re preparing for a career on the road.</p>
+                                    not just passing a test, you're preparing for a career on the road.</p>
 
                             </div>
 
@@ -2852,9 +2852,9 @@
 
 
 
-                            We make it easy to pass your Commercial Learner�s Permit (CLP) test. Our all-in-one course
+                            We make it easy to pass your Commercial Learner's Permit (CLP) test. Our all-in-one course
 
-                            includes video lessons, audio guides, and an eBook�available in multiple languages. It�s
+                            includes video lessons, audio guides, and an eBook'available in multiple languages. It's
 
                             everything you need to get started in trucking.
 
@@ -2882,7 +2882,7 @@
 
                                     <p class="text-muted mb-0">Original price $297, now only $80.
 
-                                        You�ll get full access to:
+                                        You'll get full access to:
 
                                     <p>Video course, Audio course, Downloadable eBook, Covers all topics: General Knowledge,
 
@@ -2904,7 +2904,7 @@
 
                                     <p class="text-muted mb-0">Our study method is simple and guaranteed.
 
-                                        You�ll get one question and one correct answer�no confusing multiple-choice options.
+                                        You'll get one question and one correct answer'no confusing multiple-choice options.
 
                                         Everyone who purchased our course has passed their test.</p>
 
@@ -2920,9 +2920,9 @@
 
                                     <p class="text-muted mb-0">This is your first step to becoming a CDL driver. Join
 
-                                        thousands who�ve passed with our guide. Study at your own pace and pass with
+                                        thousands who've passed with our guide. Study at your own pace and pass with
 
-                                        confidence�guaranteed..</p>
+                                        confidence'guaranteed..</p>
 
                                 </div>
 
@@ -2992,13 +2992,13 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I�m so glad I found USATruckPath.com! The practice questions
+                                <p class="text-muted mb-3">"I'm so glad I found USATruckPath.com! The practice questions
 
                                     were just like the real test and gave me the confidence I needed. I passed my permit
 
                                     test on the first try and even joined their trucking school, CDL City Truck Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldn�t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldn't be happier!"
 
                                 </p>
 
@@ -3040,9 +3040,9 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I�m originally from Honduras and live in Columbus, Ohio. I had
+                                <p class="text-muted mb-3">"I'm originally from Honduras and live in Columbus, Ohio. I had
 
-                                    tried a couple of other programs to pass my CDL permit test, but they didn�t work for
+                                    tried a couple of other programs to pass my CDL permit test, but they didn't work for
 
                                     me. Then I found USATruckPath.com, and it changed everything! The questions were just
 
@@ -3050,7 +3050,7 @@
 
                                     the first try and joined CDL City Truck Driving School here in Columbus. Now I have my
 
-                                    CDL, and I couldn�t be happier!"</p>
+                                    CDL, and I couldn't be happier!"</p>
 
                                 <div class="rating text-warning">
 
@@ -3090,11 +3090,11 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I�m originally from Egypt and lived in Dearborn, Michigan,
+                                <p class="text-muted mb-3">"I'm originally from Egypt and lived in Dearborn, Michigan,
 
                                     working as a DoorDash delivery driver. I was tired of the long hours and low pay and
 
-                                    wanted a better career. That�s when I found USATruckPath.com and bought the Arabic
+                                    wanted a better career. That's when I found USATruckPath.com and bought the Arabic
 
                                     version of the guide. It was perfect for me! The questions were just like the real test,
 
@@ -3102,7 +3102,7 @@
 
                                     on the first try and joined CDL City Truck Driving School. Now I have my CDL and a new
 
-                                    career I�m proud of. Thank you, USATruckPath!"
+                                    career I'm proud of. Thank you, USATruckPath!"
 
                                 </p>
 
@@ -3144,13 +3144,13 @@
 
                                 </div>
 
-                                <p class="text-muted mb-3">"I�m so glad I found USATruckPath.com! The practice questions
+                                <p class="text-muted mb-3">"I'm so glad I found USATruckPath.com! The practice questions
 
                                     were just like the real test and gave me the confidence I needed. I passed my permit
 
                                     test on the first try and even joined their trucking school, CDL City Truck Driving
 
-                                    School, which is very affordable. Now I have my CDL, and I couldn�t be happier!"
+                                    School, which is very affordable. Now I have my CDL, and I couldn't be happier!"
 
                                 </p>
 
@@ -3198,12 +3198,12 @@
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="fw-bold text-success mb-4">??????????? Ready to start your trucking journey in North America?</h2>
+                        <h2 class="fw-bold text-success mb-4">Ready to start your trucking journey in North America?</h2>
                         <p class="lead text-secondary mb-3">
-                            You don't need experience � just be 21 or older and speak basic English.
+                            You don't need experience ' just be 21 or older and speak basic English.
                         </p>
                         <p class="lead text-secondary mb-3">
-                            Enroll today and let us help you with everything � visa, CDL, and job placement.
+                            Enroll today and let us help you with everything ' visa, CDL, and job placement.
                         </p>
                         <p class="lead text-secondary mb-4">
                             We'll guide you step by step and connect you with real trucking companies that are ready to hire you.

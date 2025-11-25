@@ -24,7 +24,7 @@ class PageController extends Controller
             ->pluck('id');
 
         $courses = Course::whereIn('id', $latestCourseIds)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'asc')  // Order by ID ascending so newer courses appear last
             ->paginate(6);
 
         // Create an associative array of courses, keyed by slug

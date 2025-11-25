@@ -67,6 +67,9 @@
                                     <option value="paid" {{ old('course_type', $course->course_type ?? '') == 'paid' ? 'selected' : '' }}>
                                         Paid Course - Traditional one-time payment
                                     </option>
+                                    <option value="language_selector" {{ old('course_type', $course->course_type ?? '') == 'language_selector' ? 'selected' : '' }}>
+                                        Language Selector - Free course with language-based upgrades (CLP)
+                                    </option>
                                 </select>
                                 <small class="text-muted">Choose how students will pay for this course</small>
                                 @error('course_type')
@@ -225,6 +228,13 @@ function toggleCourseTypeFields() {
 
         // Make paid fields required
         document.getElementById('price').required = true;
+        document.getElementById('premium_price').required = false;
+    } else if (courseType === 'language_selector') {
+        // Language selector is free, hide all pricing fields
+        paidFields.style.display = 'none';
+        tierFields.style.display = 'none';
+
+        document.getElementById('price').required = false;
         document.getElementById('premium_price').required = false;
     } else {
         paidFields.style.display = 'none';

@@ -543,29 +543,37 @@
 
             <div class="col-md-6">
 
-                <h4 class="mb-3 text-center">This Course Includes:</h4>
+                <h4 class="mb-3 text-center">What's Included in This Course</h4>
 
-                {{-- <ul class="list-unstyled mb-4">
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="bi bi-people me-2"></i>
-                        <strong class="me-1">students:</strong>
-                        <span>{{ $course->students->count() }} </span>
-                    </li>
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="bi bi-journal-bookmark me-2"></i>
-                        <strong class="me-1">lessons:</strong>
-                        <span>{{ $course->chapters->count() }}</span>
-                    </li>
-                    <li class="d-flex align-items-center mb-2">
-                        <i class="bi bi-list-task me-2"></i>
-                        <strong class="me-1">Topics:</strong>
-                        <span>{{ $course->chapters->sum(fn($ch) => $ch->topics->count()) }}</span>
-                    </li>
-                </ul> --}}
+                @if($course->isLanguageSelectorCourse())
+                    <p>Get ready to pass your Commercial Learner's Permit (CLP) and all CDL endorsements with this complete, easy-to-follow course designed for all 50 states. You'll learn everything you need to know through video lessons, audiobooks, and eBooks in your preferred language. This course covers the General Knowledge test, Air Brakes, Combination Vehicles, Doubles/Triples, Hazmat, Tanker, Passenger, and School Bus endorsements. It includes real DMV-style practice questions and answers—just like the actual test. Accessible on your phone, tablet, or computer, and with lifetime access for a one-time payment, this is the fastest and most convenient way to prepare. Start today and pass with confidence!</p>
+                @else
+                    <ul class="list-unstyled mb-4">
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="bi bi-journal-bookmark me-2 text-success"></i>
+                            <strong class="me-1">Chapters:</strong>
+                            <span>{{ $course->chapters->count() }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="bi bi-list-task me-2 text-success"></i>
+                            <strong class="me-1">Topics:</strong>
+                            <span>{{ $course->chapters->sum(fn($ch) => $ch->topics->count()) }}</span>
+                        </li>
+                        <li class="d-flex align-items-center mb-2">
+                            <i class="bi bi-people me-2 text-success"></i>
+                            <strong class="me-1">Students:</strong>
+                            <span>{{ $course->students->count() }}</span>
+                        </li>
+                    </ul>
+                @endif
 
                 <div class="text-center">
                     <h5 class="mb-3">
-                        <strong>Price:</strong> ${{ $course->price }}
+                        @if($course->isLanguageSelectorCourse())
+                            <strong>Price:</strong> <span style="color: #5fcf80;">FREE</span>
+                        @else
+                            <strong>Price:</strong> ${{ $course->price }}
+                        @endif
                     </h5>
 
                     @guest
