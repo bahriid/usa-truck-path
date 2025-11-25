@@ -166,22 +166,22 @@ class RegisteredUserController extends Controller
             if ($request->course_id) {
                 $course = Course::find($request->course_id);
 
-                if ($course && $course->isLanguageSelectorCourse()) {
-                    // For language_selector courses, redirect to curriculum page
-                    return redirect()->route('course.curriculam', $course->id)
+                if ($course && ($course->isLanguageSelectorCourse() || $course->isTierCourse())) {
+                    // For free courses (language_selector or tier), redirect to dashboard
+                    return redirect()->route('dashboard')
                         ->with('success', 'Welcome! You are now enrolled in the free course.');
                 }
 
-                if ($course && !$course->isTierCourse()) {
+                if ($course) {
                     // For paid courses, redirect to enrollment form to complete payment
                     return redirect()->route('front.courses.enrollForm', $course->id)
                         ->with('success', 'Registration successful! Please complete your course enrollment.');
                 }
             }
 
-            // For tier courses or no course, redirect to dashboard
+            // No course specified, redirect to dashboard
             return redirect()->route('dashboard')
-                ->with('success', 'Welcome! You now have access to the free course.');
+                ->with('success', 'Welcome to USA Truck Path!');
         } catch (\Exception $e) {
             DB::rollBack();
             Log::error('Registration Error: '.$e->getMessage());
