@@ -140,27 +140,16 @@
                            class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Global CDL Program</a></li>
                     @endif
 
-                    {{-- U.S. CDL Permit Dropdown - Only CLP Courses (IDs 9-14) --}}
+                    {{-- U.S. CDL Permit - Single link to free CLP course with language selection --}}
                     @php
-                        $clpCourses = App\Models\Course::whereIn('id', [9, 10, 11, 12, 13, 14])
+                        $freeClpCourse = App\Models\Course::where('course_type', 'language_selector')
                             ->where('status', 'active')
                             ->where('is_active', 1)
-                            ->get();
+                            ->first();
                     @endphp
-                    @if ($clpCourses && $clpCourses->count())
-                        <li class="dropdown">
-                            <a href="#"><span>U.S. CDL Permit</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                            <ul>
-                                @foreach ($clpCourses as $menu)
-                                    <li>
-                                        <a href="{{ route('front.course.details', $menu->slug) }}"
-                                           class="{{ request()->is('courses-details/' . $menu->slug) ? 'active' : '' }}">
-                                           {{ $menu->menu_name }}
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
+                    @if ($freeClpCourse)
+                        <li><a href="{{ route('front.course.details', $freeClpCourse->slug) }}"
+                               class="{{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'active' : '' }}">U.S. CDL Permit</a></li>
                     @endif
 
                     {{-- How It Works & Why Us Combined Dropdown --}}

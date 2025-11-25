@@ -495,22 +495,32 @@
                         </nav>
                     </div>
                     <div class="col-md-4 text-md-end button-section">
-                        @guest
-                            {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
-                            <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
-                        @else
-                            @if (auth()->user()->hasApprovedCourse($course->id))
-                                <button class="btn btn-success " disabled>Already Enrolled</button>
+                        @if($course->isLanguageSelectorCourse())
+                            @guest
+                                <a href="{{ route('login') }}" class="cta-btn">Login to Start Free Course</a>
                             @else
-                                @if ($course->status === 'upcoming')
-                                    <button class="btn btn-secondary " disabled>Up Coming</button>
-                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
+                                <div class="alert alert-success">
+                                    <i class="bi bi-check-circle-fill me-2"></i>You're enrolled! Scroll down to choose your language and upgrade to the full course.
+                                </div>
+                            @endguest
+                        @else
+                            @guest
+                                {{-- <a href="{{ route('register') }}" class="cta-btn">Login to Enroll</a> --}}
+                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Login to Enroll</a>
+                            @else
+                                @if (auth()->user()->hasApprovedCourse($course->id))
+                                    <button class="btn btn-success " disabled>Already Enrolled</button>
                                 @else
-                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                    @if ($course->status === 'upcoming')
+                                        <button class="btn btn-secondary " disabled>Up Coming</button>
+                                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="btn btn-warning w-100">Continue Payment</a>
+                                    @else
+                                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="cta-btn">Enroll Now</a>
+                                    @endif
                                 @endif
-                            @endif
-                        @endguest
+                            @endguest
+                        @endif
                     </div>
                 </div>
             </div>
@@ -1044,6 +1054,72 @@
 
             </div>
         </section>
+
+        {{-- Language Selection Section (only for language_selector courses) --}}
+        @if($course->isLanguageSelectorCourse())
+            <section class="language-selector-section py-5">
+                <div class="container">
+                    <div class="row justify-content-center mb-4">
+                        <div class="col-lg-10 text-center">
+                            <h2 class="fw-bold text-success mb-3">Ready to Get the Full Course?</h2>
+                            <p class="lead text-muted">Choose your preferred language and upgrade to the complete CLP course with video lessons, audio guides, downloadable eBook, and lifetime access to our Telegram community support.</p>
+                        </div>
+                    </div>
+
+                    <div class="row g-4">
+                        @foreach($course->languageCourses as $langCourse)
+                            <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                                <div class="card h-100 border-0 shadow-sm hover-card">
+                                    <div class="card-body text-center p-4">
+                                        <div class="icon-box mb-3">
+                                            <i class="bi bi-translate" style="font-size: 3rem; color: var(--accent-color);"></i>
+                                        </div>
+                                        <h4 class="card-title fw-bold mb-3">CLP {{ $langCourse->getLanguageName() }}</h4>
+                                        <p class="card-text text-muted mb-4">{{ Str::limit(strip_tags($langCourse->description ?? ''), 100, '...') }}</p>
+
+                                        <div class="d-flex justify-content-center align-items-center mb-3">
+                                            @if($langCourse->original_price)
+                                                <span class="text-decoration-line-through text-muted me-2" style="font-size: 1.2rem;">${{ number_format($langCourse->original_price, 2) }}</span>
+                                            @endif
+                                            <span class="fw-bold" style="color: #5fcf80; font-size: 2rem;">${{ number_format($langCourse->price, 2) }}</span>
+                                        </div>
+
+                                        @guest
+                                            <a href="{{ route('register') }}?course_id={{ $langCourse->id }}" class="btn btn-success w-100">
+                                                <i class="bi bi-unlock-fill me-2"></i>Upgrade to {{ $langCourse->getLanguageName() }}
+                                            </a>
+                                        @else
+                                            @if(auth()->user()->hasApprovedCourse($langCourse->id))
+                                                <button class="btn btn-secondary w-100" disabled>
+                                                    <i class="bi bi-check-circle-fill me-2"></i>Already Enrolled
+                                                </button>
+                                            @elseif(auth()->user()->hasPurchasedCourse($langCourse->id))
+                                                <a href="{{ route('front.courses.enrollForm', $langCourse->id) }}" class="btn btn-warning w-100">
+                                                    <i class="bi bi-credit-card me-2"></i>Continue Payment
+                                                </a>
+                                            @else
+                                                <a href="{{ route('front.courses.enrollForm', $langCourse->id) }}" class="btn btn-success w-100">
+                                                    <i class="bi bi-unlock-fill me-2"></i>Upgrade to {{ $langCourse->getLanguageName() }}
+                                                </a>
+                                            @endif
+                                        @endguest
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-lg-8 mx-auto text-center">
+                            <div class="alert alert-info border-0 shadow-sm">
+                                <i class="bi bi-info-circle-fill me-2"></i>
+                                <strong>One-Time Payment, Lifetime Access!</strong> Get instant access to all course materials, updates, and our supportive Telegram community.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        @endif
 
         <section class="why-info bg-light py-5">
             <div class="container">

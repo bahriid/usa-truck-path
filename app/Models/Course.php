@@ -15,6 +15,8 @@ class Course extends Model
         'instructor_id',
         'status',
         'course_type',
+        'parent_course_id',
+        'language',
         'price',
         'original_price',
         'premium_price',
@@ -96,6 +98,52 @@ class Course extends Model
     public function isTierCourse()
     {
         return ($this->course_type ?? 'paid') === 'tier';
+    }
+
+    /**
+     * Get the parent course (for language courses).
+     */
+    public function parentCourse()
+    {
+        return $this->belongsTo(Course::class, 'parent_course_id');
+    }
+
+    /**
+     * Get all language variations (child courses).
+     * Note: We only check status='active', NOT is_active
+     * because language courses are hidden from menu (is_active=0)
+     * but should still appear in the language selector.
+     */
+    public function languageCourses()
+    {
+        return $this->hasMany(Course::class, 'parent_course_id')
+            ->where('status', 'active')
+            ->orderBy('language');
+    }
+
+    /**
+     * Check if course is a language selector course (free course with language upgrades).
+     */
+    public function isLanguageSelectorCourse()
+    {
+        return ($this->course_type ?? 'paid') === 'language_selector';
+    }
+
+    /**
+     * Get language name from code.
+     */
+    public function getLanguageName()
+    {
+        $languages = [
+            'en' => 'English',
+            'ar' => 'Arabic',
+            'fr' => 'French',
+            'am' => 'Amharic',
+            'ne' => 'Nepali',
+            'so' => 'Somali',
+        ];
+
+        return $languages[$this->language] ?? $this->language;
     }
 
 }

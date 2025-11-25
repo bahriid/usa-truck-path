@@ -221,7 +221,7 @@
                                                 @endif
                                             @endif
                                         @endguest --}}
-                                        @if(($course->course_type ?? 'paid') === 'tier')
+                                        @if(in_array($course->course_type ?? 'paid', ['tier', 'language_selector']))
                                             <a href="{{ route('front.course.details', $course->slug) }}"
                                                 class="btn btn-success">Start Free Course</a>
                                         @else
@@ -230,7 +230,7 @@
                                         @endif
 
                                         <div class="price-wrapper">
-                                            @if(($course->course_type ?? 'paid') === 'tier')
+                                            @if(in_array($course->course_type ?? 'paid', ['tier', 'language_selector']))
                                                 <p class="price mb-0">
                                                     <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">$0</span>
                                                     <span style="color: #5fcf80; font-weight: bold;">FREE</span>
@@ -286,49 +286,7 @@
             </div>
         </section><!-- /Courses Section -->
 
-        <!-- Multi-Language CDL Courses Section -->
-        <section id="multilingual-courses" class="multilingual-courses section bg-light">
-            <div class="container">
-                <div class="section-title text-center" data-aos="fade-up">
-                    <h2>Multi-Language CDL Permit Courses</h2>
-                    <p>Pass Your CDL Permit Test in Your Native Language</p>
-                </div>
-
-                <div class="row gy-4 mt-4">
-                    @php
-                        $multilingualCourses = App\Models\Course::whereIn('id', [9, 10, 11, 12, 13, 14])
-                            ->where('status', 'active')
-                            ->where('is_active', 1)
-                            ->get();
-                    @endphp
-
-                    @foreach($multilingualCourses as $langCourse)
-                    <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="card h-100 border-0 shadow-sm hover-card">
-                            <div class="card-body text-center p-4">
-                                <div class="icon-box mb-3">
-                                    <i class="bi bi-translate" style="font-size: 3rem; color: var(--accent-color);"></i>
-                                </div>
-                                <h4 class="card-title fw-bold mb-3">{{ $langCourse->menu_name }}</h4>
-                                <p class="card-text text-muted mb-4">{{ Str::limit(strip_tags($langCourse->description ?? ''), 100, '...') }}</p>
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    @if($langCourse->original_price)
-                                        <p class="price mb-0">
-                                            <span style="text-decoration: line-through; color: #999; font-size: 0.9em; margin-right: 8px;">${{ $langCourse->original_price }}</span>
-                                            <span style="color: #5fcf80; font-weight: bold; font-size: 1.5rem;">${{ $langCourse->price }}</span>
-                                        </p>
-                                    @else
-                                        <p class="price mb-0" style="font-size: 1.5rem; font-weight: bold; color: #5fcf80;">${{ $langCourse->price }}</p>
-                                    @endif
-                                </div>
-                                <a href="{{ route('front.course.details', $langCourse->slug) }}" class="btn btn-primary w-100">Learn More</a>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-        </section><!-- /Multi-Language CDL Courses Section -->
+        {{-- Multi-Language CDL Courses Section - REMOVED: Now integrated into single CLP course with language selection --}}
 
         <!-- Video Section -->
         <section id="video-section" class="video-section section bg-light">
