@@ -41,6 +41,16 @@ class EnrollmentController extends Controller
     {
         $user = auth()->user();
 
+        // For language_selector courses (free), auto-enroll and redirect to curriculum
+        if ($user && $course->isLanguageSelectorCourse()) {
+            if (!$this->enrollmentService->isUserEnrolled($user, $course)) {
+                // Auto-enroll the user
+                $this->enrollmentService->autoEnrollInFreeTier($user, $course);
+            }
+            return redirect()->route('course.curriculam', $course->id)
+                ->with('success', 'You are enrolled in this free course!');
+        }
+
         if ($user && $this->enrollmentService->isUserEnrolled($user, $course)) {
             // Check enrollment status
             $enrollment = $user->courses()->where('course_id', $course->id)->first();

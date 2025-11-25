@@ -146,12 +146,12 @@ class RegisteredUserController extends Controller
             // Log user in
             Auth::login($user);
 
-            // Auto-enroll in the free tier course they clicked (if provided and it's a tier course)
+            // Auto-enroll in the free tier course or language_selector course they clicked (if provided)
             if ($request->course_id) {
                 $course = Course::find($request->course_id);
 
-                // Only auto-enroll if it's a tier-based course (free signup)
-                if ($course && $course->isTierCourse()) {
+                // Auto-enroll if it's a tier-based course or language_selector course (free signup)
+                if ($course && ($course->isTierCourse() || $course->isLanguageSelectorCourse())) {
                     $this->enrollInFreeCourse($user, $request->course_id);
                 }
                 // For paid courses, don't auto-enroll - they'll need to complete payment
@@ -165,6 +165,12 @@ class RegisteredUserController extends Controller
             // Determine redirect based on course type
             if ($request->course_id) {
                 $course = Course::find($request->course_id);
+
+                if ($course && $course->isLanguageSelectorCourse()) {
+                    // For language_selector courses, redirect to curriculum page
+                    return redirect()->route('course.curriculam', $course->id)
+                        ->with('success', 'Welcome! You are now enrolled in the free course.');
+                }
 
                 if ($course && !$course->isTierCourse()) {
                     // For paid courses, redirect to enrollment form to complete payment
