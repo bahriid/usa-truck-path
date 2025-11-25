@@ -34,7 +34,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'menu_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'course_type' => 'required|in:tier,paid',
+            'course_type' => 'required|in:tier,paid,language_selector',
             'price' => 'required_if:course_type,paid|nullable|numeric|min:0',
             'original_price' => 'nullable|numeric|min:0',
             'premium_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
@@ -53,8 +53,8 @@ class CourseController extends Controller
 
         $data = $request->all();
 
-        // For tier-based courses, set base price to 0 and is_free to true
-        if ($request->course_type === 'tier') {
+        // For tier-based and language_selector courses, set base price to 0 and is_free to true
+        if ($request->course_type === 'tier' || $request->course_type === 'language_selector') {
             $data['price'] = 0;
             $data['is_free'] = true;
         } else {
@@ -85,7 +85,7 @@ class CourseController extends Controller
             'title' => 'required|string|max:255',
             'menu_name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
-            'course_type' => 'required|in:tier,paid',
+            'course_type' => 'required|in:tier,paid,language_selector',
             'price' => 'required_if:course_type,paid|nullable|numeric|min:0',
             'original_price' => 'nullable|numeric|min:0',
             'premium_price' => 'required_if:course_type,tier|nullable|numeric|min:0',
@@ -104,8 +104,8 @@ class CourseController extends Controller
 
         $data = $request->all();
 
-        // For tier-based courses, set base price to 0 and is_free to true
-        if ($request->course_type === 'tier') {
+        // For tier-based and language_selector courses, set base price to 0 and is_free to true
+        if ($request->course_type === 'tier' || $request->course_type === 'language_selector') {
             $data['price'] = 0;
             $data['is_free'] = true;
         } else {
