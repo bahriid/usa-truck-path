@@ -28,14 +28,28 @@
                         @else
                             @php
                                 $currentTier = auth()->user()->getSubscriptionTier($course->id);
+                                $isEnrolled = auth()->user()->hasApprovedCourse($course->id);
                             @endphp
 
-                            @if ($currentTier === 'free')
-                                <span class="badge bg-success fs-6 me-2">FREE ACCESS</span>
-                            @elseif ($currentTier === 'premium')
-                                <span class="badge bg-primary fs-6 me-2">PREMIUM ACCESS</span>
+                            @if ($course->isTierCourse())
+                                {{-- Tier-based course: show tier badges --}}
+                                @if ($currentTier === 'free')
+                                    <span class="badge bg-success fs-6 me-2">FREE ACCESS</span>
+                                @elseif ($currentTier === 'premium')
+                                    <span class="badge bg-primary fs-6 me-2">PREMIUM ACCESS</span>
+                                @else
+                                    <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Sign Up Free</a>
+                                @endif
+                            @elseif ($course->isLanguageSelectorCourse())
+                                {{-- Language selector course (free): show enrolled --}}
+                                @if ($isEnrolled)
+                                    <span class="badge bg-success fs-6 me-2">ENROLLED</span>
+                                @endif
                             @else
-                                <a href="{{ route('register') }}?course_id={{ $course->id }}" class="cta-btn">Sign Up Free</a>
+                                {{-- Regular paid course: show enrolled --}}
+                                @if ($isEnrolled)
+                                    <span class="badge bg-primary fs-6 me-2">ENROLLED</span>
+                                @endif
                             @endif
                         @endguest
                     </div>
