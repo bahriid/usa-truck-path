@@ -89,6 +89,21 @@
             <div class="col-lg-12">
                 <div class="course-curriculum">
                     <h3 class="mb-3">Course Curriculum</h3>
+
+                    {{-- Legend for Free vs Premium --}}
+                    <div class="d-flex flex-wrap gap-3 mb-3 p-3 bg-white rounded shadow-sm">
+                        <div class="d-flex align-items-center">
+                            <span class="d-inline-block me-2" style="width: 4px; height: 20px; background-color: #198754; border-radius: 2px;"></span>
+                            <span class="badge bg-success me-1">✓ FREE</span>
+                            <small class="text-muted">Included with free signup</small>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="d-inline-block me-2" style="width: 4px; height: 20px; background-color: #ffc107; border-radius: 2px;"></span>
+                            <span class="badge bg-warning text-dark me-1">🔒 PREMIUM</span>
+                            <small class="text-muted">Requires upgrade</small>
+                        </div>
+                    </div>
+
                     <div class="accordion" id="curriculumAccordion">
                         @php
                             $chapters = $course->chapters;
@@ -111,7 +126,11 @@
                                         @if ($chapter->topics->count() > 0)
                                             <ul class="list-group">
                                                 @foreach ($chapter->topics as $topic)
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    @php
+                                                        $isPremium = $topic->tier === 'premium';
+                                                        $isFree = $topic->tier === 'free';
+                                                    @endphp
+                                                    <li class="list-group-item d-flex justify-content-between align-items-center {{ $isPremium ? 'border-start border-4 border-warning bg-light' : ($isFree ? 'border-start border-4 border-success' : '') }}">
                                                         <div>
                                                             <strong>{{ $topic->title }}</strong>
 
@@ -121,16 +140,16 @@
                                                             @elseif ($topic->type === 'voice')
                                                                 <span class="badge bg-info ms-2">Audio</span>
                                                             @elseif ($topic->type === 'pdf')
-                                                                <span class="badge bg-warning ms-2">PDF</span>
+                                                                <span class="badge bg-warning text-dark ms-2">PDF</span>
                                                             @else
-                                                                <span class="badge bg-success ms-2">Reading</span>
+                                                                <span class="badge bg-secondary ms-2">Reading</span>
                                                             @endif
 
                                                             {{-- Tier Badge --}}
-                                                            @if ($topic->tier === 'free')
+                                                            @if ($isFree)
                                                                 <span class="badge bg-success ms-2">✓ FREE</span>
-                                                            @elseif ($topic->tier === 'premium')
-                                                                <span class="badge bg-primary ms-2">🔒 PREMIUM</span>
+                                                            @elseif ($isPremium)
+                                                                <span class="badge bg-warning text-dark ms-2">🔒 PREMIUM</span>
                                                             @endif
                                                         </div>
 
@@ -375,7 +394,7 @@
                                                                 @endif
                                                             @endif
                                                         @else
-                                                            {{-- Locked content with upgrade CTA --}}
+                                                            {{-- Locked content --}}
                                                             @auth
                                                                 @php
                                                                     $currentTier = auth()->user()->getSubscriptionTier($course->id);
@@ -383,8 +402,8 @@
 
                                                                 @if ($topic->tier === 'premium' && $currentTier === 'free')
                                                                     <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
-                                                                       class="btn btn-sm btn-primary">
-                                                                        <i class="bi bi-lock"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                                                       class="btn btn-sm btn-warning text-dark">
+                                                                        <i class="bi bi-unlock"></i> Unlock
                                                                     </a>
                                                                 @else
                                                                     <button class="btn btn-sm btn-secondary" disabled>
@@ -394,7 +413,7 @@
                                                             @else
                                                                 <a href="{{ route('register') }}?course_id={{ $course->id }}"
                                                                    class="btn btn-sm btn-success">
-                                                                    <i class="bi bi-lock"></i> Sign Up Free to Access
+                                                                    <i class="bi bi-person-plus"></i> Sign Up Free
                                                                 </a>
                                                             @endauth
                                                         @endif

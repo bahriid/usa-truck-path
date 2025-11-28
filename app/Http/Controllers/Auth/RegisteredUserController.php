@@ -166,16 +166,10 @@ class RegisteredUserController extends Controller
             if ($request->course_id) {
                 $course = Course::find($request->course_id);
 
-                if ($course && ($course->isLanguageSelectorCourse() || $course->isTierCourse())) {
-                    // For free courses (language_selector or tier), redirect to dashboard
-                    return redirect()->route('dashboard')
-                        ->with('success', 'Welcome! You are now enrolled in the free course.');
-                }
-
                 if ($course) {
-                    // For paid courses, redirect to enrollment form to complete payment
-                    return redirect()->route('front.courses.enrollForm', $course->id)
-                        ->with('success', 'Registration successful! Please complete your course enrollment.');
+                    // Always redirect to curriculum page when course_id is provided
+                    return redirect()->route('front.course.curriculam', $course->id)
+                        ->with('success', 'Registration successful! Welcome to USA Truck Path.');
                 }
             }
 
