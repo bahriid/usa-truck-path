@@ -57,58 +57,48 @@
             </div>
         </section>
 
-        {{-- Tier-based Upgrade Banner --}}
-        @auth
-            @php
-                $user = auth()->user();
-                $currentTier = $user->getSubscriptionTier($course->id);
-            @endphp
-
-            @if($course->isTierCourse() && $currentTier && $currentTier === 'free')
-                <section class="container my-4">
-                    <div class="alert alert-info border-0 shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-                        <div class="row align-items-center text-white">
-                            <div class="col-md-8">
-                                <h3 class="mb-2">🚀 Ready to Level Up?</h3>
-                                <p class="mb-0">Unlock all premium content and features, including exclusive Telegram group access!</p>
+        <section class="container mt-4">
+            <div class="course-curriculum">
+                {{-- Header with title, legend, and upgrade button --}}
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
+                    <div>
+                        <h3 class="mb-2">Course Curriculum</h3>
+                        {{-- Legend for Free vs Premium --}}
+                        <div class="d-flex flex-wrap gap-3">
+                            <div class="d-flex align-items-center">
+                                <span class="d-inline-block me-2" style="width: 4px; height: 16px; background-color: #198754; border-radius: 2px;"></span>
+                                <span class="badge bg-success me-1" style="font-size: 0.7rem;">✓ FREE</span>
+                                <small class="text-muted" style="font-size: 0.75rem;">Included with free signup</small>
                             </div>
-                            <div class="col-md-4 text-md-end mt-3 mt-md-0">
-                                <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
-                                   class="btn btn-light btn-lg mb-2">
-                                    <i class="bi bi-arrow-up-circle"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
-                                </a>
+                            <div class="d-flex align-items-center">
+                                <span class="d-inline-block me-2" style="width: 4px; height: 16px; background-color: #ffc107; border-radius: 2px;"></span>
+                                <span class="badge bg-warning text-dark me-1" style="font-size: 0.7rem;">🔒 PREMIUM</span>
+                                <small class="text-muted" style="font-size: 0.75rem;">Requires upgrade</small>
                             </div>
                         </div>
                     </div>
-                </section>
-            @endif
-        @endauth
 
-        <section class="row container mx-auto">
-
-            <div class="col-lg-12">
-                <div class="course-curriculum">
-                    <h3 class="mb-3">Course Curriculum</h3>
-
-                    {{-- Legend for Free vs Premium --}}
-                    <div class="d-flex flex-wrap gap-3 mb-3 p-3 bg-white rounded shadow-sm">
-                        <div class="d-flex align-items-center">
-                            <span class="d-inline-block me-2" style="width: 4px; height: 20px; background-color: #198754; border-radius: 2px;"></span>
-                            <span class="badge bg-success me-1">✓ FREE</span>
-                            <small class="text-muted">Included with free signup</small>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <span class="d-inline-block me-2" style="width: 4px; height: 20px; background-color: #ffc107; border-radius: 2px;"></span>
-                            <span class="badge bg-warning text-dark me-1">🔒 PREMIUM</span>
-                            <small class="text-muted">Requires upgrade</small>
-                        </div>
-                    </div>
-
-                    <div class="accordion" id="curriculumAccordion">
+                    {{-- Upgrade Button (for free tier users) --}}
+                    @auth
                         @php
-                            $chapters = $course->chapters;
-                            $chapters = $chapters->sortBy('order');
+                            $user = auth()->user();
+                            $currentTier = $user->getSubscriptionTier($course->id);
                         @endphp
+
+                        @if($course->isTierCourse() && $currentTier && $currentTier === 'free')
+                            <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}"
+                               class="btn btn-warning btn-lg text-dark fw-bold">
+                                <i class="bi bi-unlock"></i> Upgrade to Premium - ${{ number_format($course->getPremiumPrice(), 0) }}
+                            </a>
+                        @endif
+                    @endauth
+                </div>
+
+                <div class="accordion" id="curriculumAccordion">
+                    @php
+                        $chapters = $course->chapters;
+                        $chapters = $chapters->sortBy('order');
+                    @endphp
 
                         @forelse ($chapters as $index => $chapter)
                             <div class="accordion-item">
@@ -486,8 +476,6 @@
                         @endauth
                     </div>
                 </div>
-
-            </div>
         </section>
 
         {{-- Language Selection Section (only for language_selector courses) --}}
