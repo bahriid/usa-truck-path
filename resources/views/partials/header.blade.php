@@ -104,43 +104,34 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
-                    {{-- Owner Operators --}}
-                    @php
-                        $ownerOperatorsCourse = App\Models\Course::find(18);
-                    @endphp
-                    @if($ownerOperatorsCourse)
-                    <li><a href="{{ route('front.course.details', $ownerOperatorsCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $ownerOperatorsCourse->slug) ? 'active' : '' }}">Owner Operators</a></li>
-                    @endif
-
-                    {{-- Canada-USA Program --}}
+                    {{-- Canada → USA Trucking --}}
                     @php
                         $canadaCourse = App\Models\Course::find(15);
                     @endphp
                     @if($canadaCourse)
                     <li><a href="{{ route('front.course.details', $canadaCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada–USA Program</a></li>
+                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada → USA Trucking</a></li>
                     @endif
 
-                    {{-- Europe-USA Program --}}
+                    {{-- Europe → USA Trucking --}}
                     @php
                         $europeCourse = App\Models\Course::find(16);
                     @endphp
                     @if($europeCourse)
                     <li><a href="{{ route('front.course.details', $europeCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe–USA Program</a></li>
+                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe → USA Trucking</a></li>
                     @endif
 
-                    {{-- Global CDL Program --}}
+                    {{-- Africa & World → USA Trucking --}}
                     @php
                         $globalCourse = App\Models\Course::find(17);
                     @endphp
                     @if($globalCourse)
                     <li><a href="{{ route('front.course.details', $globalCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Global CDL Program</a></li>
+                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Africa & World → USA Trucking</a></li>
                     @endif
 
-                    {{-- U.S. CDL Permit - Single link to free CLP course with language selection --}}
+                    {{-- CLP CDL Grant (USA Residents) --}}
                     @php
                         $freeClpCourse = App\Models\Course::where('course_type', 'language_selector')
                             ->where('status', 'active')
@@ -149,17 +140,17 @@
                     @endphp
                     @if ($freeClpCourse)
                         <li><a href="{{ route('front.course.details', $freeClpCourse->slug) }}"
-                               class="{{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'active' : '' }}">U.S. CDL Permit</a></li>
+                               class="{{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'active' : '' }}">CLP CDL Grant (USA Residents)</a></li>
                     @endif
 
-                    {{-- How It Works & Why Us Combined Dropdown --}}
-                    <li class="dropdown">
-                        <a href="#"><span>About</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
-                        <ul>
-                            <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
-                            <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Us</a></li>
-                        </ul>
-                    </li>
+                    {{-- Dispatcher & Freight Broker --}}
+                    @php
+                        $dispatcherCourse = App\Models\Course::find(19);
+                    @endphp
+                    @if($dispatcherCourse)
+                    <li><a href="{{ route('front.course.details', $dispatcherCourse->slug) }}"
+                           class="{{ request()->is('courses-details/' . $dispatcherCourse->slug) ? 'active' : '' }}">Dispatcher & Freight Broker</a></li>
+                    @endif
 
                     {{-- User Menu --}}
                     @auth
