@@ -104,34 +104,34 @@
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
-                    {{-- Canada → USA Trucking --}}
+                    {{-- Canada → USA --}}
                     @php
                         $canadaCourse = App\Models\Course::find(15);
                     @endphp
                     @if($canadaCourse)
                     <li><a href="{{ route('front.course.details', $canadaCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada → USA Trucking</a></li>
+                           class="{{ request()->is('courses-details/' . $canadaCourse->slug) ? 'active' : '' }}">Canada → USA</a></li>
                     @endif
 
-                    {{-- Europe → USA Trucking --}}
+                    {{-- Europe → USA --}}
                     @php
                         $europeCourse = App\Models\Course::find(16);
                     @endphp
                     @if($europeCourse)
                     <li><a href="{{ route('front.course.details', $europeCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe → USA Trucking</a></li>
+                           class="{{ request()->is('courses-details/' . $europeCourse->slug) ? 'active' : '' }}">Europe → USA</a></li>
                     @endif
 
-                    {{-- Africa & World → USA Trucking --}}
+                    {{-- World → USA --}}
                     @php
                         $globalCourse = App\Models\Course::find(17);
                     @endphp
                     @if($globalCourse)
                     <li><a href="{{ route('front.course.details', $globalCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">Africa & World → USA Trucking</a></li>
+                           class="{{ request()->is('courses-details/' . $globalCourse->slug) ? 'active' : '' }}">World → USA</a></li>
                     @endif
 
-                    {{-- CLP CDL Grant (USA Residents) --}}
+                    {{-- CLP CDL Grant --}}
                     @php
                         $freeClpCourse = App\Models\Course::where('course_type', 'language_selector')
                             ->where('status', 'active')
@@ -140,17 +140,26 @@
                     @endphp
                     @if ($freeClpCourse)
                         <li><a href="{{ route('front.course.details', $freeClpCourse->slug) }}"
-                               class="{{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'active' : '' }}">CLP CDL Grant (USA Residents)</a></li>
+                               class="{{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'active' : '' }}">CLP CDL Grant</a></li>
                     @endif
 
-                    {{-- Dispatcher & Freight Broker --}}
+                    {{-- Dispatcher --}}
                     @php
                         $dispatcherCourse = App\Models\Course::find(19);
                     @endphp
                     @if($dispatcherCourse)
                     <li><a href="{{ route('front.course.details', $dispatcherCourse->slug) }}"
-                           class="{{ request()->is('courses-details/' . $dispatcherCourse->slug) ? 'active' : '' }}">Dispatcher & Freight Broker</a></li>
+                           class="{{ request()->is('courses-details/' . $dispatcherCourse->slug) ? 'active' : '' }}">Dispatcher</a></li>
                     @endif
+
+                    {{-- How It Works & Why Us Combined Dropdown --}}
+                    <li class="dropdown">
+                        <a href="#"><span>About</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                        <ul>
+                            <li><a href="{{ route('front.how_it_works') }}" class="{{ request()->routeIs('front.how_it_works') ? 'active' : '' }}">How It Works</a></li>
+                            <li><a href="{{ route('front.about_us') }}" class="{{ request()->routeIs('front.about_us') ? 'active' : '' }}">Why Us</a></li>
+                        </ul>
+                    </li>
 
                     {{-- User Menu --}}
                     @auth
