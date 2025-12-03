@@ -52,6 +52,13 @@
             max-height: 55px;
             margin-right: 15px;
         }
+        @media (min-width: 1200px) {
+            .navmenu {
+                flex-grow: 1;
+                display: flex;
+                justify-content: center;
+            }
+        }
     </style>
 
     <!-- Meta Pixel -->
@@ -94,13 +101,13 @@
     @endif
 
     <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
             <a href="{{ url('/') }}" class="logo d-flex align-items-center">
                 <img src="{{ Storage::url($setting->main_logo) }}" alt="logo">
             </a>
 
-            <nav id="navmenu" class="navmenu mx-auto">
+            <nav id="navmenu" class="navmenu">
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
