@@ -94,13 +94,13 @@
     @endif
 
     <header id="header" class="header d-flex align-items-center sticky-top">
-        <div class="container-fluid container-xl position-relative d-flex align-items-center">
+        <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
 
-            <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto">
+            <a href="{{ url('/') }}" class="logo d-flex align-items-center">
                 <img src="{{ Storage::url($setting->main_logo) }}" alt="logo">
             </a>
 
-            <nav id="navmenu" class="navmenu">
+            <nav id="navmenu" class="navmenu mx-auto">
                 <ul>
                     <li><a href="{{ url('/') }}" class="{{ request()->routeIs('front.home') ? 'active' : '' }}">Home</a></li>
 
