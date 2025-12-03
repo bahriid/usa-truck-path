@@ -53,6 +53,9 @@
             margin-right: 15px;
         }
         @media (min-width: 1200px) {
+            .header .logo {
+                margin-right: 0 !important;
+            }
             .navmenu {
                 flex-grow: 1;
                 display: flex;
@@ -103,7 +106,7 @@
     <header id="header" class="header d-flex align-items-center sticky-top">
         <div class="container-fluid container-xl position-relative d-flex align-items-center">
 
-            <a href="{{ url('/') }}" class="logo d-flex align-items-center">
+            <a href="{{ url('/') }}" class="logo d-flex align-items-center me-auto">
                 <img src="{{ Storage::url($setting->main_logo) }}" alt="logo">
             </a>
 
