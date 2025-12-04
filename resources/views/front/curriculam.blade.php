@@ -98,18 +98,20 @@
                     @php
                         $chapters = $course->chapters;
                         $chapters = $chapters->sortBy('order');
+                        $autoOpen = request('auto_open') == 1;
+                        $firstFreeTopicId = null;
                     @endphp
 
                         @forelse ($chapters as $index => $chapter)
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="chapterHeading{{ $index }}">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#chapterCollapse{{ $index }}" aria-expanded="false"
+                                    <button class="accordion-button {{ $autoOpen && $index === 0 ? '' : 'collapsed' }}" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#chapterCollapse{{ $index }}" aria-expanded="{{ $autoOpen && $index === 0 ? 'true' : 'false' }}"
                                         aria-controls="chapterCollapse{{ $index }}">
                                         {{ $chapter->title }}
                                     </button>
                                 </h2>
-                                <div id="chapterCollapse{{ $index }}" class="accordion-collapse collapse"
+                                <div id="chapterCollapse{{ $index }}" class="accordion-collapse collapse {{ $autoOpen && $index === 0 ? 'show' : '' }}"
                                     aria-labelledby="chapterHeading{{ $index }}"
                                     data-bs-parent="#curriculumAccordion">
                                     <div class="accordion-body">
@@ -146,6 +148,10 @@
                                                         @php
                                                             $user = auth()->user();
                                                             $hasAccess = $user && $user->canAccessTopic($topic, $course->id);
+                                                            // Track the first free topic for auto-open
+                                                            if ($autoOpen && $hasAccess && !$firstFreeTopicId) {
+                                                                $firstFreeTopicId = $topic->id;
+                                                            }
                                                         @endphp
 
                                                         @if ($hasAccess)
@@ -544,4 +550,27 @@
             </section>
         @endif
     </main>
+
+    {{-- Auto-open first free lesson modal when coming from registration --}}
+    @if($autoOpen && $firstFreeTopicId)
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Small delay to ensure Bootstrap is fully initialized
+                setTimeout(function() {
+                    // Try to find and open the video modal first, then audio, then PDF, then reading
+                    var videoModal = document.getElementById('videoModal{{ $firstFreeTopicId }}');
+                    var audioModal = document.getElementById('audioModal{{ $firstFreeTopicId }}');
+                    var pdfModal = document.getElementById('pdfModal{{ $firstFreeTopicId }}');
+                    var readingModal = document.getElementById('readingModal{{ $firstFreeTopicId }}');
+
+                    var modalToOpen = videoModal || audioModal || pdfModal || readingModal;
+
+                    if (modalToOpen && typeof bootstrap !== 'undefined') {
+                        var modal = new bootstrap.Modal(modalToOpen);
+                        modal.show();
+                    }
+                }, 500);
+            });
+        </script>
+    @endif
 @endsection

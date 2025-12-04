@@ -167,8 +167,8 @@ class RegisteredUserController extends Controller
                 $course = Course::find($request->course_id);
 
                 if ($course) {
-                    // Always redirect to curriculum page when course_id is provided
-                    return redirect()->route('front.course.curriculam', $course->id)
+                    // Redirect to curriculum page with auto_open=1 to open the first free lesson
+                    return redirect()->route('front.course.curriculam', ['course' => $course->id, 'auto_open' => 1])
                         ->with('success', 'Registration successful! Welcome to USA Truck Path.');
                 }
             }
