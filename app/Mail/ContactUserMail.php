@@ -6,7 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\SiteSetting;
 
 
 class ContactUserMail extends Mailable
@@ -28,10 +27,7 @@ class ContactUserMail extends Mailable
      */
     public function build()
     {
-         $siteSettings = SiteSetting::first(); // Fetch site settings (modify query as needed)
-
-        return $this->from($siteSettings->contact_email??'admin@example.com',$siteSettings->site_title?? 'USA Truck Path') // Change to your company email
-                    ->subject('Thank You for Contacting Us')
+        return $this->subject('Thank You for Contacting Us')
                     ->view('emails.user_contact')
                     ->with('data', $this->data);
     }
