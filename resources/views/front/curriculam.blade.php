@@ -136,7 +136,7 @@
                                     </div>
                                     <h3 class="card-title fw-bold text-dark mb-3">Premium Course</h3>
                                     <p class="card-text text-muted mb-4">
-                                        Unlock {{ $premiumTopics->count() }} premium lessons
+                                        Unlock Premium Courses
                                     </p>
                                     <span class="badge bg-warning text-dark fs-6 px-4 py-2">
                                         <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->getPremiumPrice(), 0) }}
