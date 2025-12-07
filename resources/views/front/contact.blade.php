@@ -1,5 +1,9 @@
 @extends('partials.master')
 
+@push('styles')
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endpush
+
 @section('main')
 <main class="main">
 
@@ -96,6 +100,14 @@ Take the first step toward your trucking career. Get your CLP, train with expert
                     <span class='text-danger'>{{$message}}</span>
                     @enderror
                 </div>
+                @if(config('recaptcha.site_key'))
+                <div class="col-md-12">
+                    <div class="g-recaptcha" data-sitekey="{{ config('recaptcha.site_key') }}"></div>
+                    @error('g-recaptcha-response')
+                    <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+                @endif
                 <div class="col-md-12 text-center">
                     <div class="loading">Loading</div>
                     <div class="error-message"></div>

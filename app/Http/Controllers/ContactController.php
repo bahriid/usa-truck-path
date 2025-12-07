@@ -18,6 +18,8 @@ use App\Models\SiteSetting;
 
 use App\Models\ContactUs;
 
+use App\Rules\Recaptcha;
+
 
 
 class ContactController extends Controller
@@ -28,16 +30,20 @@ class ContactController extends Controller
 
     {
 
-        $request->validate([
-
+        $rules = [
             'name' => 'required|string|max:255',
-
             'email' => 'required|email',
-
             'subject' => 'required|string|max:255',
-
             'message' => 'required|string|max:500',
+        ];
 
+        // Add reCAPTCHA validation if enabled and configured
+        if (config('recaptcha.enabled') && config('recaptcha.secret_key')) {
+            $rules['g-recaptcha-response'] = ['required', new Recaptcha];
+        }
+
+        $request->validate($rules, [
+            'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
         ]);
 
         
