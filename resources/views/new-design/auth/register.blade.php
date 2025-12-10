@@ -104,6 +104,29 @@
                         @enderror
                     </div>
 
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Phone</label>
+                            <div class="relative">
+                                <i data-lucide="phone" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                <input type="tel" name="phone" value="{{ old('phone') }}" required class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('phone') border-red-500 @enderror" placeholder="+1 234 567 8900">
+                            </div>
+                            @error('phone')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Country</label>
+                            <div class="relative">
+                                <i data-lucide="globe" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                                <input type="text" name="country" value="{{ old('country') }}" required class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('country') border-red-500 @enderror" placeholder="Canada">
+                            </div>
+                            @error('country')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-sm font-bold text-gray-700 mb-2">Password</label>
                         <div class="relative">
