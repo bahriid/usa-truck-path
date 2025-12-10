@@ -119,7 +119,7 @@
                     <div class="flex items-start">
                         <input type="checkbox" id="terms" name="terms" required class="mt-1 h-4 w-4 text-[#1B75F0] focus:ring-[#1B75F0] border-gray-300 rounded">
                         <label for="terms" class="ml-2 block text-sm text-gray-600">
-                            I agree to the <a href="{{ route('front.terms') }}" class="text-[#1B75F0] hover:underline">Terms of Service</a> and <a href="{{ route('front.privacy') }}" class="text-[#1B75F0] hover:underline">Privacy Policy</a>
+                            I agree to the <a href="{{ route('front.terms_condition') }}" class="text-[#1B75F0] hover:underline">Terms of Service</a> and <a href="{{ route('front.privacy_policy') }}" class="text-[#1B75F0] hover:underline">Privacy Policy</a>
                         </label>
                     </div>
 
