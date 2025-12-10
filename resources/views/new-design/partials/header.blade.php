@@ -141,8 +141,8 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('front.course') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 h-10 px-6 rounded font-medium transition-colors flex items-center">
-                        Start Free Course
+                    <a href="{{ route('login') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 h-10 px-6 rounded font-medium transition-colors flex items-center">
+                        Login
                     </a>
                 @endauth
             </nav>
@@ -170,8 +170,8 @@
                         <button type="submit" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Logout</button>
                     </form>
                 @else
-                    <a href="{{ route('front.course') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 w-full py-3 rounded font-medium mt-2 text-center block">
-                        Start Free Course
+                    <a href="{{ route('login') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 w-full py-3 rounded font-medium mt-2 text-center block">
+                        Login
                     </a>
                 @endauth
             </nav>
