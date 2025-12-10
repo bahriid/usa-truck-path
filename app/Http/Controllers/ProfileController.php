@@ -20,10 +20,9 @@ class ProfileController extends Controller
     $courses = $user->purchasedCourses; // or add a condition: ->wherePivot('status', 'approved')->get();
 
     
-        return view('profile.edit', [
+        return view('new-design.profile.edit', [
             'user' => $request->user(),
-             'courses' => $courses,
-
+            'courses' => $courses,
         ]);
     }
 

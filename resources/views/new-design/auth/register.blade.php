@@ -116,6 +116,14 @@
                         @enderror
                     </div>
 
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
+                        <div class="relative">
+                            <i data-lucide="lock" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
+                            <input type="password" name="password_confirmation" required autocomplete="new-password" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all" placeholder="Confirm your password">
+                        </div>
+                    </div>
+
                     <div class="flex items-start">
                         <input type="checkbox" id="terms" name="terms" required class="mt-1 h-4 w-4 text-[#1B75F0] focus:ring-[#1B75F0] border-gray-300 rounded">
                         <label for="terms" class="ml-2 block text-sm text-gray-600">
