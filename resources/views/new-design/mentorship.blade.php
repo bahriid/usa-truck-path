@@ -5,6 +5,7 @@
     <!-- Hero Section -->
     <section class="relative py-24 bg-[#0A2342] text-white overflow-hidden">
         <div class="absolute inset-0 z-0">
+            <img src="{{ asset('images/mentorship-training-v2.png') }}" alt="Mentorship" class="w-full h-full object-cover opacity-20">
             <div class="absolute inset-0 bg-gradient-to-b from-[#0A2342]/95 to-[#0A2342]/80"></div>
         </div>
         <div class="container mx-auto px-4 relative z-10 text-center">
@@ -160,18 +161,6 @@
                     </summary>
                     <p class="mt-4 leading-relaxed text-gray-600">
                         Yes! We have designed the program to guide you from zero experience all the way to obtaining your CDL and landing your first job.
-                    </p>
-                </details>
-
-                <details class="group bg-gray-50 rounded-lg p-6 [&_summary::-webkit-details-marker]:hidden">
-                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 text-[#0A2342] font-bold text-lg">
-                        <span>How long do I have access?</span>
-                        <span class="shrink-0 rounded-full bg-white p-1.5 text-[#0A2342] sm:p-3 group-open:-rotate-180 transition-transform">
-                            <i data-lucide="chevron-down" class="h-5 w-5"></i>
-                        </span>
-                    </summary>
-                    <p class="mt-4 leading-relaxed text-gray-600">
-                        You get lifetime access to all course materials, community groups, and future updates. There are no recurring fees.
                     </p>
                 </details>
             </div>
