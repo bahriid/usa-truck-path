@@ -89,46 +89,52 @@
             <!-- Two Boxes Section -->
             <div class="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
                 <!-- Free Course Box -->
-                <div class="bg-white border-2 border-green-500 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                <div class="bg-white border-2 border-green-500 rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between"
                      @if($firstFreeTopic) data-modal-target="freeTopicModal" data-modal-toggle="freeTopicModal" onclick="openModal('freeTopicModal')" @endif>
-                    <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i data-lucide="play-circle" class="h-10 w-10 text-green-500"></i>
+                    <div>
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i data-lucide="play-circle" class="h-10 w-10 text-green-500"></i>
+                        </div>
+                        <h3 class="font-heading text-xl font-bold text-green-600 mb-2">Free Course</h3>
+                        <p class="text-gray-600 mb-4">
+                            @if($firstFreeTopic)
+                                {{ $firstFreeTopic->title }}
+                            @else
+                                No free content available
+                            @endif
+                        </p>
                     </div>
-                    <h3 class="font-heading text-xl font-bold text-green-600 mb-2">Free Course</h3>
-                    <p class="text-gray-600 mb-4">
-                        @if($firstFreeTopic)
-                            {{ $firstFreeTopic->title }}
-                        @else
-                            No free content available
-                        @endif
-                    </p>
-                    <span class="inline-flex items-center gap-2 bg-green-500 text-white px-6 py-2 rounded-full font-semibold">
+                    <span class="inline-flex items-center justify-center gap-2 bg-green-500 text-white px-6 py-2 rounded-full font-semibold">
                         <i data-lucide="unlock" class="h-5 w-5"></i> Watch Free
                     </span>
                 </div>
 
                 <!-- Premium Course Box -->
                 @if($hasPremiumAccess)
-                    <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer"
+                    <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between"
                          onclick="togglePremiumContent()">
-                        <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <i data-lucide="layout-grid" class="h-10 w-10 text-[#F5B82E]"></i>
+                        <div>
+                            <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <i data-lucide="layout-grid" class="h-10 w-10 text-[#F5B82E]"></i>
+                            </div>
+                            <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
+                            <p class="text-gray-600 mb-4">{{ $premiumTopics->count() }} premium lessons available</p>
                         </div>
-                        <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
-                        <p class="text-gray-600 mb-4">{{ $premiumTopics->count() }} premium lessons available</p>
-                        <span class="inline-flex items-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
+                        <span class="inline-flex items-center justify-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
                             <i data-lucide="check-circle" class="h-5 w-5"></i> View All Lessons
                         </span>
                     </div>
                 @else
-                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}" class="block">
-                        <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer">
-                            <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                <i data-lucide="lock" class="h-10 w-10 text-[#F5B82E]"></i>
+                    <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}" class="block h-full">
+                        <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between">
+                            <div>
+                                <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                    <i data-lucide="lock" class="h-10 w-10 text-[#F5B82E]"></i>
+                                </div>
+                                <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
+                                <p class="text-gray-600 mb-4">Unlock Premium Courses</p>
                             </div>
-                            <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
-                            <p class="text-gray-600 mb-4">Unlock Premium Courses</p>
-                            <span class="inline-flex items-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
+                            <span class="inline-flex items-center justify-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
                                 <i data-lucide="shopping-cart" class="h-5 w-5"></i> Upgrade - ${{ number_format($course->getPremiumPrice(), 0) }}
                             </span>
                         </div>
