@@ -55,7 +55,11 @@
                 <div class="grid md:grid-cols-2 gap-0">
                     <!-- Course Image -->
                     <div class="p-8 flex items-center justify-center bg-white">
-                        <img src="{{ Storage::url($course->image ?? '') }}" alt="{{ $course->title }}" class="rounded-xl shadow-md max-h-80 object-cover">
+                        @if($course->image)
+                            <img src="{{ Storage::url($course->image) }}" alt="{{ $course->title }}" class="rounded-xl shadow-md max-h-80 object-cover">
+                        @else
+                            <img src="{{ asset('frontend/img/course-details.jpg') }}" alt="{{ $course->title }}" class="rounded-xl shadow-md max-h-80 object-cover">
+                        @endif
                     </div>
 
                     <!-- Course Info -->
