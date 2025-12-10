@@ -21,7 +21,7 @@ class AuthenticatedSessionController extends Controller
     if (!session()->has('url.intended')) {
         session(['url.intended' => url()->previous()]);
     }
-        return view('auth.login');
+        return view('new-design.auth.login');
     }
 
     /**

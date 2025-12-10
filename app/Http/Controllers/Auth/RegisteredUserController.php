@@ -27,7 +27,7 @@ class RegisteredUserController extends Controller
     {
         $courseId = $request->query('course_id');
 
-        return view('auth.register', ['courseId' => $courseId]);
+        return view('new-design.auth.register', ['courseId' => $courseId]);
     }
 
     /**

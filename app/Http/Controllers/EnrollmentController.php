@@ -31,7 +31,7 @@ class EnrollmentController extends Controller
             $this->enrollmentService->generateTelegramInvite($user, $course);
         }
 
-        return view('front.curriculam', compact('course'));
+        return view('new-design.curriculam', compact('course'));
     }
 
     /**
@@ -57,7 +57,7 @@ class EnrollmentController extends Controller
 
             if ($enrollment->pivot->status === 'pending') {
                 // If pending, show payment page to complete enrollment
-                return view('front.payment', compact('course'));
+                return view('new-design.payment', compact('course'));
             } elseif ($enrollment->pivot->status === 'approved') {
                 // If already approved, redirect to curriculum
                 return redirect()->route('course.curriculam', $course->id)
@@ -65,7 +65,7 @@ class EnrollmentController extends Controller
             }
         }
 
-        return view('front.enroll-form', compact('course'));
+        return view('new-design.enroll-form', compact('course'));
     }
 
     /**
@@ -97,7 +97,7 @@ class EnrollmentController extends Controller
                     ->with('info', 'You are already enrolled in this course.');
             } elseif ($enrollment->pivot->status === 'pending') {
                 // Pending payment, show payment page
-                return view('front.payment', compact('course'));
+                return view('new-design.payment', compact('course'));
             }
         }
 
@@ -121,7 +121,7 @@ class EnrollmentController extends Controller
         );
 
         // Redirect to payment page
-        return view('front.payment', compact('course'));
+        return view('new-design.payment', compact('course'));
     }
 
     public function createStripeCheckoutSession(Request $request)
@@ -264,7 +264,7 @@ class EnrollmentController extends Controller
 
     public function showFailurePage()
     {
-        return view('front.failure_page');
+        return view('new-design.failure_page');
     }
 
     /**
@@ -332,7 +332,7 @@ class EnrollmentController extends Controller
         // Get price for premium tier
         $price = $course->getPremiumPrice();
 
-        return view('front.tier-upgrade', compact('course', 'tier', 'price', 'currentTier'));
+        return view('new-design.tier-upgrade', compact('course', 'tier', 'price', 'currentTier'));
     }
 
     /**

@@ -33,6 +33,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
 
       Route::get('about-us',[PageController::class,'about_us'])->name('about_us');
       Route::get('how-it-works',[PageController::class,'how_it_works'])->name('how_it_works');
+      Route::get('mentorship',[PageController::class,'mentorship'])->name('mentorship');
       Route::get('contact-us',[PageController::class,'contact_us'])->name('contact_us');
       Route::get('terms-condition',[PageController::class,'terms_condition'])->name('terms_condition');
       Route::get('privacy-policy',[PageController::class,'privacy_policy'])->name('privacy_policy');

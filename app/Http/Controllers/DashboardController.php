@@ -34,6 +34,6 @@ class DashboardController extends Controller
             ];
         });
 
-        return view('front.dashboard', compact('coursesWithTiers', 'user'));
+        return view('new-design.dashboard', compact('coursesWithTiers', 'user'));
     }
 }

@@ -41,7 +41,7 @@ class PageController extends Controller
             }
         }
 
-        return view('welcome', compact('sliders', 'courses'));
+        return view('new-design.home', compact('sliders', 'courses'));
     }
 
     public function courseCategory($category)
@@ -50,7 +50,7 @@ class PageController extends Controller
         $courses = Course::where('category', $category)->paginate(6);
 
         if ($courses->total() > 1) {
-            return view('front.course-category', compact('course', 'courses'));
+            return view('new-design.course-category', compact('course', 'courses'));
         }
 
         if ($course) {
@@ -78,7 +78,7 @@ class PageController extends Controller
                 ->paginate(6);
         }
 
-        return view('front.course', compact('courses'));
+        return view('new-design.course', compact('courses'));
     }
 
     public function coursedetails($slug)
@@ -146,39 +146,40 @@ class PageController extends Controller
             return view($template->view_name, compact('course'));
         }
 
-        // Fallback to generic course details view if no custom template exists
-        if (View::exists('front.course_details')) {
-            return view('front.course_details', compact('course'));
-        }
-
-        abort(404);
+        // Fallback to new design course details view
+        return view('new-design.course_details', compact('course'));
     }
 
     public function about_us()
     {
-        return view('front.about');
+        return view('new-design.about');
     }
 
     public function how_it_works()
     {
-        return view('front.how_it_works');
+        return view('new-design.how_it_works');
+    }
+
+    public function mentorship()
+    {
+        return view('new-design.mentorship');
     }
 
     public function contact_us()
     {
         $setting = SiteSetting::first();
-        return view('front.contact', compact('setting'));
+        return view('new-design.contact', compact('setting'));
     }
 
     public function terms_condition()
     {
         $terms = LegalPage::first();
-        return view('front.terms_conditon', compact('terms'));
+        return view('new-design.terms_condition', compact('terms'));
     }
 
     public function privacy_policy()
     {
         $terms = LegalPage::first();
-        return view('front.privacy_policy', compact('terms'));
+        return view('new-design.privacy_policy', compact('terms'));
     }
 }
