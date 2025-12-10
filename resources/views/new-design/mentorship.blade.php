@@ -122,7 +122,7 @@
                             <span class="text-gray-700"><strong>Resume & Visa</strong> document templates</span>
                         </li>
                     </ul>
-                    <a href="{{ route('register') }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] text-center font-bold uppercase py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
+                    <a href="{{ route('front.course') }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] text-center font-bold uppercase py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
                         Get Started Now
                     </a>
                     <p class="text-center text-xs text-gray-500 mt-4">
