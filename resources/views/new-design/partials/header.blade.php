@@ -115,71 +115,24 @@
     <header class="sticky top-0 z-50 w-full bg-[#0A2342] text-white shadow-md">
         <div class="container mx-auto px-4 flex h-20 items-center justify-between">
             <a href="{{ url('/') }}" class="flex items-center gap-2 font-heading text-2xl font-bold uppercase tracking-tighter text-white hover:text-[#F5B82E] transition-colors">
-                @if($setting && $setting->main_logo)
-                    <img src="{{ Storage::url($setting->main_logo) }}" alt="Logo" class="h-12">
-                @else
-                    <i data-lucide="truck" class="h-8 w-8 text-[#F5B82E]"></i>
-                    <span>USATruckPath</span>
-                @endif
+                <i data-lucide="truck" class="h-8 w-8 text-[#F5B82E]"></i>
+                <span>USATruckPath</span>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-6">
-                <a href="{{ url('/') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->routeIs('front.home') ? 'text-[#F5B82E]' : '' }}">Home</a>
-
-                {{-- Canada → USA --}}
-                @php $canadaCourse = App\Models\Course::find(15); @endphp
-                @if($canadaCourse)
-                    <a href="{{ route('front.course.details', $canadaCourse->slug) }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->is('courses-details/' . $canadaCourse->slug) ? 'text-[#F5B82E]' : '' }}">Canada → USA</a>
-                @endif
-
-                {{-- Europe → USA --}}
-                @php $europeCourse = App\Models\Course::find(16); @endphp
-                @if($europeCourse)
-                    <a href="{{ route('front.course.details', $europeCourse->slug) }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->is('courses-details/' . $europeCourse->slug) ? 'text-[#F5B82E]' : '' }}">Europe → USA</a>
-                @endif
-
-                {{-- World → USA --}}
-                @php $globalCourse = App\Models\Course::find(17); @endphp
-                @if($globalCourse)
-                    <a href="{{ route('front.course.details', $globalCourse->slug) }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->is('courses-details/' . $globalCourse->slug) ? 'text-[#F5B82E]' : '' }}">World → USA</a>
-                @endif
-
-                {{-- CLP CDL Grant --}}
-                @php
-                    $freeClpCourse = App\Models\Course::where('course_type', 'language_selector')
-                        ->where('status', 'active')
-                        ->where('is_active', 1)
-                        ->first();
-                @endphp
-                @if ($freeClpCourse)
-                    <a href="{{ route('front.course.details', $freeClpCourse->slug) }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->is('courses-details/' . $freeClpCourse->slug) ? 'text-[#F5B82E]' : '' }}">CLP CDL Grant</a>
-                @endif
-
-                {{-- Dispatcher --}}
-                @php $dispatcherCourse = App\Models\Course::find(19); @endphp
-                @if($dispatcherCourse)
-                    <a href="{{ route('front.course.details', $dispatcherCourse->slug) }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->is('courses-details/' . $dispatcherCourse->slug) ? 'text-[#F5B82E]' : '' }}">Dispatcher</a>
-                @endif
-
-                {{-- About Dropdown --}}
-                <div class="relative group">
-                    <button class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all flex items-center gap-1">
-                        About <i data-lucide="chevron-down" class="h-4 w-4"></i>
-                    </button>
-                    <div class="absolute top-full left-0 mt-2 w-48 bg-[#0A2342] border border-[#1B75F0] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                        <a href="{{ route('front.how_it_works') }}" class="block px-4 py-3 text-sm text-white hover:bg-[#1B75F0] hover:text-white transition-colors {{ request()->routeIs('front.how_it_works') ? 'bg-[#1B75F0]' : '' }}">How It Works</a>
-                        <a href="{{ route('front.about_us') }}" class="block px-4 py-3 text-sm text-white hover:bg-[#1B75F0] hover:text-white transition-colors {{ request()->routeIs('front.about_us') ? 'bg-[#1B75F0]' : '' }}">Why Us</a>
-                    </div>
-                </div>
-
-                {{-- User Menu --}}
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="{{ url('/#how-it-works') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">How It Works</a>
+                <a href="{{ route('front.course') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">Free Course</a>
+                <a href="{{ route('front.mentorship') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">Mentorship</a>
+                <a href="{{ url('/#roadmap') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">Roadmap</a>
+                <a href="{{ url('/#faq') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">FAQ</a>
                 @auth
                     <div class="relative group">
                         <button class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all flex items-center gap-1">
                             {{ $user->name ?? '' }} <i data-lucide="chevron-down" class="h-4 w-4"></i>
                         </button>
                         <div class="absolute top-full right-0 mt-2 w-48 bg-[#0A2342] border border-[#1B75F0] rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <a href="{{ route('dashboard') }}" class="block px-4 py-3 text-sm text-white hover:bg-[#1B75F0] hover:text-white transition-colors">Dashboard</a>
                             <a href="{{ route('profile.edit') }}" class="block px-4 py-3 text-sm text-white hover:bg-[#1B75F0] hover:text-white transition-colors">Profile</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -188,55 +141,37 @@
                         </div>
                     </div>
                 @else
-                    <a href="{{ route('login') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 h-10 px-6 rounded font-medium transition-colors flex items-center">
-                        Login
+                    <a href="{{ route('front.course') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 h-10 px-6 rounded font-medium transition-colors flex items-center">
+                        Start Free Course
                     </a>
                 @endauth
             </nav>
 
             <!-- Mobile Menu Button -->
-            <button class="lg:hidden text-white hover:bg-white/10 p-2 rounded" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+            <button class="md:hidden text-white hover:bg-white/10 p-2 rounded" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
                 <i data-lucide="menu" class="h-6 w-6"></i>
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-[#0A2342] border-t border-[#1B75F0] p-4 absolute w-full">
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0A2342] border-t border-[#1B75F0] p-4 absolute w-full">
             <nav class="flex flex-col gap-4">
-                <a href="{{ url('/') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Home</a>
-
-                @if($canadaCourse ?? false)
-                    <a href="{{ route('front.course.details', $canadaCourse->slug) }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Canada → USA</a>
-                @endif
-
-                @if($europeCourse ?? false)
-                    <a href="{{ route('front.course.details', $europeCourse->slug) }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Europe → USA</a>
-                @endif
-
-                @if($globalCourse ?? false)
-                    <a href="{{ route('front.course.details', $globalCourse->slug) }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">World → USA</a>
-                @endif
-
-                @if($freeClpCourse ?? false)
-                    <a href="{{ route('front.course.details', $freeClpCourse->slug) }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">CLP CDL Grant</a>
-                @endif
-
-                @if($dispatcherCourse ?? false)
-                    <a href="{{ route('front.course.details', $dispatcherCourse->slug) }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Dispatcher</a>
-                @endif
-
-                <a href="{{ route('front.how_it_works') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">How It Works</a>
-                <a href="{{ route('front.about_us') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Why Us</a>
+                <a href="{{ url('/#how-it-works') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">How It Works</a>
+                <a href="{{ route('front.course') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Free Course</a>
+                <a href="{{ route('front.mentorship') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Mentorship</a>
+                <a href="{{ url('/#roadmap') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Roadmap</a>
+                <a href="{{ url('/#faq') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">FAQ</a>
 
                 @auth
+                    <a href="{{ route('dashboard') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Dashboard</a>
                     <a href="{{ route('profile.edit') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Logout</button>
                     </form>
                 @else
-                    <a href="{{ route('login') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 w-full py-3 rounded font-medium mt-2 text-center">
-                        Login
+                    <a href="{{ route('front.course') }}" class="bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 w-full py-3 rounded font-medium mt-2 text-center block">
+                        Start Free Course
                     </a>
                 @endauth
             </nav>
