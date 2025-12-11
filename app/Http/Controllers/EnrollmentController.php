@@ -227,6 +227,12 @@ class EnrollmentController extends Controller
                 return redirect()->route('enrollment.failure')->with('error', 'Payment was not completed successfully.');
             }
 
+            // Check if this is a tier upgrade (session data exists)
+            $tierUpgradeSessionId = session('tier_upgrade_session_id');
+            if ($tierUpgradeSessionId && $tierUpgradeSessionId === $sessionId) {
+                return $this->processTierUpgrade($user, $sessionId);
+            }
+
             // Get the enrollment from database using transaction_id
             $enrollment = $user->purchasedCourses()
                 ->wherePivot('transaction_id', $sessionId)
@@ -249,6 +255,33 @@ class EnrollmentController extends Controller
 
             return redirect()->route('enrollment.failure')->with('error', 'Failed to process payment. Please contact support.');
         }
+    }
+
+    /**
+     * Process tier upgrade after successful payment
+     */
+    protected function processTierUpgrade($user, string $sessionId)
+    {
+        $tier = session('tier_upgrade_tier');
+        $courseId = session('tier_upgrade_course_id');
+        $price = session('tier_upgrade_price', 0);
+
+        if (!$tier || !$courseId) {
+            Log::error('Tier upgrade: Missing session data');
+            return redirect()->route('enrollment.failure')->with('error', 'Invalid upgrade session.');
+        }
+
+        $course = Course::findOrFail($courseId);
+
+        // Upgrade tier
+        $this->enrollmentService->upgradeTier($user, $course, $tier, $sessionId, $price);
+
+        // Clear session data
+        session()->forget(['tier_upgrade_session_id', 'tier_upgrade_tier', 'tier_upgrade_course_id', 'tier_upgrade_price']);
+
+        // Redirect to dashboard
+        return redirect()->route('dashboard')
+            ->with('success', 'Congratulations! Your tier has been upgraded successfully.');
     }
 
     public function handleFailedPayment()
@@ -379,11 +412,11 @@ class EnrollmentController extends Controller
                     ->with('success', 'DEBUG MODE: Tier upgraded successfully!');
             }
 
-            // Create Stripe checkout session
+            // Create Stripe checkout session (using /enrollment/success to avoid Mod_Security issues)
             $session = $this->paymentService->createCheckoutSession(
                 $course,
                 $price,
-                url('/tier-upgrade/success').'?session_id={CHECKOUT_SESSION_ID}&tier='.$tier.'&course_id='.$course->id,
+                url('/enrollment/success').'?session_id={CHECKOUT_SESSION_ID}',
                 url('/enrollment/failure')
             );
 
