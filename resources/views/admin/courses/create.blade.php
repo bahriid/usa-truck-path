@@ -114,15 +114,29 @@
 
                             <hr class="my-4">
 
-                            <div class="form-group mb-3">
-                                <label for="is_active">Active</label>
-                                <select name="is_active" class="form-control" id="is_active" required>
-                                    <option value="1" {{ old('is_active', $course->is_active ?? '') == 1 ? 'selected' : '' }}>Yes</option>
-                                    <option value="0" {{ old('is_active', $course->is_active ?? '') == 0 ? 'selected' : '' }}>No</option>
-                                </select>
-                                @error('is_active')
-                                    <small class="text-danger">{{ $message }}</small>
-                                @enderror
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="is_active">Active</label>
+                                        <select name="is_active" class="form-control" id="is_active" required>
+                                            <option value="1" {{ old('is_active', $course->is_active ?? '') == 1 ? 'selected' : '' }}>Yes</option>
+                                            <option value="0" {{ old('is_active', $course->is_active ?? '') == 0 ? 'selected' : '' }}>No</option>
+                                        </select>
+                                        @error('is_active')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="order">Display Order</label>
+                                        <input type="number" name="order" class="form-control" id="order" value="{{ old('order', $course->order ?? 0) }}" min="0">
+                                        <small class="text-muted">Lower numbers appear first (0, 1, 2...)</small>
+                                        @error('order')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="form-group mb-3">
