@@ -21,6 +21,7 @@ class Course extends Model
         'original_price',
         'premium_price',
         'is_active',
+        'order',
         'description',
         'duration',
         'start_date',

@@ -18,7 +18,7 @@ class CourseController extends Controller
     }
     public function index()
     {
-        $courses = Course::latest()->paginate(10);
+        $courses = Course::orderBy('order')->orderBy('id')->paginate(10);
         return view('admin.courses.index', compact('courses'));
     }
 
@@ -142,5 +142,17 @@ class CourseController extends Controller
         $course->delete();
 
         return redirect()->route('admin.courses.index')->with('success', 'Course deleted successfully.');
+    }
+
+    /**
+     * Reorder courses via drag and drop
+     */
+    public function reorder(Request $request)
+    {
+        foreach ($request->order as $course) {
+            Course::where('id', $course['id'])->update(['order' => $course['position']]);
+        }
+
+        return response()->json(['message' => 'Courses reordered successfully!']);
     }
 }

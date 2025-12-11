@@ -114,6 +114,7 @@ Route::prefix('admin')->group(function () {
 
 
           Route::resource('courses', CourseController::class)->names('admin.courses');
+          Route::post('/courses/reorder', [CourseController::class, 'reorder'])->name('admin.courses.reorder');
           Route::resource('sliders', SliderController::class);
            // settings
            Route::prefix('settings')->name('settings.')->group(function () {

@@ -24,7 +24,8 @@ class PageController extends Controller
             ->pluck('id');
 
         $courses = Course::whereIn('id', $latestCourseIds)
-            ->orderBy('id', 'asc')  // Order by ID ascending so newer courses appear last
+            ->orderBy('order')
+            ->orderBy('id', 'asc')
             ->paginate(6);
 
         // Create an associative array of courses, keyed by slug
@@ -63,7 +64,7 @@ class PageController extends Controller
     public function course()
     {
         if (auth()->check()) {
-            $courses = auth()->user()->purchasedCourses()->latest()->paginate(6);
+            $courses = auth()->user()->purchasedCourses()->orderBy('order')->paginate(6);
         } else {
             // Get one latest course per category (same as home page)
             $latestCourseIds = DB::table('courses')
@@ -74,7 +75,8 @@ class PageController extends Controller
                 ->pluck('id');
 
             $courses = Course::whereIn('id', $latestCourseIds)
-                ->orderBy('created_at', 'desc')
+                ->orderBy('order')
+                ->orderBy('id', 'asc')
                 ->paginate(6);
         }
 
