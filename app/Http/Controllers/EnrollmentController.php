@@ -176,13 +176,16 @@ class EnrollmentController extends Controller
                     ->with('success', 'DEBUG MODE: Enrollment successful! Payment bypassed for testing.');
             }
 
-            // Create Stripe checkout session
+            // Create Stripe checkout session (clean URL to avoid Mod_Security blocking)
             $session = $this->paymentService->createCheckoutSession(
                 $course,
                 $price,
-                url('/enrollment/success').'?session_id={CHECKOUT_SESSION_ID}',
+                url('/enrollment/success'),
                 url('/enrollment/failure')
             );
+
+            // Store session ID in PHP session for retrieval after payment
+            session(['stripe_session_id' => $session->id]);
 
             // Only create enrollment if it doesn't exist
             if (!$enrollment) {
@@ -211,13 +214,16 @@ class EnrollmentController extends Controller
             return redirect()->route('login')->with('error', 'Please log in first.');
         }
 
-        // Get the Session ID
-        $sessionId = $request->get('session_id');
+        // Get the Session ID from URL or PHP session (fallback for Mod_Security issues)
+        $sessionId = $request->get('session_id') ?? session('stripe_session_id');
         if (!$sessionId) {
             Log::error('Success handler: Session ID is missing.');
 
             return redirect()->route('enrollment.failure')->with('error', 'Invalid payment session.');
         }
+
+        // Clear the stored session ID
+        session()->forget('stripe_session_id');
 
         try {
             // Verify Payment Status
