@@ -5,6 +5,15 @@
 
     RewriteEngine On
 
+    # Disable Mod_Security for Stripe payment callbacks
+    <IfModule mod_security.c>
+        SecFilterEngine Off
+        SecFilterScanPOST Off
+    </IfModule>
+    <IfModule mod_security2.c>
+        SecRuleEngine Off
+    </IfModule>
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
