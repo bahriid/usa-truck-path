@@ -418,16 +418,17 @@ class EnrollmentController extends Controller
                     ->with('success', 'DEBUG MODE: Tier upgraded successfully!');
             }
 
-            // Create Stripe checkout session (using /enrollment/success to avoid Mod_Security issues)
+            // Create Stripe checkout session (clean URL to avoid Mod_Security blocking)
             $session = $this->paymentService->createCheckoutSession(
                 $course,
                 $price,
-                url('/enrollment/success').'?session_id={CHECKOUT_SESSION_ID}',
+                url('/enrollment/success'),
                 url('/enrollment/failure')
             );
 
-            // Store tier upgrade info in session for success handler
+            // Store session info for retrieval after payment
             session([
+                'stripe_session_id' => $session->id,
                 'tier_upgrade_session_id' => $session->id,
                 'tier_upgrade_tier' => $tier,
                 'tier_upgrade_course_id' => $course->id,
