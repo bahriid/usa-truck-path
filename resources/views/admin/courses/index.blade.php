@@ -17,16 +17,15 @@
                 <div class="card card-primary card-outline mb-4">
 
                     <div class="card-header">
-                        <div class="header d-flex justify-content-between align-items-center">
+                        <div class="header">
                             <a href="{{ route('admin.courses.create') }}" class="btn btn-primary">Add Course</a>
-                            <small class="text-muted"><i class="bi bi-arrows-move"></i> Drag rows to reorder courses</small>
                         </div>
                     </div>
                     <div class="card-body">
                         <table class="table" >
                             <thead>
                                 <tr>
-                                    <th style="width: 40px;"></th>
+                                    <th>Order</th>
                                     <th>Image</th>
                                     <th>Title</th>
                                     <th>Category</th>
@@ -38,10 +37,10 @@
                                     <th>Actions</th>
                                 </tr>
                             </thead>
-                            <tbody id="sortable-courses">
+                            <tbody>
                                 @forelse ($courses as $course)
-                                <tr data-id="{{ $course->id }}" style="cursor: grab;">
-                                    <td class="drag-handle"><i class="bi bi-grip-vertical"></i></td>
+                                <tr>
+                                    <td><span class="badge bg-secondary">{{ $course->order }}</span></td>
                                     <td> <img src="{{ Storage::url($course->image) }}"  style="height: 50px; width: 50px;border-radius: 50%;"/></td>
                                     <td>{{ $course->title }}</td>
                                     <td>{{ $course->category ?? '' }}</td>
@@ -86,48 +85,4 @@
     </div>
 </main>
 
-@endsection
-
-@section('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const tbody = document.getElementById('sortable-courses');
-
-        if (tbody) {
-            new Sortable(tbody, {
-                animation: 150,
-                handle: '.drag-handle',
-                ghostClass: 'bg-light',
-                onEnd: function() {
-                    const order = [];
-                    tbody.querySelectorAll('tr[data-id]').forEach((row, index) => {
-                        order.push({
-                            id: row.dataset.id,
-                            position: index + 1
-                        });
-                    });
-
-                    fetch('{{ route("admin.courses.reorder") }}', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        body: JSON.stringify({ order: order })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Show success toast or notification
-                        console.log(data.message);
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('Failed to save order. Please try again.');
-                    });
-                }
-            });
-        }
-    });
-</script>
 @endsection
