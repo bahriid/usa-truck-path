@@ -60,8 +60,12 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
         Auth::login($user);
 
-        // Send welcome email
-        Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+        // Send welcome email (non-blocking - don't fail registration if email fails)
+        try {
+            Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+        } catch (\Exception $e) {
+            Log::warning('Failed to send welcome email: ' . $e->getMessage());
+        }
 
         return redirect()->route('front.home')
             ->with('success', 'Registration successful! Welcome to USATRUCKPATH.');
@@ -157,8 +161,12 @@ class RegisteredUserController extends Controller
                 // For paid courses, don't auto-enroll - they'll need to complete payment
             }
 
-            // Send welcome email
-            Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+            // Send welcome email (non-blocking - don't fail registration if email fails)
+            try {
+                Mail::to($user->email)->send(new \App\Mail\WelcomeEmail($user));
+            } catch (\Exception $e) {
+                Log::warning('Failed to send welcome email: ' . $e->getMessage());
+            }
 
             DB::commit();
 
