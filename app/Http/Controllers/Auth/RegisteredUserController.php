@@ -57,7 +57,13 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
+        // Fire registration event (non-blocking - don't fail if verification email fails)
+        try {
+            event(new Registered($user));
+        } catch (\Exception $e) {
+            Log::warning('Failed to send verification email: ' . $e->getMessage());
+        }
+
         Auth::login($user);
 
         // Send welcome email (non-blocking - don't fail registration if email fails)
@@ -144,8 +150,12 @@ class RegisteredUserController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            // Fire registration event (sends verification email if enabled)
-            event(new Registered($user));
+            // Fire registration event (non-blocking - don't fail if verification email fails)
+            try {
+                event(new Registered($user));
+            } catch (\Exception $e) {
+                Log::warning('Failed to send verification email: ' . $e->getMessage());
+            }
 
             // Log user in
             Auth::login($user);
