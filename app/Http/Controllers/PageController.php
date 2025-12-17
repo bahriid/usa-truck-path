@@ -63,24 +63,29 @@ class PageController extends Controller
 
     public function course()
     {
-        if (auth()->check()) {
-            $courses = auth()->user()->purchasedCourses()->orderBy('order')->paginate(6);
-        } else {
-            // Get one latest course per category (same as home page)
-            $latestCourseIds = DB::table('courses')
-                ->select(DB::raw('MIN(id) as id'))
-                ->where('status', 'active')
-                ->where('is_active', 1)
-                ->groupBy('category')
-                ->pluck('id');
+        // Get one latest course per category (show all courses to everyone)
+        $latestCourseIds = DB::table('courses')
+            ->select(DB::raw('MIN(id) as id'))
+            ->where('status', 'active')
+            ->where('is_active', 1)
+            ->groupBy('category')
+            ->pluck('id');
 
-            $courses = Course::whereIn('id', $latestCourseIds)
-                ->orderBy('order')
-                ->orderBy('id', 'asc')
-                ->paginate(6);
+        $courses = Course::whereIn('id', $latestCourseIds)
+            ->orderBy('order')
+            ->orderBy('id', 'asc')
+            ->paginate(6);
+
+        // Get user's enrolled course IDs if logged in
+        $enrolledCourseIds = [];
+        if (auth()->check()) {
+            $enrolledCourseIds = auth()->user()->purchasedCourses()
+                ->wherePivot('status', 'approved')
+                ->pluck('courses.id')
+                ->toArray();
         }
 
-        return view('new-design.course', compact('courses'));
+        return view('new-design.course', compact('courses', 'enrolledCourseIds'));
     }
 
     public function coursedetails($slug)

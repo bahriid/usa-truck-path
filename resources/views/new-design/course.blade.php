@@ -26,8 +26,13 @@
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse ($courses as $course)
-                    <div class="bg-white rounded-xl border-none shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full">
-                        <div class="h-2 bg-[#1B75F0] group-hover:bg-[#F5B82E] transition-colors"></div>
+                    <div class="bg-white rounded-xl border-none shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden flex flex-col h-full relative">
+                        @if(in_array($course->id, $enrolledCourseIds ?? []))
+                            <div class="absolute top-4 right-4 z-10">
+                                <span class="bg-green-600 text-white text-xs font-semibold px-2.5 py-1 rounded-full">Enrolled</span>
+                            </div>
+                        @endif
+                        <div class="h-2 {{ in_array($course->id, $enrolledCourseIds ?? []) ? 'bg-green-600' : 'bg-[#1B75F0]' }} group-hover:bg-[#F5B82E] transition-colors"></div>
                         <div class="p-6 pb-4">
                             <div class="flex justify-between items-start mb-4">
                                 @php
@@ -56,13 +61,19 @@
                             </div>
                         </div>
                         <div class="p-6 pt-0 mt-auto">
-                            <a href="{{ route('front.course.details', $course->slug) }}" class="block w-full bg-[#1B75F0] hover:bg-[#0A2342] text-white font-bold uppercase tracking-wide transition-colors group-hover:shadow-md py-2 rounded text-center">
-                                @if(in_array($course->course_type ?? 'paid', ['tier', 'language_selector']))
-                                    Start Free Course
-                                @else
-                                    View Course
-                                @endif
-                            </a>
+                            @if(in_array($course->id, $enrolledCourseIds ?? []))
+                                <a href="{{ route('course.curriculam', $course->id) }}" class="block w-full bg-green-600 hover:bg-green-700 text-white font-bold uppercase tracking-wide transition-colors group-hover:shadow-md py-2 rounded text-center">
+                                    Continue Learning
+                                </a>
+                            @else
+                                <a href="{{ route('front.course.details', $course->slug) }}" class="block w-full bg-[#1B75F0] hover:bg-[#0A2342] text-white font-bold uppercase tracking-wide transition-colors group-hover:shadow-md py-2 rounded text-center">
+                                    @if(in_array($course->course_type ?? 'paid', ['tier', 'language_selector']))
+                                        Start Free Course
+                                    @else
+                                        View Course
+                                    @endif
+                                </a>
+                            @endif
                         </div>
                     </div>
                 @empty
