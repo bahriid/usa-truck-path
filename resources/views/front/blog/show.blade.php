@@ -1,324 +1,159 @@
 @extends('partials.master')
 
 @push('styles')
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    sans: ['Inter', 'sans-serif'],
+                    heading: ['Oswald', 'sans-serif'],
+                },
+                colors: {
+                    navy: '#0A2342',
+                    brightBlue: '#1B75F0',
+                    gold: '#F5B82E',
+                    lightGray: '#F2F4F7',
+                    darkGray: '#3A3A3A',
+                }
+            }
+        }
+    }
+</script>
 <style>
-    .post-hero {
-        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
-        padding: 100px 0 80px;
-        position: relative;
-        overflow: hidden;
+    .blog-content {
+        font-family: 'Inter', sans-serif;
     }
-
-    .post-hero::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="2"/></svg>');
-        opacity: 0.2;
-    }
-
-    .post-hero .breadcrumb {
-        margin-bottom: 20px;
-    }
-
-    .post-hero .breadcrumb a {
-        color: rgba(255, 255, 255, 0.8);
-        text-decoration: none;
-    }
-
-    .post-hero .breadcrumb a:hover {
-        color: white;
-    }
-
-    .post-hero h1 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 800;
-        margin-bottom: 20px;
-        line-height: 1.3;
-    }
-
-    .post-meta {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        flex-wrap: wrap;
-        opacity: 0.9;
-    }
-
-    .post-meta-item {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .post-section {
-        padding: 60px 0;
-        background: white;
-    }
-
-    .post-featured-image {
-        margin-top: -60px;
-        margin-bottom: 40px;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
-    }
-
-    .post-featured-image img {
-        width: 100%;
-        max-height: 500px;
-        object-fit: cover;
-    }
-
-    .post-content {
-        font-size: 1.1rem;
-        line-height: 1.8;
-        color: #333;
-    }
-
-    .post-content h2,
-    .post-content h3,
-    .post-content h4 {
-        color: #198754;
-        margin-top: 30px;
-        margin-bottom: 15px;
+    .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
+        font-family: 'Oswald', sans-serif;
+        color: #0A2342;
         font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
     }
-
-    .post-content p {
-        margin-bottom: 20px;
+    .blog-content h2 { font-size: 1.75rem; }
+    .blog-content h3 { font-size: 1.5rem; }
+    .blog-content h4 { font-size: 1.25rem; }
+    .blog-content p {
+        margin-bottom: 1.25rem;
+        line-height: 1.8;
+        color: #3A3A3A;
     }
-
-    .post-content img {
+    .blog-content img {
         max-width: 100%;
         height: auto;
         border-radius: 12px;
-        margin: 20px 0;
+        margin: 1.5rem 0;
     }
-
-    .post-content ul,
-    .post-content ol {
-        margin-bottom: 20px;
-        padding-left: 20px;
+    .blog-content ul, .blog-content ol {
+        margin-bottom: 1.25rem;
+        padding-left: 1.5rem;
     }
-
-    .post-content li {
-        margin-bottom: 10px;
+    .blog-content li {
+        margin-bottom: 0.5rem;
+        line-height: 1.7;
     }
-
-    .post-content blockquote {
-        background: #f8f9fa;
-        border-left: 4px solid #198754;
-        padding: 20px 25px;
-        margin: 25px 0;
+    .blog-content blockquote {
+        background: #F2F4F7;
+        border-left: 4px solid #1B75F0;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
         border-radius: 0 12px 12px 0;
         font-style: italic;
     }
-
-    .author-box {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 16px;
-        padding: 30px;
-        margin-top: 50px;
-        display: flex;
-        gap: 20px;
-        align-items: center;
+    .blog-content a {
+        color: #1B75F0;
+        text-decoration: underline;
     }
-
-    .author-box-avatar {
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, #198754 0%, #146c43 100%);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: 700;
-        font-size: 2rem;
-        flex-shrink: 0;
-    }
-
-    .author-box h4 {
-        font-weight: 700;
-        margin-bottom: 5px;
-    }
-
-    .author-box p {
-        color: #6c757d;
-        margin: 0;
-    }
-
-    .related-posts {
-        background: #f8f9fa;
-        padding: 60px 0;
-    }
-
-    .related-posts h3 {
-        font-weight: 700;
-        margin-bottom: 30px;
-        color: #198754;
-    }
-
-    .related-post-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-    }
-
-    .related-post-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(25, 135, 84, 0.15);
-    }
-
-    .related-post-card img {
-        width: 100%;
-        height: 150px;
-        object-fit: cover;
-    }
-
-    .related-post-card .card-body {
-        padding: 20px;
-    }
-
-    .related-post-card h5 {
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-
-    .related-post-card h5 a {
-        color: #212529;
-        text-decoration: none;
-    }
-
-    .related-post-card h5 a:hover {
-        color: #198754;
-    }
-
-    .related-post-card .date {
-        font-size: 0.85rem;
-        color: #6c757d;
-    }
-
-    .share-buttons {
-        display: flex;
-        gap: 10px;
-        margin-top: 30px;
-        padding-top: 30px;
-        border-top: 1px solid #e9ecef;
-    }
-
-    .share-buttons a {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        color: white;
-        font-size: 1.2rem;
-        transition: transform 0.3s ease;
-    }
-
-    .share-buttons a:hover {
-        transform: scale(1.1);
-    }
-
-    .share-buttons .facebook { background: #1877f2; }
-    .share-buttons .twitter { background: #1da1f2; }
-    .share-buttons .linkedin { background: #0077b5; }
-    .share-buttons .whatsapp { background: #25d366; }
-
-    @media (max-width: 768px) {
-        .post-hero {
-            padding: 60px 0 50px;
-        }
-
-        .author-box {
-            flex-direction: column;
-            text-align: center;
-        }
-
-        .post-featured-image {
-            margin-top: -40px;
-        }
+    .blog-content a:hover {
+        color: #0A2342;
     }
 </style>
 @endpush
 
 @section('main')
-<main class="main">
+<main class="font-sans text-darkGray">
     <!-- Hero Section -->
-    <section class="post-hero text-white">
-        <div class="container position-relative" data-aos="fade-up">
-            <div class="breadcrumb">
-                <a href="{{ route('front.home') }}">Home</a>
-                <span class="mx-2">/</span>
-                <a href="{{ route('front.blog.index') }}">Blog</a>
-                <span class="mx-2">/</span>
-                <span>{{ Str::limit($post->title, 30) }}</span>
-            </div>
-            <h1>{{ $post->title }}</h1>
-            <div class="post-meta">
-                <div class="post-meta-item">
-                    <i class="bi bi-calendar3"></i>
-                    <span>{{ $post->published_at->format('F d, Y') }}</span>
-                </div>
-                <div class="post-meta-item">
-                    <i class="bi bi-person"></i>
-                    <span>{{ $post->author->name ?? 'Admin' }}</span>
+    <section class="relative py-20 bg-navy text-white overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-navy to-transparent opacity-90"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <!-- Breadcrumb -->
+                <nav class="flex items-center gap-2 text-sm text-gray-300 mb-6">
+                    <a href="{{ route('front.home') }}" class="hover:text-gold transition-colors">Home</a>
+                    <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    <a href="{{ route('front.blog.index') }}" class="hover:text-gold transition-colors">Blog</a>
+                    <i data-lucide="chevron-right" class="h-4 w-4"></i>
+                    <span class="text-gold">{{ Str::limit($post->title, 30) }}</span>
+                </nav>
+
+                <h1 class="font-heading text-4xl md:text-5xl font-bold uppercase leading-tight mb-6">
+                    {{ $post->title }}
+                </h1>
+
+                <div class="flex flex-wrap items-center gap-6 text-gray-300">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="calendar" class="h-5 w-5 text-gold"></i>
+                        <span>{{ $post->published_at->format('F d, Y') }}</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="user" class="h-5 w-5 text-gold"></i>
+                        <span>{{ $post->author->name ?? 'Admin' }}</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Post Content Section -->
-    <section class="post-section">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    @if($post->featured_image)
-                        <div class="post-featured-image" data-aos="fade-up">
-                            <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}">
-                        </div>
-                    @endif
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                @if($post->featured_image)
+                    <div class="relative -mt-24 mb-12 rounded-2xl overflow-hidden shadow-2xl">
+                        <img src="{{ Storage::url($post->featured_image) }}" alt="{{ $post->title }}" class="w-full max-h-[500px] object-cover">
+                    </div>
+                @endif
 
-                    <article class="post-content" data-aos="fade-up">
-                        {!! $post->content !!}
-                    </article>
+                <article class="blog-content text-lg">
+                    {!! $post->content !!}
+                </article>
 
-                    <!-- Share Buttons -->
-                    <div class="share-buttons">
-                        <span class="me-2 align-self-center fw-bold">Share:</span>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank" class="facebook" title="Share on Facebook">
-                            <i class="bi bi-facebook"></i>
+                <!-- Share Buttons -->
+                <div class="mt-12 pt-8 border-t border-gray-200">
+                    <div class="flex flex-wrap items-center gap-4">
+                        <span class="font-heading font-bold uppercase text-navy">Share:</span>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank"
+                           class="w-12 h-12 bg-[#1877f2] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <i data-lucide="facebook" class="h-5 w-5"></i>
                         </a>
-                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank" class="twitter" title="Share on Twitter">
-                            <i class="bi bi-twitter"></i>
+                        <a href="https://twitter.com/intent/tweet?url={{ urlencode(request()->url()) }}&text={{ urlencode($post->title) }}" target="_blank"
+                           class="w-12 h-12 bg-[#1da1f2] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <i data-lucide="twitter" class="h-5 w-5"></i>
                         </a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}" target="_blank" class="linkedin" title="Share on LinkedIn">
-                            <i class="bi bi-linkedin"></i>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(request()->url()) }}&title={{ urlencode($post->title) }}" target="_blank"
+                           class="w-12 h-12 bg-[#0077b5] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <i data-lucide="linkedin" class="h-5 w-5"></i>
                         </a>
-                        <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . request()->url()) }}" target="_blank" class="whatsapp" title="Share on WhatsApp">
-                            <i class="bi bi-whatsapp"></i>
+                        <a href="https://wa.me/?text={{ urlencode($post->title . ' ' . request()->url()) }}" target="_blank"
+                           class="w-12 h-12 bg-[#25d366] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
+                            <i data-lucide="message-circle" class="h-5 w-5"></i>
                         </a>
                     </div>
+                </div>
 
-                    <!-- Author Box -->
-                    <div class="author-box" data-aos="fade-up">
-                        <div class="author-box-avatar">
-                            {{ strtoupper(substr($post->author->name ?? 'A', 0, 1)) }}
-                        </div>
-                        <div>
-                            <h4>{{ $post->author->name ?? 'Admin' }}</h4>
-                            <p>Author at USATRUCKPATH</p>
-                        </div>
+                <!-- Author Box -->
+                <div class="mt-12 bg-lightGray rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-navy to-brightBlue rounded-full flex items-center justify-center text-white font-heading font-bold text-2xl flex-shrink-0">
+                        {{ strtoupper(substr($post->author->name ?? 'A', 0, 1)) }}
+                    </div>
+                    <div class="text-center md:text-left">
+                        <h4 class="font-heading text-xl font-bold uppercase text-navy mb-2">{{ $post->author->name ?? 'Admin' }}</h4>
+                        <p class="text-gray-600">Author at USATruckPath - Helping drivers navigate their journey to becoming US truck drivers.</p>
                     </div>
                 </div>
             </div>
@@ -327,36 +162,56 @@
 
     <!-- Related Posts Section -->
     @if($recentPosts->count() > 0)
-        <section class="related-posts">
-            <div class="container">
-                <h3 class="text-center">More Articles</h3>
-                <div class="row g-4">
+        <section class="py-20 bg-lightGray">
+            <div class="container mx-auto px-4">
+                <h2 class="font-heading text-3xl font-bold uppercase text-navy text-center mb-12">More Articles</h2>
+                <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     @foreach($recentPosts as $recentPost)
-                        <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
-                            <div class="related-post-card">
+                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                            <div class="relative h-40 overflow-hidden">
                                 @if($recentPost->featured_image)
-                                    <img src="{{ Storage::url($recentPost->featured_image) }}" alt="{{ $recentPost->title }}">
+                                    <img src="{{ Storage::url($recentPost->featured_image) }}" alt="{{ $recentPost->title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                                 @else
-                                    <div style="height: 150px; background: linear-gradient(135deg, #198754 0%, #146c43 100%); display: flex; align-items: center; justify-content: center;">
-                                        <i class="bi bi-newspaper" style="font-size: 2rem; color: rgba(255,255,255,0.3);"></i>
+                                    <div class="w-full h-full bg-gradient-to-br from-navy to-brightBlue flex items-center justify-center">
+                                        <i data-lucide="newspaper" class="h-10 w-10 text-white/30"></i>
                                     </div>
                                 @endif
-                                <div class="card-body">
-                                    <h5><a href="{{ route('front.blog.show', $recentPost->slug) }}">{{ $recentPost->title }}</a></h5>
-                                    <span class="date">{{ $recentPost->published_at->format('M d, Y') }}</span>
-                                </div>
                             </div>
-                        </div>
+                            <div class="p-5">
+                                <h3 class="font-heading text-lg font-bold uppercase text-navy mb-2 leading-tight group-hover:text-brightBlue transition-colors">
+                                    <a href="{{ route('front.blog.show', $recentPost->slug) }}">{{ $recentPost->title }}</a>
+                                </h3>
+                                <span class="text-sm text-gray-500">{{ $recentPost->published_at->format('M d, Y') }}</span>
+                            </div>
+                        </article>
                     @endforeach
                 </div>
             </div>
         </section>
     @endif
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-navy text-white text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <h2 class="font-heading text-4xl font-bold uppercase mb-6">Ready to Start Your Journey?</h2>
+            <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
+                Join our free course and take the first step towards becoming a US truck driver.
+            </p>
+            <a href="{{ route('front.course') }}" class="inline-block bg-gold text-navy hover:bg-gold/90 text-lg font-bold px-10 py-4 rounded-md shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">
+                Start Free Course
+            </a>
+        </div>
+    </section>
 </main>
+
+<script>
+    lucide.createIcons();
+</script>
 @endsection
 
 @section('meta')
-    <title>{{ $post->meta_title ?? $post->title }} | USATRUCKPATH</title>
+    <title>{{ $post->meta_title ?? $post->title }} | USATruckPath</title>
     <meta name="description" content="{{ $post->meta_description ?? $post->excerpt ?? Str::limit(strip_tags($post->content), 160) }}">
     <meta property="og:title" content="{{ $post->meta_title ?? $post->title }}">
     <meta property="og:description" content="{{ $post->meta_description ?? $post->excerpt ?? Str::limit(strip_tags($post->content), 160) }}">
