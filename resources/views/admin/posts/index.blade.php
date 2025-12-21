@@ -23,7 +23,6 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
                                     <th>Title</th>
                                     <th>Author</th>
                                     <th>Status</th>
@@ -34,13 +33,6 @@
                             <tbody>
                                 @forelse ($posts as $post)
                                 <tr>
-                                    <td>
-                                        @if($post->featured_image)
-                                            <img src="{{ Storage::url($post->featured_image) }}" style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover;"/>
-                                        @else
-                                            <span class="badge bg-secondary">No Image</span>
-                                        @endif
-                                    </td>
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->author->name ?? 'Unknown' }}</td>
                                     <td>
