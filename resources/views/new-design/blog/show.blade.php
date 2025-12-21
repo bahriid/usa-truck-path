@@ -1,32 +1,7 @@
-@extends('partials.master')
+@extends('new-design.partials.master')
 
 @push('styles')
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
-<script>
-    tailwind.config = {
-        theme: {
-            extend: {
-                fontFamily: {
-                    sans: ['Inter', 'sans-serif'],
-                    heading: ['Oswald', 'sans-serif'],
-                },
-                colors: {
-                    navy: '#0A2342',
-                    brightBlue: '#1B75F0',
-                    gold: '#F5B82E',
-                    lightGray: '#F2F4F7',
-                    darkGray: '#3A3A3A',
-                }
-            }
-        }
-    }
-</script>
 <style>
-    .blog-content {
-        font-family: 'Inter', sans-serif;
-    }
     .blog-content h1, .blog-content h2, .blog-content h3, .blog-content h4, .blog-content h5, .blog-content h6 {
         font-family: 'Oswald', sans-serif;
         color: #0A2342;
@@ -76,19 +51,19 @@
 @endpush
 
 @section('main')
-<main class="font-sans text-darkGray">
+<main>
     <!-- Hero Section -->
-    <section class="relative py-20 bg-navy text-white overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-r from-navy to-transparent opacity-90"></div>
+    <section class="relative py-20 bg-[#0A2342] text-white overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-r from-[#0A2342] to-transparent opacity-90"></div>
         <div class="container mx-auto px-4 relative z-10">
             <div class="max-w-4xl mx-auto">
                 <!-- Breadcrumb -->
                 <nav class="flex items-center gap-2 text-sm text-gray-300 mb-6">
-                    <a href="{{ route('front.home') }}" class="hover:text-gold transition-colors">Home</a>
+                    <a href="{{ route('front.home') }}" class="hover:text-[#F5B82E] transition-colors">Home</a>
                     <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    <a href="{{ route('front.blog.index') }}" class="hover:text-gold transition-colors">Blog</a>
+                    <a href="{{ route('front.blog.index') }}" class="hover:text-[#F5B82E] transition-colors">Blog</a>
                     <i data-lucide="chevron-right" class="h-4 w-4"></i>
-                    <span class="text-gold">{{ Str::limit($post->title, 30) }}</span>
+                    <span class="text-[#F5B82E]">{{ Str::limit($post->title, 30) }}</span>
                 </nav>
 
                 <h1 class="font-heading text-4xl md:text-5xl font-bold uppercase leading-tight mb-6">
@@ -97,11 +72,11 @@
 
                 <div class="flex flex-wrap items-center gap-6 text-gray-300">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="calendar" class="h-5 w-5 text-gold"></i>
+                        <i data-lucide="calendar" class="h-5 w-5 text-[#F5B82E]"></i>
                         <span>{{ $post->published_at->format('F d, Y') }}</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <i data-lucide="user" class="h-5 w-5 text-gold"></i>
+                        <i data-lucide="user" class="h-5 w-5 text-[#F5B82E]"></i>
                         <span>{{ $post->author->name ?? 'Admin' }}</span>
                     </div>
                 </div>
@@ -126,7 +101,7 @@
                 <!-- Share Buttons -->
                 <div class="mt-12 pt-8 border-t border-gray-200">
                     <div class="flex flex-wrap items-center gap-4">
-                        <span class="font-heading font-bold uppercase text-navy">Share:</span>
+                        <span class="font-heading font-bold uppercase text-[#0A2342]">Share:</span>
                         <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(request()->url()) }}" target="_blank"
                            class="w-12 h-12 bg-[#1877f2] rounded-full flex items-center justify-center text-white hover:scale-110 transition-transform">
                             <i data-lucide="facebook" class="h-5 w-5"></i>
@@ -147,12 +122,12 @@
                 </div>
 
                 <!-- Author Box -->
-                <div class="mt-12 bg-lightGray rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
-                    <div class="w-20 h-20 bg-gradient-to-br from-navy to-brightBlue rounded-full flex items-center justify-center text-white font-heading font-bold text-2xl flex-shrink-0">
+                <div class="mt-12 bg-[#F2F4F7] rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6">
+                    <div class="w-20 h-20 bg-gradient-to-br from-[#0A2342] to-[#1B75F0] rounded-full flex items-center justify-center text-white font-heading font-bold text-2xl flex-shrink-0">
                         {{ strtoupper(substr($post->author->name ?? 'A', 0, 1)) }}
                     </div>
                     <div class="text-center md:text-left">
-                        <h4 class="font-heading text-xl font-bold uppercase text-navy mb-2">{{ $post->author->name ?? 'Admin' }}</h4>
+                        <h4 class="font-heading text-xl font-bold uppercase text-[#0A2342] mb-2">{{ $post->author->name ?? 'Admin' }}</h4>
                         <p class="text-gray-600">Author at USATruckPath - Helping drivers navigate their journey to becoming US truck drivers.</p>
                     </div>
                 </div>
@@ -162,9 +137,9 @@
 
     <!-- Related Posts Section -->
     @if($recentPosts->count() > 0)
-        <section class="py-20 bg-lightGray">
+        <section class="py-20 bg-[#F2F4F7]">
             <div class="container mx-auto px-4">
-                <h2 class="font-heading text-3xl font-bold uppercase text-navy text-center mb-12">More Articles</h2>
+                <h2 class="font-heading text-3xl font-bold uppercase text-[#0A2342] text-center mb-12">More Articles</h2>
                 <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
                     @foreach($recentPosts as $recentPost)
                         <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
@@ -172,13 +147,13 @@
                                 @if($recentPost->featured_image)
                                     <img src="{{ Storage::url($recentPost->featured_image) }}" alt="{{ $recentPost->title }}" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                                 @else
-                                    <div class="w-full h-full bg-gradient-to-br from-navy to-brightBlue flex items-center justify-center">
+                                    <div class="w-full h-full bg-gradient-to-br from-[#0A2342] to-[#1B75F0] flex items-center justify-center">
                                         <i data-lucide="newspaper" class="h-10 w-10 text-white/30"></i>
                                     </div>
                                 @endif
                             </div>
                             <div class="p-5">
-                                <h3 class="font-heading text-lg font-bold uppercase text-navy mb-2 leading-tight group-hover:text-brightBlue transition-colors">
+                                <h3 class="font-heading text-lg font-bold uppercase text-[#0A2342] mb-2 leading-tight group-hover:text-[#1B75F0] transition-colors">
                                     <a href="{{ route('front.blog.show', $recentPost->slug) }}">{{ $recentPost->title }}</a>
                                 </h3>
                                 <span class="text-sm text-gray-500">{{ $recentPost->published_at->format('M d, Y') }}</span>
@@ -191,23 +166,19 @@
     @endif
 
     <!-- CTA Section -->
-    <section class="py-20 bg-navy text-white text-center relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-t from-navy via-transparent to-navy"></div>
+    <section class="py-20 bg-[#0A2342] text-white text-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0A2342] via-transparent to-[#0A2342]"></div>
         <div class="container mx-auto px-4 relative z-10">
             <h2 class="font-heading text-4xl font-bold uppercase mb-6">Ready to Start Your Journey?</h2>
             <p class="text-xl text-gray-300 max-w-2xl mx-auto mb-10">
                 Join our free course and take the first step towards becoming a US truck driver.
             </p>
-            <a href="{{ route('front.course') }}" class="inline-block bg-gold text-navy hover:bg-gold/90 text-lg font-bold px-10 py-4 rounded-md shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">
+            <a href="{{ route('front.course') }}" class="inline-block bg-[#F5B82E] text-[#0A2342] hover:bg-[#F5B82E]/90 text-lg font-bold px-10 py-4 rounded-md shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all">
                 Start Free Course
             </a>
         </div>
     </section>
 </main>
-
-<script>
-    lucide.createIcons();
-</script>
 @endsection
 
 @section('meta')

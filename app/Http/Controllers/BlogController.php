@@ -13,7 +13,7 @@ class BlogController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate(9);
 
-        return view('front.blog.index', compact('posts'));
+        return view('new-design.blog.index', compact('posts'));
     }
 
     public function show(Post $post)
@@ -28,6 +28,6 @@ class BlogController extends Controller
             ->limit(3)
             ->get();
 
-        return view('front.blog.show', compact('post', 'recentPosts'));
+        return view('new-design.blog.show', compact('post', 'recentPosts'));
     }
 }

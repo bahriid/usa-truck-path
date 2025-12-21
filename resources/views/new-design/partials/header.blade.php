@@ -126,6 +126,7 @@
                 <a href="{{ route('front.mentorship') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">Mentorship</a>
                 <a href="{{ url('/#roadmap') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">Roadmap</a>
                 <a href="{{ url('/#faq') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all">FAQ</a>
+                <a href="{{ route('front.blog.index') }}" class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all {{ request()->routeIs('front.blog.*') ? 'text-[#F5B82E]' : '' }}">Blog</a>
                 @auth
                     <div class="relative group">
                         <button class="text-sm font-bold uppercase tracking-wide text-white hover:text-[#F5B82E] transition-all flex items-center gap-1">
@@ -161,6 +162,7 @@
                 <a href="{{ route('front.mentorship') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Mentorship</a>
                 <a href="{{ url('/#roadmap') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Roadmap</a>
                 <a href="{{ url('/#faq') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">FAQ</a>
+                <a href="{{ route('front.blog.index') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Blog</a>
 
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-lg font-bold uppercase tracking-wide text-white hover:text-[#F5B82E]">Dashboard</a>
