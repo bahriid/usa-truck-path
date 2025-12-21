@@ -60,7 +60,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td class="text-center" colspan="6">No posts found!</td>
+                                    <td class="text-center" colspan="5">No posts found!</td>
                                 </tr>
                                 @endforelse
                             </tbody>
