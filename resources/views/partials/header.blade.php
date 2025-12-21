@@ -162,6 +162,9 @@
                            class="{{ request()->is('courses-details/' . $dispatcherCourse->slug) ? 'active' : '' }}">Dispatcher</a></li>
                     @endif
 
+                    {{-- Blog --}}
+                    <li><a href="{{ route('front.blog.index') }}" class="{{ request()->routeIs('front.blog.*') ? 'active' : '' }}">Blog</a></li>
+
                     {{-- How It Works & Why Us Combined Dropdown --}}
                     <li class="dropdown">
                         <a href="#"><span>About</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>

@@ -4,11 +4,13 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AdminEnrollmentController;
 use App\Http\Controllers\Admin\ChapterController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CourseContentController;
 use App\Http\Controllers\Admin\TopicController;
 use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\PageController;
@@ -40,6 +42,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
       Route::get('courses',[PageController::class,'course'])->name('course');
       Route::get('courses-details/{slug}',[PageController::class,'coursedetails'])->name('course.details');
       Route::get('/course-category/{category}', [PageController::class, 'courseCategory'])->name('course.category');
+
+      // Blog routes
+      Route::get('blog', [BlogController::class, 'index'])->name('blog.index');
+      Route::get('blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
 
       // Purchase route (requires auth)
     Route::post('/courses/{course}/purchase', [App\Http\Controllers\PurchaseController::class, 'purchase'])->name('course.purchase');
@@ -116,6 +122,10 @@ Route::prefix('admin')->group(function () {
           Route::resource('courses', CourseController::class)->names('admin.courses');
           Route::post('/courses/reorder', [CourseController::class, 'reorder'])->name('admin.courses.reorder');
           Route::resource('sliders', SliderController::class);
+
+          // Blog posts
+          Route::resource('posts', PostController::class)->names('admin.posts');
+          Route::post('/posts/generate-slug', [PostController::class, 'generateSlug'])->name('admin.posts.generateSlug');
            // settings
            Route::prefix('settings')->name('settings.')->group(function () {
 

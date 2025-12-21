@@ -67,6 +67,14 @@
         </a>
     </li>
     <li class="nav-item">
+        <a href="{{ route('admin.posts.index') }}" class="nav-link {{ request()->routeIs('admin.posts.*') ? 'active' : '' }}">
+            <i class="nav-icon bi bi-newspaper"></i>
+            <p>
+                Blog Posts
+            </p>
+        </a>
+    </li>
+    <li class="nav-item">
         <a href="{{ route('sliders.index') }}" class="nav-link {{ request()->routeIs('sliders.index') ? 'active' : '' }}">
             <i class="nav-icon bi bi-images"></i>
             <p>
