@@ -19,7 +19,6 @@
                         <p class="text-gray-300 mb-8 leading-relaxed">
                             Have questions about the program? We're here to help you navigate your trucking journey.
                         </p>
-
                         <div class="space-y-6">
                             <div class="flex items-start gap-4">
                                 <i data-lucide="mail" class="h-6 w-6 text-[#F5B82E] mt-1"></i>

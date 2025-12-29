@@ -61,7 +61,11 @@
             @php
                 $user = auth()->user();
                 $currentTier = $user ? $user->getSubscriptionTier($course->id) : null;
-                $hasPremiumAccess = $currentTier === 'premium';
+                $isEnrolledAndApproved = $user && $user->hasApprovedCourse($course->id);
+
+                // For paid courses, enrollment = full access. For tier courses, need premium tier.
+                $hasPremiumAccess = ($course->course_type === 'paid' && $isEnrolledAndApproved)
+                                  || $currentTier === 'premium';
                 $autoOpen = request('auto_open') == 1;
 
                 // Get first free topic
@@ -107,8 +111,8 @@
                     </div>
                 </div>
 
-                {{-- Paid Course Box (hidden for course 20 and child language courses) --}}
-                @if($course->id != 20 && !$course->parent_course_id)
+                {{-- Paid Course Box (hidden only for course 20) --}}
+                @if($course->id != 20)
                 <div class="col-md-6">
                     @if($hasPremiumAccess)
                         {{-- User has premium - show button to expand paid content --}}
@@ -129,7 +133,7 @@
                         </div>
                     @else
                         {{-- User needs to pay - redirect to payment --}}
-                        <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}" class="text-decoration-none">
+                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="text-decoration-none">
                             <div class="card h-100 border-2 border-warning shadow-sm" style="cursor: pointer;">
                                 <div class="card-body text-center p-5">
                                     <div class="mb-3">
@@ -140,7 +144,7 @@
                                         Unlock Premium Courses
                                     </p>
                                     <span class="badge bg-warning text-dark fs-6 px-4 py-2">
-                                        <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                        <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->price, 0) }}
                                     </span>
                                 </div>
                             </div>
