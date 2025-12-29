@@ -18,21 +18,19 @@
                     </nav>
                 </div>
                 <div>
-                    @guest
+                    @if($course->coming_soon)
+                        <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Coming Soon</button>
+                    @elseif(auth()->guest())
                         <a href="{{ route('register') }}?course_id={{ $course->id }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Login to Enroll</a>
+                    @elseif(auth()->user()->hasApprovedCourse($course->id))
+                        <button class="bg-green-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
+                    @elseif($course->status === 'upcoming')
+                        <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Up Coming</button>
+                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-8 rounded-lg transition-all">Continue Payment</a>
                     @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="bg-green-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-8 rounded-lg transition-all">Continue Payment</a>
-                            @else
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Enroll Now</a>
-                            @endif
-                        @endif
-                    @endguest
+                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Enroll Now</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -126,21 +124,19 @@
                     </nav>
                 </div>
                 <div>
-                    @guest
+                    @if($course->coming_soon)
+                        <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Coming Soon</button>
+                    @elseif(auth()->guest())
                         <a href="{{ route('register') }}?course_id={{ $course->id }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Login to Enroll</a>
+                    @elseif(auth()->user()->hasApprovedCourse($course->id))
+                        <button class="bg-green-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
+                    @elseif($course->status === 'upcoming')
+                        <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Up Coming</button>
+                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-8 rounded-lg transition-all">Continue Payment</a>
                     @else
-                        @if (auth()->user()->hasApprovedCourse($course->id))
-                            <button class="bg-green-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
-                        @else
-                            @if ($course->status === 'upcoming')
-                                <button class="bg-gray-500 text-white font-bold uppercase py-3 px-8 rounded-lg cursor-not-allowed" disabled>Up Coming</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-8 rounded-lg transition-all">Continue Payment</a>
-                            @else
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Enroll Now</a>
-                            @endif
-                        @endif
-                    @endguest
+                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-white hover:bg-[#F5B82E] text-[#0A2342] font-bold uppercase tracking-wide py-3 px-8 rounded-lg transition-all">Enroll Now</a>
+                    @endif
                 </div>
             </div>
         </div>
@@ -175,17 +171,17 @@
                         <p class="text-gray-600 mb-6">Once you join, you'll be added to our private Telegram mentorship group, where you'll get daily support, business advice, and real-world job connections.</p>
                         <div class="text-center">
                             <p class="text-xl font-bold text-[#0A2342] mb-4">Price: @if($course->isTierCourse())<span class="text-green-500">FREE</span>@else${{ $course->price }}@endif</p>
-                            @guest
+                            @if($course->coming_soon)
+                                <button class="w-full bg-gray-500 text-white font-bold uppercase py-3 rounded-lg cursor-not-allowed" disabled>Coming Soon</button>
+                            @elseif(auth()->guest())
                                 <a href="{{ route('register') }}?course_id={{ $course->id }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 rounded-lg transition-all">Login to Enroll</a>
+                            @elseif(auth()->user()->hasApprovedCourse($course->id))
+                                <button class="w-full bg-green-500 text-white font-bold uppercase py-3 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
+                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 rounded-lg transition-all">Continue Payment</a>
                             @else
-                                @if (auth()->user()->hasApprovedCourse($course->id))
-                                    <button class="w-full bg-green-500 text-white font-bold uppercase py-3 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
-                                @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 rounded-lg transition-all">Continue Payment</a>
-                                @else
-                                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 rounded-lg transition-all">Enroll Now</a>
-                                @endif
-                            @endguest
+                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 rounded-lg transition-all">Enroll Now</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -201,17 +197,17 @@
                     <div class="p-6">
                         <h2 class="font-heading text-3xl font-bold text-[#0A2342] uppercase mb-4">About This Course</h2>
                         <p class="text-gray-600 text-lg leading-relaxed mb-6">Whether you live in the USA, Africa, Europe, the Middle East, or anywhere in the world - you can become a freight broker or dispatcher. Our step-by-step course teaches you how the business works, how to find clients, and how to start earning. With our mentorship, you'll get real support, job leads, and guidance to build your own company.</p>
-                        @guest
+                        @if($course->coming_soon)
+                            <button class="bg-gray-500 text-white font-bold uppercase py-3 px-6 rounded-lg cursor-not-allowed" disabled>Coming Soon</button>
+                        @elseif(auth()->guest())
                             <a href="{{ route('register') }}?course_id={{ $course->id }}" class="inline-block bg-[#0A2342] hover:bg-[#1B75F0] text-white font-bold uppercase py-3 px-6 rounded-lg transition-all">Login to Enroll</a>
+                        @elseif(auth()->user()->hasApprovedCourse($course->id))
+                            <button class="bg-green-500 text-white font-bold uppercase py-3 px-6 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
+                        @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                            <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-6 rounded-lg transition-all">Continue Payment</a>
                         @else
-                            @if (auth()->user()->hasApprovedCourse($course->id))
-                                <button class="bg-green-500 text-white font-bold uppercase py-3 px-6 rounded-lg cursor-not-allowed" disabled>Already Enrolled</button>
-                            @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-3 px-6 rounded-lg transition-all">Continue Payment</a>
-                            @else
-                                <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#0A2342] hover:bg-[#1B75F0] text-white font-bold uppercase py-3 px-6 rounded-lg transition-all">Enroll Now</a>
-                            @endif
-                        @endguest
+                            <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#0A2342] hover:bg-[#1B75F0] text-white font-bold uppercase py-3 px-6 rounded-lg transition-all">Enroll Now</a>
+                        @endif
                     </div>
                     <div>
                         <img src="{{ asset('frontend/img/training.jpg') }}" alt="Course Image" class="w-full rounded-xl shadow-lg">
@@ -381,17 +377,17 @@
                 <h2 class="font-heading text-3xl font-bold text-[#F5B82E] uppercase mb-4">Ready to become a freight broker or dispatcher?</h2>
                 <p class="text-gray-300 text-lg mb-6">Join today - learn how to build a lucrative career in freight brokering and dispatching with lifetime mentorship and step-by-step support.</p>
                 <p class="text-gray-300 mb-8">Enroll now and start earning from anywhere in the world!</p>
-                @guest
+                @if($course->coming_soon)
+                    <button class="bg-gray-500 text-white font-bold uppercase py-4 px-10 rounded-lg text-lg cursor-not-allowed" disabled>Coming Soon</button>
+                @elseif(auth()->guest())
                     <a href="{{ route('register') }}?course_id={{ $course->id }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-4 px-10 rounded-lg text-lg transition-all">Login to Enroll</a>
+                @elseif(auth()->user()->hasApprovedCourse($course->id))
+                    <button class="bg-green-500 text-white font-bold uppercase py-4 px-10 rounded-lg text-lg cursor-not-allowed" disabled>Already Enrolled</button>
+                @elseif(auth()->user()->hasPurchasedCourse($course->id))
+                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-4 px-10 rounded-lg text-lg transition-all">Continue Payment</a>
                 @else
-                    @if (auth()->user()->hasApprovedCourse($course->id))
-                        <button class="bg-green-500 text-white font-bold uppercase py-4 px-10 rounded-lg text-lg cursor-not-allowed" disabled>Already Enrolled</button>
-                    @elseif(auth()->user()->hasPurchasedCourse($course->id))
-                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-4 px-10 rounded-lg text-lg transition-all">Continue Payment</a>
-                    @else
-                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-4 px-10 rounded-lg text-lg transition-all">Enroll Now</a>
-                    @endif
-                @endguest
+                    <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="inline-block bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] font-bold uppercase py-4 px-10 rounded-lg text-lg transition-all">Enroll Now</a>
+                @endif
             </div>
         </div>
     </section>
