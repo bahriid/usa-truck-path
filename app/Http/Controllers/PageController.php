@@ -15,18 +15,15 @@ class PageController extends Controller
     public function home(GeoIPService $geoIP)
     {
         $sliders = Slider::where('is_active', 1)->get();
-        $countryCode = $geoIP->getCountryCode();
+        $regionCode = $geoIP->getRegionCode();
 
-        // Get one latest course per category, filtered by user's country
+        // Get one latest course per category, filtered by user's region
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')
             ->where('is_active', 1)
-            ->when($countryCode, function ($query) use ($countryCode) {
-                $query->where(function ($q) use ($countryCode) {
-                    $q->whereNull('country_code')
-                      ->orWhere('country_code', $countryCode);
-                });
+            ->when($regionCode, function ($query) use ($regionCode) {
+                $query->where('country_code', $regionCode);
             })
             ->groupBy('category')
             ->pluck('id');
@@ -71,18 +68,15 @@ class PageController extends Controller
 
     public function course(GeoIPService $geoIP)
     {
-        $countryCode = $geoIP->getCountryCode();
+        $regionCode = $geoIP->getRegionCode();
 
-        // Get one latest course per category, filtered by user's country
+        // Get one latest course per category, filtered by user's region
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')
             ->where('is_active', 1)
-            ->when($countryCode, function ($query) use ($countryCode) {
-                $query->where(function ($q) use ($countryCode) {
-                    $q->whereNull('country_code')
-                      ->orWhere('country_code', $countryCode);
-                });
+            ->when($regionCode, function ($query) use ($regionCode) {
+                $query->where('country_code', $regionCode);
             })
             ->groupBy('category')
             ->pluck('id');

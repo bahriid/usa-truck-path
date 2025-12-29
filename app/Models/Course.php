@@ -65,20 +65,17 @@ class Course extends Model
     }
 
     /**
-     * Scope to filter courses by user's country.
-     * Shows global courses (null country_code) plus country-specific courses.
-     * If countryCode is null, shows all courses (fallback behavior).
+     * Scope to filter courses by user's region.
+     * Region codes: CA (Canada), US (United States), EU (Europe), GLOBAL (other regions)
+     * If regionCode is null, shows all courses (fallback behavior).
      */
-    public function scopeForCountry($query, ?string $countryCode)
+    public function scopeForRegion($query, ?string $regionCode)
     {
-        if ($countryCode === null) {
+        if ($regionCode === null) {
             return $query;
         }
 
-        return $query->where(function ($q) use ($countryCode) {
-            $q->whereNull('country_code')
-              ->orWhere('country_code', $countryCode);
-        });
+        return $query->where('country_code', $regionCode);
     }
 
     /**
