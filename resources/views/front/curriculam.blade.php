@@ -107,8 +107,8 @@
                     </div>
                 </div>
 
-                {{-- Paid Course Box (hidden for language_selector and child language courses) --}}
-                @if(!$course->isLanguageSelectorCourse() && !$course->parent_course_id)
+                {{-- Paid Course Box (hidden for course 20 and child language courses) --}}
+                @if($course->id != 20 && !$course->parent_course_id)
                 <div class="col-md-6">
                     @if($hasPremiumAccess)
                         {{-- User has premium - show button to expand paid content --}}

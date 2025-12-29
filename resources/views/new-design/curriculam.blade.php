@@ -109,8 +109,8 @@
                     </span>
                 </div>
 
-                <!-- Premium Course Box (hidden for language_selector and child language courses) -->
-                @if(!$course->isLanguageSelectorCourse() && !$course->parent_course_id)
+                <!-- Premium Course Box (hidden for course 20 and child language courses) -->
+                @if($course->id != 20 && !$course->parent_course_id)
                     @if($hasPremiumAccess)
                         <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between"
                              onclick="togglePremiumContent()">
