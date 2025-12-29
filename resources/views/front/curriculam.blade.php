@@ -107,7 +107,8 @@
                     </div>
                 </div>
 
-                {{-- Paid Course Box --}}
+                {{-- Paid Course Box (only for tier courses) --}}
+                @if($course->isTierCourse())
                 <div class="col-md-6">
                     @if($hasPremiumAccess)
                         {{-- User has premium - show button to expand paid content --}}
@@ -146,6 +147,7 @@
                         </a>
                     @endif
                 </div>
+                @endif
             </div>
 
             {{-- Premium Content Accordion (only visible for premium users) --}}

@@ -109,8 +109,8 @@
                     </span>
                 </div>
 
-                <!-- Premium Course Box (hidden for course ID 20) -->
-                @if($course->id != 20)
+                <!-- Premium Course Box (only for tier courses) -->
+                @if($course->isTierCourse())
                     @if($hasPremiumAccess)
                         <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between"
                              onclick="togglePremiumContent()">
