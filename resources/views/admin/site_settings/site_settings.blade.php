@@ -187,10 +187,25 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                     </div>
-                        
-                                   
-                        
-                               
+
+                                    <hr class="my-4">
+                                    <h5 class="mb-3">Course Settings</h5>
+
+                                    <div class="form-group mb-3">
+                                        <div class="form-check form-switch">
+                                            <input type="hidden" name="geo_filtering_enabled" value="0">
+                                            <input type="checkbox" name="geo_filtering_enabled" class="form-check-input" id="geo_filtering_enabled" value="1" {{ old('geo_filtering_enabled', $setting->geo_filtering_enabled ?? false) ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="geo_filtering_enabled">
+                                                <strong>Enable Country-Based Course Filtering</strong>
+                                            </label>
+                                        </div>
+                                        <small class="text-muted">When enabled, visitors will only see courses targeted to their region (US, Canada, Europe, or Global). When disabled, all courses are shown to everyone.</small>
+                                        @error('geo_filtering_enabled')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+
+
                                     <button type="submit" class="btn btn-primary">Update Settings</button>
                                 </form>
                                

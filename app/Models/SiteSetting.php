@@ -37,6 +37,11 @@ class SiteSetting extends Model
         'row_id',
         'cash_app',
         'zelle',
+        'geo_filtering_enabled',
+    ];
+
+    protected $casts = [
+        'geo_filtering_enabled' => 'boolean',
     ];
 
     // If you want to automatically set the timestamps on create and update:

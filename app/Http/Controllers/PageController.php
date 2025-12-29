@@ -15,9 +15,11 @@ class PageController extends Controller
     public function home(GeoIPService $geoIP)
     {
         $sliders = Slider::where('is_active', 1)->get();
-        $regionCode = $geoIP->getRegionCode();
+        $settings = SiteSetting::first();
+        $geoFilteringEnabled = $settings->geo_filtering_enabled ?? false;
+        $regionCode = $geoFilteringEnabled ? $geoIP->getRegionCode() : null;
 
-        // Get one latest course per category, filtered by user's region
+        // Get one latest course per category, filtered by user's region (if enabled)
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')
@@ -68,9 +70,11 @@ class PageController extends Controller
 
     public function course(GeoIPService $geoIP)
     {
-        $regionCode = $geoIP->getRegionCode();
+        $settings = SiteSetting::first();
+        $geoFilteringEnabled = $settings->geo_filtering_enabled ?? false;
+        $regionCode = $geoFilteringEnabled ? $geoIP->getRegionCode() : null;
 
-        // Get one latest course per category, filtered by user's region
+        // Get one latest course per category, filtered by user's region (if enabled)
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')

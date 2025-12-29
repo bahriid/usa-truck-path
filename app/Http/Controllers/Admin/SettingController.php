@@ -45,6 +45,7 @@ class SettingController extends Controller
             'address' => 'nullable|string',
             'cash_app' => 'nullable|string',
             'zelle' => 'nullable|string',
+            'geo_filtering_enabled' => 'nullable|boolean',
         ]);
 
         // Get the first site setting or create a new one if it doesn't exist
