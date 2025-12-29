@@ -102,44 +102,74 @@
                 <div class="p-8">
                     <ul class="space-y-4 mb-8">
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Clear document checklist</strong> — know exactly what you need and when</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Clear document checklist</span>
+                                <span class="text-gray-500 text-sm">Know exactly what you need and when</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Company selection guidance</strong> — who to apply to and who to avoid</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Company selection guidance</span>
+                                <span class="text-gray-500 text-sm">Who to apply to and who to avoid</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Training roadmap</strong> — what training is required before coming to the U.S.</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Training roadmap</span>
+                                <span class="text-gray-500 text-sm">What training is required before coming to the U.S.</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Daily Q&A access</strong> — reliable guidance when questions come up</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Daily Q&A access</span>
+                                <span class="text-gray-500 text-sm">Reliable guidance when questions come up</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Real industry understanding</strong> — how trucking actually works in the U.S.</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Real industry understanding</span>
+                                <span class="text-gray-500 text-sm">How trucking actually works in the U.S.</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Trucking-focused CV support</strong> — built for hiring managers</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Trucking-focused CV support</span>
+                                <span class="text-gray-500 text-sm">Built for hiring managers</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Interview preparation</strong> — real questions, answers, and expectations</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Interview preparation</span>
+                                <span class="text-gray-500 text-sm">Real questions, answers, and expectations</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Work-visa guidance</strong> — process, timing, and preparation (educational)</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Work-visa guidance</span>
+                                <span class="text-gray-500 text-sm">Process, timing, and preparation (educational)</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>U.S. arrival & job transition support</strong> — first job, changing jobs safely</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">U.S. arrival & job transition support</span>
+                                <span class="text-gray-500 text-sm">First job, changing jobs safely</span>
+                            </div>
                         </li>
                         <li class="flex items-start gap-3">
-                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Contract, pay, hours & equipment breakdown</strong> — no surprises before you sign</span>
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0 mt-0.5"></i>
+                            <div>
+                                <span class="text-gray-900 font-semibold block">Contract, pay, hours & equipment breakdown</span>
+                                <span class="text-gray-500 text-sm">No surprises before you sign</span>
+                            </div>
                         </li>
                     </ul>
                     <a href="{{ route('front.course') }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] text-center font-bold uppercase py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
