@@ -45,12 +45,13 @@
                             <div class="form-group mb-3">
                                 <label for="country_code">Target Region</label>
                                 <select name="country_code" class="form-control" id="country_code" required>
-                                    <option value="US" {{ old('country_code', $course->country_code ?? 'US') == 'US' ? 'selected' : '' }}>United States</option>
+                                    <option value="DISABLED" {{ old('country_code', $course->country_code ?? 'DISABLED') == 'DISABLED' ? 'selected' : '' }}>Disabled (Show to everyone)</option>
+                                    <option value="US" {{ old('country_code', $course->country_code ?? '') == 'US' ? 'selected' : '' }}>United States</option>
                                     <option value="CA" {{ old('country_code', $course->country_code ?? '') == 'CA' ? 'selected' : '' }}>Canada</option>
                                     <option value="EU" {{ old('country_code', $course->country_code ?? '') == 'EU' ? 'selected' : '' }}>Europe</option>
-                                    <option value="GLOBAL" {{ old('country_code', $course->country_code ?? '') == 'GLOBAL' ? 'selected' : '' }}>Global (Africa & Other Regions)</option>
+                                    <option value="GLOBAL" {{ old('country_code', $course->country_code ?? '') == 'GLOBAL' ? 'selected' : '' }}>Global (except USA, Canada & Europe)</option>
                                 </select>
-                                <small class="text-muted">Course will only be shown to visitors from this region.</small>
+                                <small class="text-muted">Course will only be shown to visitors from this region. Select "Disabled" to show to everyone.</small>
                                 @error('country_code')
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror

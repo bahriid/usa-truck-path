@@ -66,7 +66,7 @@ class Course extends Model
 
     /**
      * Scope to filter courses by user's region.
-     * Region codes: CA (Canada), US (United States), EU (Europe), GLOBAL (other regions)
+     * Region codes: CA (Canada), US (United States), EU (Europe), GLOBAL (other regions), DISABLED (show to all)
      * If regionCode is null, shows all courses (fallback behavior).
      */
     public function scopeForRegion($query, ?string $regionCode)
@@ -75,7 +75,10 @@ class Course extends Model
             return $query;
         }
 
-        return $query->where('country_code', $regionCode);
+        return $query->where(function ($q) use ($regionCode) {
+            $q->where('country_code', $regionCode)
+              ->orWhere('country_code', 'DISABLED');
+        });
     }
 
     /**

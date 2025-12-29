@@ -25,7 +25,10 @@ class PageController extends Controller
             ->where('status', 'active')
             ->where('is_active', 1)
             ->when($regionCode, function ($query) use ($regionCode) {
-                $query->where('country_code', $regionCode);
+                $query->where(function ($q) use ($regionCode) {
+                    $q->where('country_code', $regionCode)
+                      ->orWhere('country_code', 'DISABLED');
+                });
             })
             ->groupBy('category')
             ->pluck('id');
@@ -80,7 +83,10 @@ class PageController extends Controller
             ->where('status', 'active')
             ->where('is_active', 1)
             ->when($regionCode, function ($query) use ($regionCode) {
-                $query->where('country_code', $regionCode);
+                $query->where(function ($q) use ($regionCode) {
+                    $q->where('country_code', $regionCode)
+                      ->orWhere('country_code', 'DISABLED');
+                });
             })
             ->groupBy('category')
             ->pluck('id');
