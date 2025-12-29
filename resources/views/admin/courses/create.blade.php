@@ -42,7 +42,29 @@
                                 @enderror
                             </div>
 
-                           
+                            <div class="form-group mb-3">
+                                <label for="country_code">Target Country</label>
+                                <select name="country_code" class="form-control" id="country_code">
+                                    <option value="">Global (All Countries)</option>
+                                    <option value="US" {{ old('country_code', $course->country_code ?? '') == 'US' ? 'selected' : '' }}>United States</option>
+                                    <option value="CA" {{ old('country_code', $course->country_code ?? '') == 'CA' ? 'selected' : '' }}>Canada</option>
+                                    <option value="ET" {{ old('country_code', $course->country_code ?? '') == 'ET' ? 'selected' : '' }}>Ethiopia</option>
+                                    <option value="GB" {{ old('country_code', $course->country_code ?? '') == 'GB' ? 'selected' : '' }}>United Kingdom</option>
+                                    <option value="AU" {{ old('country_code', $course->country_code ?? '') == 'AU' ? 'selected' : '' }}>Australia</option>
+                                    <option value="DE" {{ old('country_code', $course->country_code ?? '') == 'DE' ? 'selected' : '' }}>Germany</option>
+                                    <option value="FR" {{ old('country_code', $course->country_code ?? '') == 'FR' ? 'selected' : '' }}>France</option>
+                                    <option value="NP" {{ old('country_code', $course->country_code ?? '') == 'NP' ? 'selected' : '' }}>Nepal</option>
+                                    <option value="SO" {{ old('country_code', $course->country_code ?? '') == 'SO' ? 'selected' : '' }}>Somalia</option>
+                                    <option value="SA" {{ old('country_code', $course->country_code ?? '') == 'SA' ? 'selected' : '' }}>Saudi Arabia</option>
+                                    <option value="AE" {{ old('country_code', $course->country_code ?? '') == 'AE' ? 'selected' : '' }}>United Arab Emirates</option>
+                                </select>
+                                <small class="text-muted">Course will only be shown to visitors from this country. Select "Global" to show to everyone.</small>
+                                @error('country_code')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+
+
 
                             <div class="form-group mb-3">
                                 <label for="status">Status</label>

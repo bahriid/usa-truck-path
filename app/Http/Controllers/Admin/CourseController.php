@@ -49,6 +49,7 @@ class CourseController extends Controller
             'tags' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
+            'country_code' => 'nullable|string|size:2',
         ]);
 
         $data = $request->all();
@@ -100,6 +101,7 @@ class CourseController extends Controller
             'tags' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
+            'country_code' => 'nullable|string|size:2',
         ]);
 
         $data = $request->all();

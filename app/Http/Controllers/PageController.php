@@ -6,20 +6,28 @@ use App\Models\Course;
 use App\Models\LegalPage;
 use App\Models\SiteSetting;
 use App\Models\Slider;
+use App\Services\GeoIPService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class PageController extends Controller
 {
-    public function home()
+    public function home(GeoIPService $geoIP)
     {
         $sliders = Slider::where('is_active', 1)->get();
+        $countryCode = $geoIP->getCountryCode();
 
-        // Get one latest course per category (original behavior)
+        // Get one latest course per category, filtered by user's country
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')
             ->where('is_active', 1)
+            ->when($countryCode, function ($query) use ($countryCode) {
+                $query->where(function ($q) use ($countryCode) {
+                    $q->whereNull('country_code')
+                      ->orWhere('country_code', $countryCode);
+                });
+            })
             ->groupBy('category')
             ->pluck('id');
 
@@ -61,13 +69,21 @@ class PageController extends Controller
         abort(404);
     }
 
-    public function course()
+    public function course(GeoIPService $geoIP)
     {
-        // Get one latest course per category (show all courses to everyone)
+        $countryCode = $geoIP->getCountryCode();
+
+        // Get one latest course per category, filtered by user's country
         $latestCourseIds = DB::table('courses')
             ->select(DB::raw('MIN(id) as id'))
             ->where('status', 'active')
             ->where('is_active', 1)
+            ->when($countryCode, function ($query) use ($countryCode) {
+                $query->where(function ($q) use ($countryCode) {
+                    $q->whereNull('country_code')
+                      ->orWhere('country_code', $countryCode);
+                });
+            })
             ->groupBy('category')
             ->pluck('id');
 

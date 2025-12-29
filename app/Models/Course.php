@@ -17,6 +17,7 @@ class Course extends Model
         'course_type',
         'parent_course_id',
         'language',
+        'country_code',
         'price',
         'original_price',
         'premium_price',
@@ -61,6 +62,23 @@ class Course extends Model
                 'telegram_invite_generated_at',
             ])
             ->withTimestamps();
+    }
+
+    /**
+     * Scope to filter courses by user's country.
+     * Shows global courses (null country_code) plus country-specific courses.
+     * If countryCode is null, shows all courses (fallback behavior).
+     */
+    public function scopeForCountry($query, ?string $countryCode)
+    {
+        if ($countryCode === null) {
+            return $query;
+        }
+
+        return $query->where(function ($q) use ($countryCode) {
+            $q->whereNull('country_code')
+              ->orWhere('country_code', $countryCode);
+        });
     }
 
     /**
