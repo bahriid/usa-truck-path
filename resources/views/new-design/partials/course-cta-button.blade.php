@@ -2,7 +2,7 @@
     $fullWidth = $fullWidth ?? false;
     $large = $large ?? false;
 
-    $baseClasses = 'inline-flex items-center justify-center font-bold uppercase tracking-wide rounded-lg shadow-lg transition-all transform hover:-translate-y-1';
+    $baseClasses = 'inline-flex items-center justify-center font-bold uppercase tracking-wide rounded-lg shadow-lg transition-all';
 
     // Size classes
     if ($large) {
@@ -15,21 +15,28 @@
     $widthClasses = $fullWidth ? 'w-full' : '';
 
     // Primary CTA style (gold)
-    $primaryClasses = "bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] $baseClasses $sizeClasses $widthClasses";
+    $primaryClasses = "bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] $baseClasses $sizeClasses $widthClasses transform hover:-translate-y-1";
 
     // Secondary style (blue)
-    $secondaryClasses = "bg-[#1B75F0] hover:bg-[#0A2342] text-white $baseClasses $sizeClasses $widthClasses";
+    $secondaryClasses = "bg-[#1B75F0] hover:bg-[#0A2342] text-white $baseClasses $sizeClasses $widthClasses transform hover:-translate-y-1";
 
     // Warning style (orange)
-    $warningClasses = "bg-orange-500 hover:bg-orange-600 text-white $baseClasses $sizeClasses $widthClasses";
+    $warningClasses = "bg-orange-500 hover:bg-orange-600 text-white $baseClasses $sizeClasses $widthClasses transform hover:-translate-y-1";
 
     // Disabled style
-    $disabledClasses = "bg-gray-400 text-gray-700 cursor-not-allowed $baseClasses $sizeClasses $widthClasses";
+    $disabledClasses = "bg-gray-400 text-gray-600 cursor-not-allowed $baseClasses $sizeClasses $widthClasses";
 
     $isLanguageSelector = $course->isLanguageSelectorCourse();
+    $isComingSoon = $course->coming_soon ?? false;
 @endphp
 
-@if($isLanguageSelector)
+{{-- Coming Soon - Show disabled button for all users --}}
+@if($isComingSoon)
+    <button class="{{ $disabledClasses }}" disabled>
+        <i data-lucide="clock" class="h-5 w-5 mr-2"></i>
+        Coming Soon
+    </button>
+@elseif($isLanguageSelector)
     {{-- Language Selector Course (FREE) --}}
     @guest
         <a href="{{ route('register') }}?course_id={{ $course->id }}" class="{{ $primaryClasses }}">

@@ -112,11 +112,6 @@ class PageController extends Controller
     {
         $course = Course::where('slug', $slug)->firstOrFail();
 
-        // If course is coming soon, show coming soon page
-        if ($course->coming_soon) {
-            return view('new-design.coming_soon', compact('course'));
-        }
-
         // If this is a language-specific course (has parent_course_id), redirect to the free parent course
         // But only if user is NOT logged in OR doesn't have approved enrollment
         if ($course->parent_course_id) {
