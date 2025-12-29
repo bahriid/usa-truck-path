@@ -327,105 +327,144 @@
                 </p>
             </div>
 
-            <div class="max-w-4xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+            <div class="relative">
+                <!-- Central Line -->
+                <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-[#E2E8F0] -translate-x-1/2 hidden md:block rounded-full"></div>
+
+                <div class="space-y-12 relative z-10">
+                    <!-- Step 1 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Clear document checklist</h4>
-                            <p class="text-gray-500 text-sm">Know exactly what you need and when</p>
+                        <div class="flex-1 w-full md:w-auto md:text-right md:pr-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Clear document checklist</h3>
+                                <p class="text-gray-600">Know exactly what you need and when.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                    <!-- Step 2 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Company selection guidance</h4>
-                            <p class="text-gray-500 text-sm">Who to apply to and who to avoid</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Training roadmap</h4>
-                            <p class="text-gray-500 text-sm">What training is required before coming to the U.S.</p>
+                        <div class="flex-1 w-full md:w-auto md:text-left md:pl-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Company selection guidance</h3>
+                                <p class="text-gray-600">Who to apply to and who to avoid.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                    <!-- Step 3 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Daily Q&A access</h4>
-                            <p class="text-gray-500 text-sm">Reliable guidance when questions come up</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Real industry understanding</h4>
-                            <p class="text-gray-500 text-sm">How trucking actually works in the U.S.</p>
+                        <div class="flex-1 w-full md:w-auto md:text-right md:pr-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Training roadmap</h3>
+                                <p class="text-gray-600">What training is required before coming to the U.S.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                    <!-- Step 4 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Trucking-focused CV support</h4>
-                            <p class="text-gray-500 text-sm">Built for hiring managers</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Interview preparation</h4>
-                            <p class="text-gray-500 text-sm">Real questions, answers, and expectations</p>
+                        <div class="flex-1 w-full md:w-auto md:text-left md:pl-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Daily Q&A access</h3>
+                                <p class="text-gray-600">Reliable guidance when questions come up.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                    <!-- Step 5 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Work-visa guidance</h4>
-                            <p class="text-gray-500 text-sm">Process, timing, and preparation (educational)</p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">U.S. arrival & job transition support</h4>
-                            <p class="text-gray-500 text-sm">First job, changing jobs safely</p>
+                        <div class="flex-1 w-full md:w-auto md:text-right md:pr-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Real industry understanding</h3>
+                                <p class="text-gray-600">How trucking actually works in the U.S.</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="flex items-start gap-4 bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-md transition-all">
-                        <div class="w-10 h-10 bg-[#1B75F0] rounded-full flex items-center justify-center flex-shrink-0">
-                            <i data-lucide="check" class="h-5 w-5 text-white"></i>
+                    <!-- Step 6 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
                         </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-[#0A2342] mb-1">Contract, pay, hours & equipment breakdown</h4>
-                            <p class="text-gray-500 text-sm">No surprises before you sign</p>
+                        <div class="flex-1 w-full md:w-auto md:text-left md:pl-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Trucking-focused CV support</h3>
+                                <p class="text-gray-600">Built for hiring managers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 7 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
+                        </div>
+                        <div class="flex-1 w-full md:w-auto md:text-right md:pr-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Interview preparation</h3>
+                                <p class="text-gray-600">Real questions, answers, and expectations.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 8 -->
+                    <div class="flex flex-col md:flex-row items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
+                        </div>
+                        <div class="flex-1 w-full md:w-auto md:text-left md:pl-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">Work-visa guidance</h3>
+                                <p class="text-gray-600">Process, timing, and preparation (educational).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 9 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center">
+                        <div class="flex-1 w-full md:w-auto"></div>
+                        <div class="w-8 h-8 bg-[#F5B82E] border-4 border-white shadow-md rounded-full z-20 my-4 md:my-0 shrink-0 flex items-center justify-center">
+                            <div class="w-2 h-2 bg-[#0A2342] rounded-full"></div>
+                        </div>
+                        <div class="flex-1 w-full md:w-auto md:text-right md:pr-12">
+                            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-all">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#0A2342]">U.S. arrival & job transition support</h3>
+                                <p class="text-gray-600">First job, changing jobs safely.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 10 -->
+                    <div class="flex flex-col md:flex-row items-center justify-center">
+                        <div class="flex-1 w-full md:w-auto text-center">
+                            <div class="bg-[#0A2342] text-white p-6 rounded-xl shadow-xl border-none hover:shadow-lg transition-all max-w-xl mx-auto transform scale-105">
+                                <h3 class="font-heading text-xl font-bold uppercase mb-2 text-[#F5B82E]">Contract, pay, hours & equipment breakdown</h3>
+                                <p class="text-gray-300">No surprises before you sign.</p>
+                            </div>
                         </div>
                     </div>
                 </div>

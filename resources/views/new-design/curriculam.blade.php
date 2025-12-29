@@ -130,20 +130,39 @@
                             </span>
                         </div>
                     @else
-                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block h-full">
-                            <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between">
-                                <div>
-                                    <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                        <i data-lucide="lock" class="h-10 w-10 text-[#F5B82E]"></i>
+                        @if($course->course_type === 'paid')
+                            {{-- Paid course: use course price and link to enroll form --}}
+                            <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="block h-full">
+                                <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between">
+                                    <div>
+                                        <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <i data-lucide="lock" class="h-10 w-10 text-[#F5B82E]"></i>
+                                        </div>
+                                        <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
+                                        <p class="text-gray-600 mb-4">Unlock Premium Courses</p>
                                     </div>
-                                    <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
-                                    <p class="text-gray-600 mb-4">Unlock Premium Courses</p>
+                                    <span class="inline-flex items-center justify-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
+                                        <i data-lucide="shopping-cart" class="h-5 w-5"></i> Upgrade - ${{ number_format($course->price, 0) }}
+                                    </span>
                                 </div>
-                                <span class="inline-flex items-center justify-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
-                                    <i data-lucide="shopping-cart" class="h-5 w-5"></i> Upgrade - ${{ number_format($course->price, 0) }}
-                                </span>
-                            </div>
-                        </a>
+                            </a>
+                        @else
+                            {{-- Tier course: use premium price and link to tier upgrade --}}
+                            <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}" class="block h-full">
+                                <div class="bg-white border-2 border-[#F5B82E] rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition-all cursor-pointer h-full flex flex-col justify-between">
+                                    <div>
+                                        <div class="w-20 h-20 bg-[#F5B82E]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <i data-lucide="lock" class="h-10 w-10 text-[#F5B82E]"></i>
+                                        </div>
+                                        <h3 class="font-heading text-xl font-bold text-[#0A2342] mb-2">Premium Course</h3>
+                                        <p class="text-gray-600 mb-4">Unlock Premium Courses</p>
+                                    </div>
+                                    <span class="inline-flex items-center justify-center gap-2 bg-[#F5B82E] text-[#0A2342] px-6 py-2 rounded-full font-semibold">
+                                        <i data-lucide="shopping-cart" class="h-5 w-5"></i> Upgrade - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                    </span>
+                                </div>
+                            </a>
+                        @endif
                     @endif
                 @endif
             </div>

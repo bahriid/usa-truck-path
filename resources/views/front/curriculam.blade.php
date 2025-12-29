@@ -133,22 +133,43 @@
                         </div>
                     @else
                         {{-- User needs to pay - redirect to payment --}}
-                        <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="text-decoration-none">
-                            <div class="card h-100 border-2 border-warning shadow-sm" style="cursor: pointer;">
-                                <div class="card-body text-center p-5">
-                                    <div class="mb-3">
-                                        <i class="bi bi-lock-fill text-warning" style="font-size: 4rem;"></i>
+                        @if($course->course_type === 'paid')
+                            {{-- Paid course: use course price and link to enroll form --}}
+                            <a href="{{ route('front.courses.enrollForm', $course->id) }}" class="text-decoration-none">
+                                <div class="card h-100 border-2 border-warning shadow-sm" style="cursor: pointer;">
+                                    <div class="card-body text-center p-5">
+                                        <div class="mb-3">
+                                            <i class="bi bi-lock-fill text-warning" style="font-size: 4rem;"></i>
+                                        </div>
+                                        <h3 class="card-title fw-bold text-dark mb-3">Premium Course</h3>
+                                        <p class="card-text text-muted mb-4">
+                                            Unlock Premium Courses
+                                        </p>
+                                        <span class="badge bg-warning text-dark fs-6 px-4 py-2">
+                                            <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->price, 0) }}
+                                        </span>
                                     </div>
-                                    <h3 class="card-title fw-bold text-dark mb-3">Premium Course</h3>
-                                    <p class="card-text text-muted mb-4">
-                                        Unlock Premium Courses
-                                    </p>
-                                    <span class="badge bg-warning text-dark fs-6 px-4 py-2">
-                                        <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->price, 0) }}
-                                    </span>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
+                        @else
+                            {{-- Tier course: use premium price and link to tier upgrade --}}
+                            <a href="{{ route('tier.upgrade.page', ['course' => $course->id, 'tier' => 'premium']) }}" class="text-decoration-none">
+                                <div class="card h-100 border-2 border-warning shadow-sm" style="cursor: pointer;">
+                                    <div class="card-body text-center p-5">
+                                        <div class="mb-3">
+                                            <i class="bi bi-lock-fill text-warning" style="font-size: 4rem;"></i>
+                                        </div>
+                                        <h3 class="card-title fw-bold text-dark mb-3">Premium Course</h3>
+                                        <p class="card-text text-muted mb-4">
+                                            Unlock Premium Courses
+                                        </p>
+                                        <span class="badge bg-warning text-dark fs-6 px-4 py-2">
+                                            <i class="bi bi-cart-fill me-2"></i>Upgrade - ${{ number_format($course->getPremiumPrice(), 0) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                        @endif
                     @endif
                 </div>
                 @endif
