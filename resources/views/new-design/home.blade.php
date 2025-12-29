@@ -452,7 +452,7 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=1" alt="Avatar">
                         </div>
                         <div>
-                            <p class="font-bold uppercase text-[#0A2342]">Student Name</p>
+                            <p class="font-bold uppercase text-[#0A2342]">Daniel Mensah</p>
                             <p class="text-sm text-[#1B75F0] font-medium">Now driving in Texas</p>
                         </div>
                     </div>
@@ -474,7 +474,7 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=2" alt="Avatar">
                         </div>
                         <div>
-                            <p class="font-bold uppercase text-[#0A2342]">Student Name</p>
+                            <p class="font-bold uppercase text-[#0A2342]">Emeka Okafor</p>
                             <p class="text-sm text-[#1B75F0] font-medium">Now driving in Texas</p>
                         </div>
                     </div>
@@ -496,7 +496,7 @@
                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=3" alt="Avatar">
                         </div>
                         <div>
-                            <p class="font-bold uppercase text-[#0A2342]">Student Name</p>
+                            <p class="font-bold uppercase text-[#0A2342]">Ramesh Adhikari</p>
                             <p class="text-sm text-[#1B75F0] font-medium">Now driving in Texas</p>
                         </div>
                     </div>
@@ -508,51 +508,51 @@
     <!-- 9. FAQ -->
     <section id="faq" class="py-24 bg-white">
         <div class="container mx-auto px-4 max-w-3xl">
-            <h2 class="font-heading text-4xl font-bold uppercase text-[#0A2342] text-center block mx-auto mb-12">Common Questions</h2>
+            <h2 class="font-heading text-4xl font-bold uppercase text-[#0A2342] text-center block mx-auto mb-12">Frequently Asked Questions (FAQ)</h2>
             <div class="space-y-4">
                 <details class="border border-gray-200 rounded-lg px-4 shadow-sm hover:shadow-md transition-all bg-white group">
                     <summary class="font-heading text-lg font-bold uppercase text-[#0A2342] hover:text-[#1B75F0] py-6 cursor-pointer list-none flex justify-between items-center">
-                        Do I need a Canadian passport?
+                        Is USATruckPath only for people already in the United States?
                         <i data-lucide="chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180"></i>
                     </summary>
                     <div class="text-base text-gray-600 pb-6 leading-relaxed">
-                        No, you can be a foreign citizen living in Canada with permanent or temporary residency. However, different visa rules apply.
+                        No. USATruckPath is designed for people both inside and outside the U.S. who want clear guidance on the trucking industry, job process, and next steps.
                     </div>
                 </details>
                 <details class="border border-gray-200 rounded-lg px-4 shadow-sm hover:shadow-md transition-all bg-white group">
                     <summary class="font-heading text-lg font-bold uppercase text-[#0A2342] hover:text-[#1B75F0] py-6 cursor-pointer list-none flex justify-between items-center">
-                        How much does the mentorship cost?
+                        Do you help with understanding the work visa process?
                         <i data-lucide="chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180"></i>
                     </summary>
                     <div class="text-base text-gray-600 pb-6 leading-relaxed">
-                        We offer different tiers. Please join the free course to see our current pricing and packages.
+                        Yes. We provide educational guidance on how the work-visa process works, what to expect, and how it connects to trucking jobs. We do not file visas, but we help you understand the process clearly.
                     </div>
                 </details>
                 <details class="border border-gray-200 rounded-lg px-4 shadow-sm hover:shadow-md transition-all bg-white group">
                     <summary class="font-heading text-lg font-bold uppercase text-[#0A2342] hover:text-[#1B75F0] py-6 cursor-pointer list-none flex justify-between items-center">
-                        Can you guarantee a job?
+                        Will you help me choose the right trucking company to apply to?
                         <i data-lucide="chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180"></i>
                     </summary>
                     <div class="text-base text-gray-600 pb-6 leading-relaxed">
-                        While we cannot legally guarantee a job, we provide you with a list of hiring companies and prepare you to be the best candidate possible.
+                        Yes. We guide you on how to identify legitimate trucking companies, what to look for, and which types of companies match your experience and goals.
                     </div>
                 </details>
                 <details class="border border-gray-200 rounded-lg px-4 shadow-sm hover:shadow-md transition-all bg-white group">
                     <summary class="font-heading text-lg font-bold uppercase text-[#0A2342] hover:text-[#1B75F0] py-6 cursor-pointer list-none flex justify-between items-center">
-                        How long does the process take?
+                        What kind of support do I get after joining?
                         <i data-lucide="chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180"></i>
                     </summary>
                     <div class="text-base text-gray-600 pb-6 leading-relaxed">
-                        Typically 3-6 months depending on your dedication and current document status.
+                        You get access to a private membership community with daily Q&A, guidance, and support from people who understand the U.S. trucking industry.
                     </div>
                 </details>
                 <details class="border border-gray-200 rounded-lg px-4 shadow-sm hover:shadow-md transition-all bg-white group">
                     <summary class="font-heading text-lg font-bold uppercase text-[#0A2342] hover:text-[#1B75F0] py-6 cursor-pointer list-none flex justify-between items-center">
-                        Is the CDL valid in all states?
+                        Is this a one-time course or ongoing support?
                         <i data-lucide="chevron-down" class="h-5 w-5 transition-transform group-open:rotate-180"></i>
                     </summary>
                     <div class="text-base text-gray-600 pb-6 leading-relaxed">
-                        Yes, a Class A CDL is a federal license valid across all 50 US states.
+                        USATruckPath is ongoing support. You're not just buying videos — you're getting continuous guidance as you move through each stage of the process.
                     </div>
                 </details>
             </div>

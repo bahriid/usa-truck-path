@@ -167,7 +167,10 @@
                         <label class="block text-sm font-bold text-gray-700 mb-2">Password</label>
                         <div class="relative">
                             <i data-lucide="lock" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
-                            <input type="password" name="password" required autocomplete="new-password" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password') border-red-500 @enderror" placeholder="Create a password">
+                            <input type="password" id="password" name="password" required autocomplete="new-password" class="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password') border-red-500 @enderror" placeholder="Create a password">
+                            <button type="button" onclick="togglePassword('password', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                                <i data-lucide="eye" class="h-5 w-5"></i>
+                            </button>
                         </div>
                         <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
                         @error('password')
@@ -179,7 +182,10 @@
                         <label class="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
                         <div class="relative">
                             <i data-lucide="lock" class="absolute left-3 top-3.5 h-5 w-5 text-gray-400"></i>
-                            <input type="password" name="password_confirmation" required autocomplete="new-password" class="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all" placeholder="Confirm your password">
+                            <input type="password" id="password_confirmation" name="password_confirmation" required autocomplete="new-password" class="w-full pl-10 pr-12 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all" placeholder="Confirm your password">
+                            <button type="button" onclick="togglePassword('password_confirmation', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                                <i data-lucide="eye" class="h-5 w-5"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -225,6 +231,19 @@
             const lastName = document.querySelector('input[name="last_name"]').value;
             document.getElementById('name').value = firstName + ' ' + lastName;
         });
+
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.setAttribute('data-lucide', 'eye-off');
+            } else {
+                input.type = 'password';
+                icon.setAttribute('data-lucide', 'eye');
+            }
+            lucide.createIcons();
+        }
     </script>
 </body>
 </html>

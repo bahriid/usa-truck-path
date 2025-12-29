@@ -103,23 +103,43 @@
                     <ul class="space-y-4 mb-8">
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Unlimited Access</strong> to all premium courses</span>
+                            <span class="text-gray-700"><strong>Clear document checklist</strong> — know exactly what you need and when</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Private Community</strong> of aspiring drivers</span>
+                            <span class="text-gray-700"><strong>Company selection guidance</strong> — who to apply to and who to avoid</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Weekly Q&A Calls</strong> with industry experts</span>
+                            <span class="text-gray-700"><strong>Training roadmap</strong> — what training is required before coming to the U.S.</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Direct Referrals</strong> to hiring partners</span>
+                            <span class="text-gray-700"><strong>Daily Q&A access</strong> — reliable guidance when questions come up</span>
                         </li>
                         <li class="flex items-start gap-3">
                             <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
-                            <span class="text-gray-700"><strong>Resume & Visa</strong> document templates</span>
+                            <span class="text-gray-700"><strong>Real industry understanding</strong> — how trucking actually works in the U.S.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
+                            <span class="text-gray-700"><strong>Trucking-focused CV support</strong> — built for hiring managers</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
+                            <span class="text-gray-700"><strong>Interview preparation</strong> — real questions, answers, and expectations</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
+                            <span class="text-gray-700"><strong>Work-visa guidance</strong> — process, timing, and preparation (educational)</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
+                            <span class="text-gray-700"><strong>U.S. arrival & job transition support</strong> — first job, changing jobs safely</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i data-lucide="check-circle-2" class="h-6 w-6 text-[#1B75F0] flex-shrink-0"></i>
+                            <span class="text-gray-700"><strong>Contract, pay, hours & equipment breakdown</strong> — no surprises before you sign</span>
                         </li>
                     </ul>
                     <a href="{{ route('front.course') }}" class="block w-full bg-[#F5B82E] hover:bg-[#F5B82E]/90 text-[#0A2342] text-center font-bold uppercase py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">

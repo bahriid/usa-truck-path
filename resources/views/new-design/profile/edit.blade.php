@@ -84,8 +84,13 @@
 
                         <div>
                             <label for="current_password" class="block text-sm font-bold text-gray-700 mb-2">Current Password</label>
-                            <input type="password" name="current_password" id="current_password" autocomplete="current-password"
-                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('current_password', 'updatePassword') border-red-500 @enderror">
+                            <div class="relative">
+                                <input type="password" name="current_password" id="current_password" autocomplete="current-password"
+                                    class="w-full px-4 pr-12 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('current_password', 'updatePassword') border-red-500 @enderror">
+                                <button type="button" onclick="togglePassword('current_password', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                </button>
+                            </div>
                             @error('current_password', 'updatePassword')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -93,8 +98,13 @@
 
                         <div>
                             <label for="password" class="block text-sm font-bold text-gray-700 mb-2">New Password</label>
-                            <input type="password" name="password" id="password" autocomplete="new-password"
-                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password', 'updatePassword') border-red-500 @enderror">
+                            <div class="relative">
+                                <input type="password" name="password" id="password" autocomplete="new-password"
+                                    class="w-full px-4 pr-12 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password', 'updatePassword') border-red-500 @enderror">
+                                <button type="button" onclick="togglePassword('password', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                </button>
+                            </div>
                             @error('password', 'updatePassword')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -102,8 +112,13 @@
 
                         <div>
                             <label for="password_confirmation" class="block text-sm font-bold text-gray-700 mb-2">Confirm Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="new-password"
-                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password_confirmation', 'updatePassword') border-red-500 @enderror">
+                            <div class="relative">
+                                <input type="password" name="password_confirmation" id="password_confirmation" autocomplete="new-password"
+                                    class="w-full px-4 pr-12 py-3 rounded-lg border border-gray-300 focus:border-[#1B75F0] focus:ring-2 focus:ring-[#1B75F0]/20 outline-none transition-all @error('password_confirmation', 'updatePassword') border-red-500 @enderror">
+                                <button type="button" onclick="togglePassword('password_confirmation', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                                    <i data-lucide="eye" class="h-5 w-5"></i>
+                                </button>
+                            </div>
                             @error('password_confirmation', 'updatePassword')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
@@ -229,8 +244,13 @@
 
             <div>
                 <label for="delete_password" class="block text-sm font-bold text-gray-700 mb-2">Password</label>
-                <input type="password" name="password" id="delete_password" placeholder="Enter your password"
-                    class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all">
+                <div class="relative">
+                    <input type="password" name="password" id="delete_password" placeholder="Enter your password"
+                        class="w-full px-4 pr-12 py-3 rounded-lg border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 outline-none transition-all">
+                    <button type="button" onclick="togglePassword('delete_password', this)" class="absolute right-3 top-3.5 text-gray-400 hover:text-gray-600">
+                        <i data-lucide="eye" class="h-5 w-5"></i>
+                    </button>
+                </div>
                 @error('password', 'userDeletion')
                     <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror
@@ -254,4 +274,21 @@
     document.getElementById('delete-modal').classList.remove('hidden');
 </script>
 @endif
+
+@push('scripts')
+<script>
+    function togglePassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector('i');
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.setAttribute('data-lucide', 'eye-off');
+        } else {
+            input.type = 'password';
+            icon.setAttribute('data-lucide', 'eye');
+        }
+        lucide.createIcons();
+    }
+</script>
+@endpush
 @endsection
