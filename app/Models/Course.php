@@ -22,6 +22,7 @@ class Course extends Model
         'original_price',
         'premium_price',
         'is_active',
+        'coming_soon',
         'order',
         'description',
         'duration',
@@ -38,6 +39,12 @@ class Course extends Model
         'short_description',
         'telegram_chat_id',
         'is_free',
+    ];
+
+    protected $casts = [
+        'coming_soon' => 'boolean',
+        'is_active' => 'boolean',
+        'is_free' => 'boolean',
     ];
 
     // Define relationship with CourseContent
