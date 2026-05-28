@@ -1,0 +1,93 @@
+name: Build & Deploy (GitOps)
+
+# Flow:
+#   1. Build Docker image, push to GHCR.
+#   2. Commit the new image SHA to infra/apps/<slug>/image-tag.
+#   3. infra's sync workflow detects the change and deploys.
+#
+# This workflow does NOT SSH to the server — that's centralized in infra.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  # Hardcode per app (must match the infra/apps/<slug>/ folder and the
+  # container name in proxy/Caddyfile). No GitHub `vars` indirection —
+  # everything needed to build is in this file.
+  APP_SLUG: usa-truck-path
+  REGISTRY: ghcr.io
+  IMAGE_OWNER: bahriid
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build & push image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ env.APP_SLUG }}:latest
+            ${{ env.REGISTRY }}/${{ env.IMAGE_OWNER }}/${{ env.APP_SLUG }}:${{ github.sha }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          build-args: |
+            PHP_VERSION=8.2
+            NODE_VERSION=20
+
+  bump-manifest:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout infra
+        uses: actions/checkout@v4
+        with:
+          repository: bahriid/infra
+          token: ${{ secrets.INFRA_PAT }}
+
+      - name: Write image-tag
+        run: |
+          mkdir -p "apps/${APP_SLUG}"
+          echo "${{ github.sha }}" > "apps/${APP_SLUG}/image-tag"
+
+      - name: Commit & push (retry on concurrent push)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "apps/${APP_SLUG}/image-tag"
+
+          if git diff --staged --quiet; then
+            echo "image-tag unchanged — nothing to commit"
+            exit 0
+          fi
+
+          git commit -m "deploy(${APP_SLUG}): ${GITHUB_SHA}"
+
+          for attempt in 1 2 3 4 5; do
+            if git push; then
+              echo "pushed on attempt $attempt"
+              exit 0
+            fi
+            echo "push failed (attempt $attempt) — rebasing and retrying..."
+            git pull --rebase
+          done
+
+          echo "ERROR: failed to push after 5 retries"
+          exit 1
