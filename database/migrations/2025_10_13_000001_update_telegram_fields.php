@@ -24,13 +24,16 @@ return new class extends Migration
         });
 
         Schema::table('course_user', function (Blueprint $table) {
-            // Add new telegram invite link fields if they don't exist
+            // Add new telegram invite link fields if they don't exist.
+            // Note: original used after('transaction_id'), but no migration
+            // creates that column on a fresh install. Dropping the after()
+            // hint — column order is cosmetic, not functional.
             if (!Schema::hasColumn('course_user', 'telegram_invite_link')) {
-                $table->string('telegram_invite_link')->nullable()->after('transaction_id')->comment('Generated Telegram invite link');
+                $table->string('telegram_invite_link')->nullable()->comment('Generated Telegram invite link');
             }
 
             if (!Schema::hasColumn('course_user', 'telegram_invite_generated_at')) {
-                $table->timestamp('telegram_invite_generated_at')->nullable()->after('telegram_invite_link');
+                $table->timestamp('telegram_invite_generated_at')->nullable();
             }
 
             // Drop old telegram token fields if they exist
