@@ -115,6 +115,22 @@
                     </button>
                 </form>
 
+                @if (config('app.demo_mode'))
+                    <div class="mt-6 rounded-lg border border-dashed border-gray-300 p-4 text-center">
+                        <p class="mb-3 text-sm text-gray-500">Try the demo, no sign-up needed</p>
+                        <button type="button" class="demo-login rounded-lg border border-gray-300 px-5 py-2 text-sm font-semibold text-[#0A2342] hover:bg-gray-50"
+                            data-email="student@usatruckpath.com">Student</button>
+                        <p class="mt-3 text-xs text-gray-500">Admin demo: <a href="{{ route('admin.login') }}" class="underline">admin login</a></p>
+                    </div>
+                    <script>
+                        document.querySelectorAll('.demo-login').forEach((button) => button.addEventListener('click', () => {
+                            document.getElementById('email').value = button.dataset.email;
+                            document.getElementById('password').value = 'password';
+                            document.getElementById('email').form.submit();
+                        }));
+                    </script>
+                @endif
+
                 <div class="mt-8 text-center">
                     <p class="text-gray-600 text-sm">
                         Don't have an account?

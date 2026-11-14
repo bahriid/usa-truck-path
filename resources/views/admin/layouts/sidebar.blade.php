@@ -8,11 +8,13 @@
         <!--begin::Brand Link-->
         <a href="{{url('')}}" class="brand-link">
             <!--begin::Brand Image-->
-            <img src="{{storage::url($setting->main_logo)}}" alt="passyoupermit"
-                class="brand-image opacity-75 shadow" />
+            @if ($setting?->main_logo)
+                <img src="{{ Storage::url($setting->main_logo) }}" alt="USATruckPath"
+                    class="brand-image opacity-75 shadow" />
+            @endif
             <!--end::Brand Image-->
             <!--begin::Brand Text-->
-            <span class="brand-text fw-light">{{Str::limit($setting->site_title, 10)}}</span>
+            <span class="brand-text fw-light">{{Str::limit($setting?->site_title, 10)}}</span>
             <!--end::Brand Text-->s
         </a>
         <!--end::Brand Link-->

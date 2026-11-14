@@ -130,6 +130,20 @@
                     <!-- Login Button -->
                     <button type="submit" class="btn btn-primary w-100">Sign In</button>
                 </form>
+
+                @if (config('app.demo_mode'))
+                    <div class="mt-4 p-3 text-center" style="border: 1px dashed #ccc; border-radius: 8px;">
+                        <p class="mb-2 small text-muted">Try the demo, no sign-up needed</p>
+                        <button type="button" class="btn btn-outline-secondary btn-sm" id="demoAdminLogin">Admin</button>
+                    </div>
+                    <script>
+                        document.getElementById('demoAdminLogin').addEventListener('click', () => {
+                            document.getElementById('loginEmail').value = 'admin@example.com';
+                            document.getElementById('loginPassword').value = 'password';
+                            document.getElementById('loginEmail').form.submit();
+                        });
+                    </script>
+                @endif
             </div>
         </div>
     </div>

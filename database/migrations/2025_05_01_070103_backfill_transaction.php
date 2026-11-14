@@ -14,7 +14,9 @@ return new class extends Migration
     public function up(): void
     {
         //
-         // Disable events temporarily.
+         // Disable events temporarily, and put the dispatcher back afterwards so later
+         // code on this connection (other migrations, RefreshDatabase in tests) still has one.
+         $dispatcher = DB::connection()->getEventDispatcher();
          DB::connection()->unsetEventDispatcher();
 
          // Method 1:  Using DB::table (more direct)
@@ -27,6 +29,10 @@ return new class extends Migration
                      ->where('course_id', $enrollment->course_id)
                      ->update(['transaction_amount' => 47]);
              }
+         }
+
+         if ($dispatcher) {
+             DB::connection()->setEventDispatcher($dispatcher);
          }
     }
 

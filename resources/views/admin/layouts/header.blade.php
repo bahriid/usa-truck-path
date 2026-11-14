@@ -19,7 +19,9 @@ $admin = App\Models\Admin::first();
     <!--end::Primary Meta Tags-->
     <!--begin::Fonts-->
     <!-- Tagify CSS -->
-    <link rel="icon" type="image/x-icon" href="{{Storage::url($setting->site_favicon)}}">
+    @if ($setting?->site_favicon)
+        <link rel="icon" type="image/x-icon" href="{{ Storage::url($setting->site_favicon) }}">
+    @endif
    <link href="https://cdn.jsdelivr.net/npm/@yaireo/tagify/dist/tagify.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/source-sans-3@5.0.12/index.css"
         integrity="sha256-tXJfXfp6Ewt1ilPzLDtQnJV4hclT9XuaZUKyUvmyr+Q=" crossorigin="anonymous" />
