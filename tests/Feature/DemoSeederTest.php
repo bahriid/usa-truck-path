@@ -30,4 +30,13 @@ class DemoSeederTest extends TestCase
 
         $this->actingAs($admin, 'admin')->get('/admin/dashboard')->assertOk();
     }
+
+    public function test_enrolled_student_curriculum_works_without_stripe_keys(): void
+    {
+        config(['services.stripe.secret' => null]);
+        $this->seed(DemoSeeder::class);
+        $student = \App\Models\User::where('email', 'student@usatruckpath.com')->first();
+
+        $this->actingAs($student)->get('/course-curriculam/9')->assertOk()->assertSee('Premium Course');
+    }
 }

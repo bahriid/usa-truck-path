@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use App\Models\Course;
-use App\Models\User;
 use Illuminate\Support\Facades\Log;
 use Stripe\Charge;
 use Stripe\Checkout\Session;
@@ -12,27 +11,25 @@ use Stripe\StripeClient;
 
 class PaymentService
 {
-    protected StripeClient $stripe;
+    protected ?StripeClient $client = null;
 
-    public function __construct()
+    /**
+     * Built on first use so pages that never charge (curriculum, enroll form) work without Stripe keys.
+     */
+    protected function stripe(): StripeClient
     {
-        $this->stripe = new StripeClient(env('STRIPE_SECRET'));
+        return $this->client ??= new StripeClient((string) config('services.stripe.secret'));
     }
 
     /**
      * Create a Stripe checkout session for course enrollment
      *
-     * @param Course $course
-     * @param float $price
-     * @param string $successUrl
-     * @param string $cancelUrl
-     * @return Session
      * @throws \Stripe\Exception\ApiErrorException
      */
     public function createCheckoutSession(Course $course, float $price, string $successUrl, string $cancelUrl): Session
     {
         try {
-            return $this->stripe->checkout->sessions->create([
+            return $this->stripe()->checkout->sessions->create([
                 'line_items' => [
                     [
                         'price_data' => [
@@ -58,14 +55,12 @@ class PaymentService
     /**
      * Retrieve a Stripe checkout session by ID
      *
-     * @param string $sessionId
-     * @return Session
      * @throws \Stripe\Exception\ApiErrorException
      */
     public function retrieveSession(string $sessionId): Session
     {
         try {
-            return $this->stripe->checkout->sessions->retrieve($sessionId);
+            return $this->stripe()->checkout->sessions->retrieve($sessionId);
         } catch (\Exception $e) {
             Log::error('Stripe Session Retrieval Error: '.$e->getMessage());
             throw $e;
@@ -74,9 +69,6 @@ class PaymentService
 
     /**
      * Verify that a session payment was completed successfully
-     *
-     * @param string $sessionId
-     * @return bool
      */
     public function verifyPayment(string $sessionId): bool
     {
@@ -94,16 +86,16 @@ class PaymentService
     /**
      * Create a direct Stripe charge (legacy method for card tokens)
      *
-     * @param float $amount Amount in dollars
-     * @param string $token Stripe token from frontend
-     * @param string $description Payment description
-     * @return Charge
+     * @param  float  $amount  Amount in dollars
+     * @param  string  $token  Stripe token from frontend
+     * @param  string  $description  Payment description
+     *
      * @throws \Stripe\Exception\ApiErrorException
      */
     public function createCharge(float $amount, string $token, string $description): Charge
     {
         try {
-            Stripe::setApiKey(env('STRIPE_SECRET'));
+            Stripe::setApiKey(config('services.stripe.secret'));
 
             return Charge::create([
                 'amount' => $amount * 100, // Convert to cents
@@ -120,10 +112,8 @@ class PaymentService
     /**
      * Process a charge and verify it succeeded
      *
-     * @param float $amount
-     * @param string $token
-     * @param string $description
      * @return string Transaction ID
+     *
      * @throws \Exception
      */
     public function processCharge(float $amount, string $token, string $description): string
